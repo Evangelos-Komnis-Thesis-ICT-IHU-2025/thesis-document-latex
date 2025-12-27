@@ -1,0 +1,74 @@
+\documentclass[12pt,a4paper]{report}
+% !TeX program = pdflatex
+
+% ---------- PDFLATEX-FRIENDLY GREEK+ENGLISH ----------
+\usepackage[utf8]{inputenc}
+\usepackage[LGR,T1]{fontenc}
+\usepackage[greek,english]{babel}
+\usepackage{alphabeta}
+
+% Language helpers
+\newcommand{\ENG}[1]{\foreignlanguage{english}{#1}}
+\newcommand{\GRK}[1]{\foreignlanguage{greek}{#1}}
+
+\usepackage{lmodern}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs,array,longtable}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption,subcaption}
+\usepackage{amsmath,amssymb}
+\usepackage{float}
+
+% ---- Bibliography (biblatex+biber) ----
+\usepackage[
+  backend=biber,
+  style=ieee,
+  sorting=nyt,
+  giveninits=true,
+  doi=false,isbn=false,url=true,
+  language=english,      % entries στα αγγλικά
+  autolang=other,
+  sortlocale=en_US
+]{biblatex}
+\addbibresource{references.bib}
+\DefineBibliographyStrings{greek}{andothers = {κ.\,ά.}}
+
+% TODO macro που κρατά "TODO" στα Αγγλικά
+\newcommand{\todoENG}[1]{\textcolor{red}{\textbf{\ENG{TODO:}} #1}}
+
+\begin{document}
+\selectlanguage{greek}
+
+% --------- Προκαταρκτικά ----------
+\pagenumbering{roman}
+\include{chapters/titlepage/titlepage}
+\tableofcontents
+\listoftables
+\listoffigures
+
+\include{chapters/abstract/abstract}
+\include{chapters/acknowledgements/acknowledgements}
+\include{chapters/abbreviations/abbreviations}
+
+% --------- Κυρίως σώμα ----------
+\cleardoublepage
+\pagenumbering{arabic}
+\include{chapters/introduction/introduction}
+\include{chapters/background/background}
+\include{chapters/requirements/requirements}
+\include{chapters/design/design}
+\include{chapters/implementation/implementation}
+\include{chapters/evaluation/evaluation}
+\include{chapters/conclusion/conclusion}
+
+% --------- Βιβλιογραφία ----------
+\include{chapters/bibliography/bibliography}
+
+\end{document}

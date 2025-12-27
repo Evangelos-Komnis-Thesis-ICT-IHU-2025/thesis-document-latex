@@ -1,0 +1,66 @@
+# --- LaTeX build artifacts ---
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# glossaries / nomencl
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+
+# biblatex cache
+*.blx.bib
+
+# minted / pygments
+_minted*/
+*.pyg
+
+# latexmk / arara / build dirs
+latex.out/
+build/
+.aux/
+.tmp/
+
+# --- OS / Tools / Editors ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# VS Code / JetBrains
+.vscode/
+.idea/
+
+# --- Git internals (safeguard) ---
+.git/
+.git/*
+
+# ---  ---
+!*.tex
+!*.cls
+!*.sty
+!*.bst
+!*.bib
+!figures/**
+!chapters/**
+!thesis.tex
+!references.bib
+!thesis-blx.bib
+
