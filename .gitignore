@@ -64,3 +64,5 @@ desktop.ini
 !references.bib
 !thesis-blx.bib
 
+#-- out
+out/

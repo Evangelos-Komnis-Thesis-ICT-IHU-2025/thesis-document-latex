@@ -1,0 +1,80 @@
+\chapter{Ιστορικό Υπόβαθρο}\label{ch:history}
+
+\section{Αφετηρία}
+
+
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{SCORM_Timeline.drawio}
+  \caption{Χρονολόγιο σημαντικών γεγονότων}
+  \label{fig:scorm-timeline}
+\end{figure}
+\clearpage
+
+\section{Από τα πρώτα πρότυπα στη διαλειτουργικότητα}
+Η ανάγκη για διαμοιρασμό εκπαιδευτικού περιεχομένου μεταξύ ετερογενών συστημάτων οδήγησε, από τις αρχες της ηλεκτρονικής μάθησης, στην ανάπτυξη προτύπων που ορίζουν \textit{πώς} πακετάρεται, εκτελείται και παρακολουθείται η πρόοδος των εκπαιδευομένων.
+
+\subsection*{\ENG{AICC} και πρώιμες προδιαγραφές}
+Οι πρώτες ευρέως χρησιμοποιούμενες προσπάθειες προήλθαν από την \ENG{AICC (Aviation Industry CBT Committee)}, η οποία διαμόρφωσε κατευθυντήριες γραμμές για \ENG{Computer-Based Training (CBT)}. Τα έγγραφα \ENG{CMI} της \ENG{AICC} περιέγραψαν βασικά στοιχεία όπως το \textit{\ENG{data model}} της προόδου και τους τρόπους επικοινωνίας περιεχομένου–συστήματος.
+
+\subsection*{\ENG{IMS} και μεταδεδομένα}
+Παράλληλα, ο οργανισμός \ENG{IMS Global (σήμερα 1EdTech)} ανέπτυξε προδιαγραφές για μεταδεδομένα και σύνολα συσκευασίας (\ENG{Content Packaging}), ώστε ένα μάθημα να μεταφέρεται με συνεπή τρόπο μεταξύ πλατφορμών.
+
+\section{Η ενοποίηση από την \ENG{ADL}: \ENG{SCORM}}
+Στα τέλη της δεκαετίας του 1990 η \ENG{ADL (Advanced Distributed Learning)} ενοποίησε και επέκτεινε υφιστάμενα πρότυπα, παρουσιάζοντας το \ENG{SCORM (Sharable Content Object Reference Model)}. Ο στόχος ήταν η \textbf{διαλειτουργικότητα} (\ENG{interoperability}), η \textbf{επαναχρησιμοποίηση} (\ENG{reusability}) και η \textbf{ανθεκτικότητα} (\ENG{durability}) περιεχομένου.
+
+\subsection*{\ENG{SCORM 1.2}}
+Η έκδοση \ENG{SCORM 1.2} (αρχές \ENG{2000s}) καθιέρωσε στην πράξη:
+\begin{itemize}
+  \item \textbf{Συσκευασία περιεχομένου}: \ENG{IMS Manifest} (\texttt{imsmanifest.xml}) με ορισμό πόρων και οργανώσεων.
+  \item \textbf{\ENG{Runtime Environment (RTE)}}: Τυποποιημένη \ENG{ECMAScript} διεπαφή (\ENG{API Adapter}) που εκθέτει συναρτήσεις όπως \texttt{LMSInitialize}, \texttt{LMSGetValue}, \texttt{LMSSetValue}, \texttt{LMSCommit}.
+  \item \textbf{\ENG{Data Model} (\ENG{CMI})}: Κοινό λεξιλόγιο για βαθμολογίες, κατάσταση ολοκλήρωσης, χρόνο παραμονής κ.λπ.
+\end{itemize}
+
+\subsection*{\ENG{SCORM 2004}}
+Το \ENG{SCORM 2004} πρόσθεσε \textbf{\ENG{Sequencing \& Navigation}} (βασισμένο στο \ENG{IMS Simple Sequencing}), επιτρέποντας κανόνες ροής (π.χ. προαπαιτούμενα, \ENG{rollup} κανόνες) ώστε η εκπαιδευτική πορεία να ορίζεται δηλωτικά στο \texttt{manifest}. Οι βασικές συνιστώσες παρέμειναν:
+\begin{itemize}
+  \item \textbf{\ENG{Content Packaging}} (με επαυξημένες δομές),
+  \item \textbf{\ENG{Runtime}} (\ENG{API Adapter} με \texttt{Initialize}, \texttt{GetValue}/\texttt{SetValue}, \texttt{Commit}, \texttt{Terminate}),
+  \item \textbf{\ENG{Data Model}} (\ENG{cmi} πεδία για \ENG{completion}, \ENG{success}, \ENG{objectives}, κ.ά.),
+  \item \textbf{\ENG{Sequencing}} (ορισμός κανόνων πλοήγησης/ολοκλήρωσης).
+\end{itemize}
+
+\section{Μετα-\ENG{SCORM} εξελίξεις: \ENG{xAPI}, \ENG{cmi5} και \ENG{LTI}}
+Η εξάπλωση κινητών/ασύγχρονων εμπειριών και \ENG{micro-learning} ανέδειξε ανάγκες πέρα από τον \textit{εντός–\ENG{LMS}} κύκλο ζωής ενός \ENG{SCO}.
+
+\subsection*{\ENG{Experience API (xAPI)}}
+Το \ENG{xAPI} (γνωστό και ως \ENG{Tin Can API}) εισήγαγε μοντέλο καταγραφής δηλώσεων τύπου «\texttt{actor verb object}» σε \ENG{Learning Record Stores (LRS)}, επιτρέποντας συλλογή εμπειριών μάθησης πέρα από τον φυλλομετρητή και το κλασικό \ENG{runtime}. Δεν αντικαθιστά ευθέως το \ENG{SCORM}, αλλά επεκτείνει το τι μπορεί να μετρηθεί και πού.
+
+\subsection*{\ENG{cmi5}}
+Το \ENG{cmi5} ορίζει ένα \textit{προφίλ} πάνω από το \ENG{xAPI} για «\ENG{courseware launched from an LMS}», γεφυρώνοντας τις αυστηρές προσδοκίες εκκίνησης/ολοκλήρωσης του \ENG{SCORM} με την ευελιξία του \ENG{xAPI}. Στόχος: καθορισμένοι κανόνες εγγραφής, εκκίνησης, κατάστασης και ολοκλήρωσης σε \ENG{xAPI}/\ENG{LRS} περιβάλλον.
+
+\subsection*{\ENG{Learning Tools Interoperability (LTI)}}
+Το \ENG{LTI} (από \ENG{IMS/1EdTech}) καλύπτει \textit{εξωτερική ενσωμάτωση εργαλείων} σε \ENG{LMS} (εκκίνηση, ταυτότητα/εξουσιοδότηση, ανταλλαγή βαθμολογιών), συμπληρώνοντας τον χώρο όπου το \ENG{SCORM} παραδοσιακά ορίζει \ENG{runtime} εντός του \ENG{LMS}.
+
+\section{Σύνοψη χρονογραμμής}
+\begin{itemize}
+  \item \textbf{Πρώιμα πρότυπα:} \ENG{AICC CMI}, \ENG{IMS} μεταδεδομένα \& συσκευασία.
+  \item \textbf{Ενοποίηση:} \ENG{ADL SCORM 1.2} με \ENG{RTE} \& \ENG{CMI} \ENG{data model}.
+  \item \textbf{Επέκταση:} \ENG{SCORM 2004} με \ENG{Sequencing \& Navigation}.
+  \item \textbf{Νέα παραδείγματα:} \ENG{xAPI} (\ENG{LRS}), \ENG{cmi5} (προφίλ \ENG{xAPI} για \ENG{LMS}-\ENG{launched}), \ENG{LTI} (ενσωμάτωση εργαλείων).
+\end{itemize}
+
+\section{Συσχέτιση με την παρούσα εργασία}\label{sec:history-relation}
+Το ιστορικό υπόβαθρο καθορίζει τις απαιτήσεις και τους συμβιβασμούς της υλοποίησης:
+\begin{enumerate}
+  \item \textbf{Συμβατότητα με υφιστάμενο οικοσύστημα:} Η μεγάλη βάση \ENG{SCORM} περιεχομένου επιβάλλει αξιόπιστη υποστήριξη \ENG{1.2} και πυρήνα \ENG{2004}.
+  \item \textbf{Ασφάλεια \& απομόνωση:} Το κλασικό \ENG{browser-based runtime} απαιτεί \ENG{sandboxing}, \ENG{CSP} και άμυνες έναντι \ENG{XSS}/\ENG{CSRF}.
+  \item \textbf{Παρατηρησιμότητα \& ανθεκτικός συγχρονισμός:} Η επικοινωνία με \ENG{LMS} πρέπει να αντέχει σε διακοπές και να παρέχει μετρικές/ίχνη.
+  \item \textbf{Μελλοντική διασύνδεση:} Η αρχιτεκτονική να επιτρέπει επεκτάσεις/γέφυρες προς \ENG{xAPI}/\ENG{cmi5} ή ροές \ENG{LTI}, χωρίς \textit{\ENG{vendor lock-in}}.
+\end{enumerate}
+
+\section{Ορολογία που χρησιμοποιείται}
+\begin{description}
+  \item[\ENG{SCO}] Ελάχιστη μονάδα εκτελέσιμου \ENG{SCORM} περιεχομένου που επικοινωνεί με \ENG{LMS}.
+  \item[\ENG{RTE}] \ENG{Runtime Environment}, το \ENG{API} και το πρωτόκολλο ανταλλαγής δεδομένων.
+  \item[\ENG{CMI}] Το \ENG{data model} προόδου/κατάστασης (π.χ. \texttt{cmi.core.score.raw}, \texttt{cmi.completion\_status}).
+  \item[\ENG{Sequencing}] Κανόνες ροής/ολοκλήρωσης στο \ENG{SCORM 2004}.
+  \item[\ENG{LRS}] \ENG{Learning Record Store} για αποθήκευση \ENG{xAPI} δηλώσεων.
+\end{description}

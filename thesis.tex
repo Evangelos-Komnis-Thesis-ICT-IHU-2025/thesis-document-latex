@@ -1,7 +1,6 @@
 \documentclass[12pt,a4paper]{report}
 % !TeX program = pdflatex
 
-% ---------- PDFLATEX-FRIENDLY GREEK+ENGLISH ----------
 \usepackage[utf8]{inputenc}
 \usepackage[LGR,T1]{fontenc}
 \usepackage[greek,english]{babel}
@@ -15,7 +14,7 @@
 \usepackage{geometry}
 \geometry{margin=2.5cm}
 \usepackage{graphicx}
-\graphicspath{{figures/}}
+\graphicspath{{figures/}{chapters/introduction/figures/}{chapters/history/figures/}{chapters/design/figures/}{chapters/titlepage/figures/}}
 \usepackage{booktabs,array,longtable}
 \usepackage{enumitem}
 \usepackage{hyperref}
@@ -25,28 +24,36 @@
 \usepackage{caption,subcaption}
 \usepackage{amsmath,amssymb}
 \usepackage{float}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{longtable,booktabs}
+\usepackage{tabularx,booktabs}
 
-% ---- Bibliography (biblatex+biber) ----
+\crefname{chapter}{Κεφάλαιο}{Κεφάλαια}
+\Crefname{chapter}{Κεφάλαιο}{Κεφάλαια}
+\crefname{section}{Ενότητα}{Ενότητες}
+\Crefname{section}{Ενότητα}{Ενότητες}
+
+% ---- Bibliography ----
 \usepackage[
   backend=biber,
   style=ieee,
   sorting=nyt,
   giveninits=true,
   doi=false,isbn=false,url=true,
-  language=english,      % entries στα αγγλικά
+  language=english,    
   autolang=other,
   sortlocale=en_US
 ]{biblatex}
 \addbibresource{references.bib}
 \DefineBibliographyStrings{greek}{andothers = {κ.\,ά.}}
 
-% TODO macro που κρατά "TODO" στα Αγγλικά
+% TODO macro
 \newcommand{\todoENG}[1]{\textcolor{red}{\textbf{\ENG{TODO:}} #1}}
 
 \begin{document}
 \selectlanguage{greek}
 
-% --------- Προκαταρκτικά ----------
+
 \pagenumbering{roman}
 \include{chapters/titlepage/titlepage}
 \tableofcontents
@@ -57,10 +64,11 @@
 \include{chapters/acknowledgements/acknowledgements}
 \include{chapters/abbreviations/abbreviations}
 
-% --------- Κυρίως σώμα ----------
+% --------- Body ----------
 \cleardoublepage
 \pagenumbering{arabic}
 \include{chapters/introduction/introduction}
+\include{chapters/history/history}
 \include{chapters/background/background}
 \include{chapters/requirements/requirements}
 \include{chapters/design/design}
@@ -68,7 +76,7 @@
 \include{chapters/evaluation/evaluation}
 \include{chapters/conclusion/conclusion}
 
-% --------- Βιβλιογραφία ----------
+% --------- Bibliography ----------
 \include{chapters/bibliography/bibliography}
 
 \end{document}
