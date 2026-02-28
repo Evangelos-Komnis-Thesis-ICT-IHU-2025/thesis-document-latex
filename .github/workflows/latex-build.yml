@@ -1,0 +1,79 @@
+name: LaTeX build
+
+on:
+  pull_request:
+    paths:
+      - "**/*.tex"
+      - "**/*.bib"
+      - "**/*.sty"
+      - "**/*.cls"
+      - "thesis.tex"
+      - ".github/workflows/latex-build.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.tex"
+      - "**/*.bib"
+      - "**/*.sty"
+      - "**/*.cls"
+      - "thesis.tex"
+      - ".github/workflows/latex-build.yml"
+
+concurrency:
+  group: latex-build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      MAIN_FILE: thesis.tex
+      MAIN_BASENAME: thesis
+      APT_CACHE_DIR: ${{ github.workspace }}/.apt-cache
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache TeX Live apt packages
+        uses: actions/cache@v4
+        with:
+          path: .apt-cache
+          key: ${{ runner.os }}-apt-texlive-full-biber-v1
+          restore-keys: |
+            ${{ runner.os }}-apt-texlive-full-biber-
+
+      - name: Install TeX Live and biber
+        run: |
+          set -euo pipefail
+          sudo mkdir -p "$APT_CACHE_DIR/archives/partial" "$APT_CACHE_DIR/lists/partial"
+          sudo apt-get -o dir::cache::archives="$APT_CACHE_DIR/archives" -o dir::state::lists="$APT_CACHE_DIR/lists" update
+          sudo apt-get -o dir::cache::archives="$APT_CACHE_DIR/archives" -o dir::state::lists="$APT_CACHE_DIR/lists" install -y texlive-full biber
+          sudo chown -R "$(id -u):$(id -g)" "$APT_CACHE_DIR"
+
+      - name: Cache TeX Live user data
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.texlive*
+            ~/.cache/texlive
+            ~/texmf-var
+          key: ${{ runner.os }}-texlive-user-v1
+          restore-keys: |
+            ${{ runner.os }}-texlive-user-
+
+      - name: Build PDF
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          pdflatex -interaction=nonstopmode -file-line-error -output-directory=out "$MAIN_FILE"
+          biber --output-directory out "$MAIN_BASENAME"
+          pdflatex -interaction=nonstopmode -file-line-error -output-directory=out "$MAIN_FILE"
+          pdflatex -interaction=nonstopmode -file-line-error -output-directory=out "$MAIN_FILE"
+          test -f "out/$MAIN_BASENAME.pdf"
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: thesis-pdf
+          path: out/${{ env.MAIN_BASENAME }}.pdf

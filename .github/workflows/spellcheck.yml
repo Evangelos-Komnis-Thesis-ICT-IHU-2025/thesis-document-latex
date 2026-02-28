@@ -1,0 +1,63 @@
+name: Spell check
+
+on:
+  pull_request:
+    paths:
+      - "**/*.tex"
+      - "**/*.bib"
+      - "**/*.md"
+      - "**/*.txt"
+      - "**/*.yml"
+      - "**/*.yaml"
+      - ".github/workflows/spellcheck.yml"
+      - ".codespell-ignore-words.txt"
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.tex"
+      - "**/*.bib"
+      - "**/*.md"
+      - "**/*.txt"
+      - "**/*.yml"
+      - "**/*.yaml"
+      - ".github/workflows/spellcheck.yml"
+      - ".codespell-ignore-words.txt"
+  workflow_dispatch:
+
+concurrency:
+  group: spellcheck-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  codespell:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install codespell
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          pip install codespell
+
+      - name: Run codespell
+        run: |
+          set -euo pipefail
+          mapfile -t FILES < <(git ls-files "*.tex" "*.bib" "*.md" "*.txt" "*.yml" "*.yaml" "*.cmd")
+          if [ "${#FILES[@]}" -eq 0 ]; then
+            echo "No tracked text files found."
+            exit 0
+          fi
+          codespell \
+            --check-filenames \
+            --ignore-words=.codespell-ignore-words.txt \
+            --skip="*.pdf,*.aux,*.bbl,*.bcf,*.blg,*.fdb_latexmk,*.fls,*.log,*.out,*.run.xml,*.toc,*.synctex.gz" \
+            "${FILES[@]}"
