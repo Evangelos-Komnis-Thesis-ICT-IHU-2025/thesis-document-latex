@@ -1,0 +1,20 @@
+\section{\ENG{LMS--SCORM Engine Integration Architecture}}
+\label{sec:lms_scorm_integration}
+
+Η διασύνδεση ανάμεσα στο \ENG{LMS} και στο υπόλοιπο οικοσύστημα υλοποιείται σε δύο διακριτές ροές. Η πρώτη είναι περισσότερο διαχειριστική και αφορά την εισαγωγή μαθημάτων, τη δημιουργία ή τον συγχρονισμό χρηστών και τη διαχείριση εγγραφών. Σε αυτή τη ροή, το \ENG{LMS} καλεί το \ENG{engine} μέσω του \ENG{SDK}, χρησιμοποιώντας \ENG{engine-level} \ENG{JWT} με ρόλους \ENG{ADMIN} ή \ENG{INSTRUCTOR}. Η δεύτερη είναι η \ENG{run-time} ροή του εκπαιδευόμενου. Εκεί το \ENG{LMS} ζητά τη δημιουργία \ENG{launch} και λαμβάνει \texttt{\ENG{launchUrl}} και \texttt{\ENG{launchToken}}. Από το σημείο αυτό και μετά, η πλοήγηση μεταφέρεται στον \ENG{player}, ο οποίος λειτουργεί ως \ENG{browser-facing boundary service}.
+
+Το κρίσιμο αρχιτεκτονικό χαρακτηριστικό είναι ότι ο \ENG{player} ζητά από το \ENG{engine} το \ENG{launch context} μέσω του \texttt{\ENG{GET /api/v1/launches/\{launchId\}}}, λαμβάνει πληροφορία για τον χρήστη, το μάθημα, το \texttt{\ENG{standard}}, το \texttt{\ENG{entrypoint}} και την πηγή του περιεχομένου, και μόνο τότε συνθέτει τη σελίδα εκκίνησης. Η πληροφορία του περιεχομένου επιστρέφεται ως \ENG{presigned MinIO ZIP URL}, γεγονός που αποδεικνύει ότι η διανομή του πακέτου και η εκτέλεσή του είναι ξεχωριστή φάση από την ίδια τη δημιουργία του \ENG{launch}.
+
+Το \ENG{LMS} παραμένει υπεύθυνο για τοπικά στοιχεία \ENG{BL (Business Logic)}, όπως η πλοήγηση της διεπαφής, οι συσχετίσεις τοπικών χρηστών με \ENG{engine users}, και η τελική προβολή της προόδου. Δεν αναλαμβάνει όμως ούτε τη διαχείριση \ENG{SCORM API calls} ούτε την αποθήκευση της πρώτης ύλης του \ENG{runtime}. Αντιστρόφως, ο \ENG{engine} δεν ενδιαφέρεται για το πώς παρουσιάζεται η διοικητική εμπειρία του \ENG{LMS}, αλλά για το αν το σύνολο \ENG{course-user-enrollment-attempt-launch} είναι συνεπές και ασφαλώς εξουσιοδοτημένο.
+
+
+Το Σχήμα~\ref{fig:lms_scorm_integration} αποτυπώνει τη διπλή αυτή ροή ολοκλήρωσης. Ο Πίνακας~\ref{tab:repository_role_mapping} συμπυκνώνει τη χαρτογράφηση των βασικών αποθετηρίων στα αντίστοιχα αρχιτεκτονικά καθήκοντα, ώστε τα επόμενα κεφάλαια να μπορούν να αναφέρονται σε συγκεκριμένα \ENG{implementation boundaries} χωρίς να επαναλαμβάνεται ο συνολικός χάρτης της πλατφόρμας.
+
+\input{chapters/06_Platform_Architecture/figures/fig_6.2_integration_architecture}
+
+\begin{table}[H]
+\centering
+\caption{Χαρτογράφηση αποθετηρίων και αρχιτεκτονικών ρόλων του υλοποιημένου οικοσυστήματος}
+\label{tab:repository_role_mapping}
+\input{chapters/06_Platform_Architecture/tables/tab_6.1_repository_role_mapping}
+\end{table}

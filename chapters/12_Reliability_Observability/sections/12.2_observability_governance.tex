@@ -1,0 +1,19 @@
+\section{\ENG{Observability} \& \ENG{Governance}}
+\label{sec:observability_governance}
+
+Το \ENG{monitoring} της πλατφόρμας στηρίζεται πρωτίστως σε \ENG{structured logging}. Στην πλευρά του \ENG{engine}, το \texttt{\ENG{logback-spring.xml}} διαμορφώνει \ENG{JSON logs}, ενώ οι \texttt{\ENG{CorrelationIdFilter}} και \texttt{\ENG{RequestLogFilter}} προσθέτουν αναγνωριστικό συσχέτισης και συνοπτική πληροφορία για τις \ENG{HTTP} αιτήσεις. Η ύπαρξη του \ENG{X-Correlation-Id} στο φίλτρο καθιστά εφικτή την παρακολούθηση μιας αλυσίδας αιτήσεων μέσα από διαφορετικά επίπεδα της πλατφόρμας, ακόμη κι αν δεν υπάρχει πλήρες \ENG{distributed tracing} σύστημα.
+
+Στην πλευρά του \ENG{player}, η χρήση \ENG{pino} και \ENG{pino-http} παρέχει συνεπή καταγραφή για τις αιτήσεις και για τις κλήσεις προς το \ENG{engine}, ιδίως μέσω του \texttt{\ENG{ObservedEngineClient}}. Παράλληλα, στο επίπεδο της κατάστασης εκτέλεσης υπάρχει περιορισμένη αλλά σαφής μετρική παρατηρησιμότητα: ο \texttt{\ENG{ObservedRuntimeStateStore}} τυλίγει το κανονικό αποθετήριο κατάστασης και εκθέτει γεγονότα λειτουργίας προς \ENG{Micrometer}. Το σημείο αυτό είναι αρκετό για να στηρίξει ακαδημαϊκά τον ισχυρισμό ότι η πλατφόρμα διαθέτει βασικό \ENG{instrumentation} γύρω από την κρίσιμη κατάσταση εκτέλεσης, αλλά όχι για να αποδοθεί πλήρης υποδομή μετρικών με πλούσια \ENG{dashboards}.
+
+Η λειτουργική διαχειρίση ολοκληρώνεται από τα \ENG{CI workflows} των αποθετηρίων και από τα \ENG{scripts} ελέγχου του κεντρικού περιβάλλοντος. Οι διαφορετικοί τρόποι εκτέλεσης δοκιμών, η ύπαρξη \ENG{mock compose} σεναρίων για ελέγχους \ENG{pull request} και η συστηματική επαλήθευση \ENG{readiness} πριν από τα \ENG{smoke checks} δείχνουν ότι η πλατφόρμα ελέγεχται σε όλα τα στάδια ανάπτυξης και λειτουργίας, από τον κώδικα μέχρι την παραγωγή.
+
+Το Σχήμα~\ref{fig:observability_governance} συνοψίζει τα κανάλια \ENG{logs}, συσχέτισης και βασικών μετρικών, ενώ ο Πίνακας~\ref{tab:operational_controls_and_checks} αποδίδει συνολικά τα κύρια \ENG{operational controls}. Η ανάλυση αυτή αρκεί για να τεκμηριώσει υλοποιημένη παρατηρησιμότητα και λειτουργική πειθαρχία, χωρίς να υπερβαίνει τα όρια αυτού που πράγματι υπάρχει στον κώδικα και στην υποδομή.
+
+\input{chapters/12_Reliability_Observability/figures/fig_12.2_observability_governance}
+
+\begin{table}[H]
+\centering
+\caption{Υλοποιημένοι λειτουργικοί έλεγχοι, σήματα παρατηρησιμότητας και σημεία επιχειρησιακής επαλήθευσης}
+\label{tab:operational_controls_and_checks}
+\input{chapters/12_Reliability_Observability/tables/tab_12.1_operational_controls_and_checks}
+\end{table}

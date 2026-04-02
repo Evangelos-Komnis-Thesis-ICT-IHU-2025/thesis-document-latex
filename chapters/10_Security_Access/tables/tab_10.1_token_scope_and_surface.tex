@@ -1,0 +1,18 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{2.6cm}|p{3.0cm}|p{4.0cm}|p{4.8cm}|}
+\hline
+Τύπος \ENG{token} & Εκδίδεται από & Κύριο πεδίο ισχύος & Επιτρεπόμενες επιφάνειες χρήσης \\
+\hline
+\ENG{Engine token} & \texttt{\ENG{JwtTokenService.createEngineToken()}} ή \texttt{\ENG{/api/v1/auth/dev-token}} στο τοπικό περιβάλλον & Διοικητική ή εκπαιδευτική πρόσβαση με ρόλους \ENG{ADMIN}/\ENG{INSTRUCTOR} & \texttt{\ENG{/courses/import}}, \texttt{\ENG{/users}}, \texttt{\ENG{/enrollments}}, \texttt{\ENG{/courses/*/stats}}, λοιπά \ENG{authenticated admin flows} \\
+\hline
+\ENG{Launch token} & \texttt{\ENG{CreateLaunchCommandHandler}} μέσω \texttt{\ENG{JwtTokenService.createLaunchToken()}} & Συγκεκριμένο \ENG{launch}, \ENG{attempt}, χρήστης, μάθημα και \ENG{standard} & \texttt{\ENG{/api/v1/launches/\{id\}}}, \texttt{\ENG{/api/v1/launches/\{id\}/terminate}}, \texttt{\ENG{/api/v1/runtime/**}} μέσω \ENG{player} \\
+\hline
+\ENG{Player query token} & Προέρχεται από το \texttt{\ENG{launchUrl}} του \ENG{engine} & Μεταφορά του \ENG{launch token} προς τον \ENG{player} & \texttt{\ENG{/launch/:launchId?token=...}}, \ENG{internal player commit/terminate routes} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

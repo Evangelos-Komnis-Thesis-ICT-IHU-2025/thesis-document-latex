@@ -1,0 +1,69 @@
+\section{Παράδειγμα Μαθήματος \ENG{SCORM} 1.2}
+\label{sec:scorm12_example}
+
+Η πρακτική αποτύπωση του \ENG{SCORM} 1.2 βασίζεται σε δύο συμπληρωματικά πακέτα της συλλογής \ENG{Golf Examples}: το \ENG{\path{ContentPackagingSingleSCO_SCORM12.zip}}, το οποίο δείχνει την ελάχιστη μορφή πακεταρίσματος, και το \ENG{\path{RuntimeMinimumCalls_SCORM12.zip}}, το οποίο προσθέτει τον απολύτως βασικό κύκλο ζωής επικοινωνίας με το \ENG{LMS}. Ο συνδυασμός τους είναι ιδιαίτερα χρήσιμος, επειδή επιτρέπει να φανεί στην πράξη ότι το \ENG{SCORM} 1.2 συγκροτείται από δύο διακριτές αλλά αλληλένδετες διαστάσεις: το \ENG{CAM} και το \ENG{RTE}.
+
+\subsection{Πακετάρισμα και \ENG{\texttt{imsmanifest.xml}}}
+\label{subsec:scorm12_manifest}
+
+Στο επίπεδο του πακεταρίσματος, το \ENG{SCORM} 1.2 παράδειγμα επιβεβαιώνει σχεδόν κατά λέξη τα συμπεράσματα της Ενότητας~\ref{subsec:scorm12_cam}. Η οργάνωση του μαθήματος εκφράζεται μέσω των στοιχείων \ENG{\texttt{<organization>}} και \ENG{\texttt{<item>}}, ενώ οι πραγματικοί πόροι δηλώνονται χωριστά στην ενότητα \ENG{\texttt{<resources>}}. Το ακόλουθο απόσπασμα από το \ENG{\path{RuntimeMinimumCalls_SCORM12.zip}} είναι χαρακτηριστικό, επειδή συνδέει έναν λογικό κόμβο πλοήγησης με έναν εκτελέσιμο πόρο και τα συνοδευτικά του αρχεία.
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{lstlisting}[language=XML, caption={Απόσπασμα \ENG{manifest} από το \ENG{RuntimeMinimumCalls\_SCORM12}}, label={lst:ch4_scorm12_manifest}]
+<item identifier="playing_par_item" identifierref="playing_par_resource">
+  <title>Par</title>
+</item>
+
+<resource identifier="playing_par_resource"
+          type="webcontent"
+          adlcp:scormtype="sco"
+          href="Playing/Par.html">
+  <file href="Playing/Par.html"/>
+  <file href="Playing/par.jpg"/>
+  <dependency identifierref="common_files" />
+</resource>
+\end{lstlisting}
+}
+
+Το απόσπασμα αυτό αναδεικνύει τρία σημεία που συνδέονται άμεσα με την προηγούμενη τεχνική ανάλυση. Πρώτον, το \ENG{\texttt{identifierref}} λειτουργεί ως ο σύνδεσμος ανάμεσα στη λογική δομή και στον πραγματικό πόρο, όπως ακριβώς περιγράφηκε κατά την ανάλυση της σχέσης \ENG{organizations/resources}. Δεύτερον, η τιμή \ENG{\texttt{adlcp:scormtype="sco"}} δηλώνει ότι το αρχείο \ENG{\texttt{Playing/Par.html}} δεν είναι απλό \ENG{asset}, αλλά μονάδα εκτέλεσης με πρόσβαση στο \ENG{API}. Τρίτον, η ύπαρξη \ENG{\texttt{dependency}} προς το \ENG{\texttt{common\_files}} δείχνει πώς η προδιαγραφή επιτρέπει την κοινή χρήση \ENG{JavaScript}, \ENG{CSS} και βοηθητικών αρχείων χωρίς διπλασιασμό πόρων.
+
+Στην ίδια λογική, οι εικόνες που παρουσιάστηκαν στο Σχήμα~\ref{fig:golf_example_content} δηλώνονται ρητά ως \ENG{\texttt{<file>}} στοιχεία μέσα στα αντίστοιχα \ENG{resources}. Αυτό είναι τεχνικά σημαντικό, επειδή αποδεικνύει ότι ακόμη και τα πιο απλά αρχεία περιεχομένου εντάσσονται στην ίδια συμβατική περιγραφή φορητότητας που καθορίζει το \ENG{manifest}.
+
+\subsection{Ελάχιστος κύκλος ζωής \ENG{Run-Time}}
+\label{subsec:scorm12_api}
+
+Η ουσιώδης μετάβαση από απλό πακέτο περιεχομένου σε πραγματικό \ENG{SCO} γίνεται στο \ENG{\path{RuntimeMinimumCalls_SCORM12.zip}}, όπου προστίθεται το κοινό αρχείο \ENG{\path{shared/scormfunctions.js}}. Το παράδειγμα είναι σκόπιμα λιτό: δεν επιδιώκει να δείξει όλες τις δυνατότητες του μοντέλου δεδομένων, αλλά μόνο τον ελάχιστο μηχανισμό εντοπισμού του \ENG{API} και τον ορθό κύκλο ζωής αρχικοποίησης και τερματισμού.
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{lstlisting}[language=JavaScript, caption={Ελάχιστος \ENG{SCORM} 1.2 \ENG{run-time} κύκλος ζωής}, label={lst:ch4_scorm12_runtime}]
+function ScormProcessInitialize(){
+    API = getAPI();
+    if (API == null){ return; }
+
+    var result = API.LMSInitialize("");
+    if (result == SCORM_FALSE){ return; }
+
+    initialized = true;
+}
+
+function ScormProcessFinish(){
+    if (initialized == false || finishCalled == true){ return; }
+
+    var result = API.LMSFinish("");
+    finishCalled = true;
+}
+
+window.onload = ScormProcessInitialize;
+window.onunload = ScormProcessFinish;
+window.onbeforeunload = ScormProcessFinish;
+\end{lstlisting}
+}
+
+Το συγκεκριμένο μοτίβο επιβεβαιώνει ακριβώς όσα αναλύθηκαν στην Ενότητα~\ref{subsec:scorm12_rte}. Το \ENG{SCO} πρέπει πρώτα να εντοπίσει το αντικείμενο \ENG{\texttt{API}} στην ιεραρχία παραθύρων, στη συνέχεια να καλέσει τη \ENG{\texttt{LMSInitialize("")}} πριν από οποιαδήποτε άλλη ενέργεια και, τέλος, να τερματίσει τη συνεδρία με \ENG{\texttt{LMSFinish("")}}. Η χρήση και των \ENG{onunload} και \ENG{onbeforeunload} είναι επίσης ενδεικτική των ιστορικών περιορισμών του προτύπου, το οποίο βασίζεται σε εύθραυστο \ENG{browser-side} κύκλο ζωής και γι' αυτό απαιτεί αμυντικό προγραμματισμό ακόμη και για την ελάχιστη συμμόρφωση.
+
+Ιδιαίτερο ενδιαφέρον έχει το ότι το παράδειγμα δεν καλεί καθόλου \ENG{\texttt{LMSSetValue()}}. Αυτό δεν αποτελεί έλλειψη, αλλά σκόπιμη σχεδιαστική επιλογή: αποδεικνύει ότι η ελάχιστη συμβατή εκτέλεση στο \ENG{SCORM} 1.2 είναι η δημιουργία, διατήρηση και ορθή λήξη της συνεδρίας. Με άλλα λόγια, πριν ακόμη εξεταστούν στοιχεία όπως \ENG{\texttt{cmi.core.lesson\_status}} ή \ENG{\texttt{cmi.suspend\_data}}, η ίδια η ύπαρξη έγκυρου \ENG{session lifecycle} είναι το βασικό συμβόλαιο συνεργασίας μεταξύ περιεχομένου και \ENG{LMS}.
+
+\subsection{Σύντομη αποτίμηση}
+\label{subsec:scorm12_summary}
+
+Το \ENG{SCORM} 1.2 παράδειγμα δείχνει με καθαρό τρόπο ότι η τεχνική απλότητα του προτύπου δεν σημαίνει απουσία αυστηρότητας. Το πακέτο παραμένει φορητό επειδή το \ENG{\texttt{imsmanifest.xml}} περιγράφει με σαφήνεια τη δομή και τους πόρους του, ενώ η εκτέλεση παραμένει διαλειτουργική επειδή κάθε \ENG{SCO} τηρεί τον ελάχιστο κύκλο ζωής του \ENG{API}. Η πρακτική εικόνα που προκύπτει συμφωνεί πλήρως με το Κεφάλαιο 3: η ισχύς του \ENG{SCORM} 1.2 προέρχεται κυρίως από την απλή αλλά σταθερή τυποποίηση πακεταρίσματος και εκκίνησης.

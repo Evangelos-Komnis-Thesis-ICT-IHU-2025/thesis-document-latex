@@ -1,0 +1,33 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.8cm and 2.4cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.5cm, minimum height=1.05cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.7cm, minimum height=1.05cm, font=\footnotesize\bfseries},
+      arrow/.style={-Latex, thick}
+    ]
+    \node[emph] (template) {\texttt{\ENG{github-actions-template}}};
+    \node[emph, below=1.1cm of template] (ai) {\texttt{\ENG{ai-agents-instructions}}};
+    \node[emph, below=1.1cm of ai] (menu) {\texttt{\ENG{docker-menu.sh}}};
+
+    \node[box, right=of template] (repos) {\ENG{repository metadata}\\+\ENG{workflow files}};
+    \node[box, right=of ai] (devtasks) {\ENG{tests, OpenAPI docs,}\\\ENG{commit drafting, thesis planning}};
+    \node[box, right=of menu] (stackops) {\ENG{compose operations, logs,}\\\ENG{health and data inspection}};
+
+    \node[box, right=2.6cm of repos] (core) {\ENG{core repositories}};
+    \node[box, below=1.5cm of core] (thesis) {\ENG{thesis and local development}\\\ENG{process perimeter}};
+
+    \draw[arrow] (template) -- (repos);
+    \draw[arrow] (ai) -- (devtasks);
+    \draw[arrow] (menu) -- (stackops);
+    \draw[arrow] (repos) -- (core);
+    \draw[arrow] (devtasks) -- (core);
+    \draw[arrow] (devtasks) -- (thesis);
+    \draw[arrow] (stackops) -- (thesis);
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Σχέσεις ανάμεσα στα υποστηρικτικά εργαλεία και στις διαδικασίες ανάπτυξης, τεκμηρίωσης και τοπικής λειτουργίας που πλαισιώνουν την πλατφόρμα.}
+  \label{fig:appendix_support_tooling_relationships}
+\end{figure}

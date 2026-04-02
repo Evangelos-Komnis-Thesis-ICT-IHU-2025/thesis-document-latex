@@ -1,0 +1,40 @@
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+  node distance=1.4cm and 1.8cm,
+  every node/.style={font=\small},
+  decision/.style={diamond, aspect=2.1, draw, thick, align=center, text width=4.2cm, inner sep=4pt, fill=gray!10},
+  choice/.style={rectangle, rounded corners, draw, thick, minimum width=2.5cm, minimum height=0.95cm, align=center, fill=white, drop shadow},
+  line/.style={-Latex, thick},
+  yn/.style={font=\footnotesize, fill=white, inner sep=1pt}
+]
+
+\node[decision] (tools) {Χρειάζεται ενσωμάτωση εξωτερικού εργαλείου στο \ENG{LMS};};
+\node[choice, fill=imslightblue!35, right=4.8cm of tools] (lti) {\ENG{LTI}};
+
+\node[decision, below=of tools] (package) {Χρειάζεται πακεταρισμένο μάθημα με κλασική συμβατότητα \ENG{LMS};};
+\node[decision, below left=1.6cm and 2.3cm of package] (sequencing) {Χρειάζεται σύνθετο \ENG{sequencing};};
+\node[choice, fill=scormgreen!25, below left=1.5cm and 1.8cm of sequencing] (scorm12) {\ENG{SCORM} 1.2};
+\node[choice, fill=scormgreen!45, below right=1.5cm and 1.8cm of sequencing] (scorm2004) {\ENG{SCORM} 2004};
+
+\node[decision, below right=1.6cm and 2.3cm of package] (launch) {Χρειάζεται τυποποιημένο \ENG{launch/completion contract};};
+\node[choice, fill=accentpurple!35, below left=1.5cm and 1.8cm of launch] (cmi5) {\ENG{cmi5}};
+\node[choice, fill=xapiorange!45, below right=1.5cm and 1.8cm of launch] (xapi) {\ENG{xAPI}};
+
+\draw[line] (tools) -- node[yn, above] {Ναι} (lti);
+\draw[line] (tools) -- node[yn, right] {Όχι} (package);
+
+\draw[line] (package) -- node[yn, above left] {Ναι} (sequencing);
+\draw[line] (package) -- node[yn, above right] {Όχι} (launch);
+
+\draw[line] (sequencing) -- node[yn, left] {Όχι} (scorm12);
+\draw[line] (sequencing) -- node[yn, right] {Ναι} (scorm2004);
+
+\draw[line] (launch) -- node[yn, left] {Ναι} (cmi5);
+\draw[line] (launch) -- node[yn, right] {Όχι} (xapi);
+
+\node[font=\footnotesize, align=center, text width=10.5cm, below=1.5cm of package] {
+Συνήθης πορεία μετάβασης: \ENG{SCORM} 1.2 $\rightarrow$ \ENG{cmi5} $\rightarrow$ \ENG{xAPI}, ενώ το \ENG{LTI} λειτουργεί συμπληρωματικά στο επίπεδο ενσωμάτωσης εργαλείων.
+};
+
+\end{tikzpicture}
+\end{chapterfigurebox}

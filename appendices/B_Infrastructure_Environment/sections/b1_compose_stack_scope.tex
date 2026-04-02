@@ -1,0 +1,24 @@
+\section{Σύνθεση της Υποδομής Ανάπτυξης}
+\label{sec:appendix_compose_stack}
+
+Το \texttt{\ENG{central-docker-infrastructure}} δηλώνει ένα σαφώς ορισμένο \ENG{docker} περιβάλλον,
+το οποίο λειτουργεί ως κοινό πλαίσιο ανάπτυξης (\ENG{local-operational stack}),
+μέσα στο οποίο ο \ENG{engine}, ο \ENG{player}, το \ENG{LMS}, τα άλλα διάφορα \ENG{services} 
+συνεργάζονται πάνω στο κοινό δίκτυο \texttt{\ENG{scorm-network}}.
+
+Η δήλωση των υπηρεσιών περιλαμβάνει τρία διαφορετικά επίπεδα ευθύνης. Το πρώτο είναι το \ENG{application layer},
+δηλαδή τα \texttt{\ENG{engine}}, \texttt{\ENG{player}} και \texttt{\ENG{lms}}. Το δεύτερο είναι το \ENG{state and object layer},
+όπου ανήκουν τα \texttt{\ENG{postgres}}, \texttt{\ENG{redis}}, \texttt{\ENG{minio}} και το \texttt{\ENG{minio-init}}.
+Το τρίτο είναι το \ENG{observability layer}, όπου εντάσσονται τα \texttt{\ENG{logstash}}, \texttt{\ENG{elasticsearch}} 
+και \texttt{\ENG{kibana}}. Η τριμερής αυτή διάκριση υπάρχει για να διευκολύνει την κατανόηση της σύνθεσης,
+αλλά και για να αναδείξει τη λογική οργάνωσης των υπηρεσιών.
+
+
+\input{appendices/B_Infrastructure_Environment/figures/fig_b1_compose_topology}
+
+\begin{table}[H]
+\centering
+\caption{Κύριες υπηρεσίες της σύνθεσης, \ENG{host ports} και λειτουργικός ρόλος}
+\label{tab:appendix_service_port_store_matrix}
+\input{appendices/B_Infrastructure_Environment/tables/tab_b1_service_port_store_matrix}
+\end{table}

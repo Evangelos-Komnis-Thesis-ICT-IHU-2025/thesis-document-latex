@@ -1,0 +1,58 @@
+% Figure 3.4: SCORM 1.2 API Adapter Architecture
+\begin{figure}[htbp]
+\centering
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+    node distance=0.9cm and 1.2cm,
+    every node/.style={font=\small},
+    sco/.style={rectangle, draw=blue!70!black, fill=blue!15, thick, minimum width=3.5cm, minimum height=1.2cm, rounded corners=2pt, align=center},
+    layer/.style={rectangle, draw=green!70!black, fill=green!15, thick, minimum width=5.8cm, minimum height=1cm, align=center},
+    backend/.style={rectangle, draw=red!70!black, fill=red!15, thick, minimum width=3.5cm, minimum height=1.2cm, rounded corners=2pt, align=center},
+    database/.style={cylinder, draw=purple!70!black, fill=purple!15, thick, minimum width=2cm, minimum height=1.5cm, shape border rotate=90, align=center},
+    arrow/.style={->, >=latex, thick},
+    bidiarrow/.style={<->, >=latex, thick}
+]
+
+% Top: SCO
+\node[sco] (sco) at (0,0) {\ENG{SCO}\\\textit{(\ENG{Shareable} \ENG{Content} \ENG{Object})}\\\ENG{JavaScript} \ENG{code}};
+
+% API Object (interface)
+\node[layer, below=1.2cm of sco, fill=yellow!20, draw=orange!70!black] (api_object) {\ENG{API} \ENG{Object}\\\texttt{\ENG{LMSInitialize}()}, \texttt{\ENG{LMSGetValue}()}, \texttt{\ENG{LMSSetValue}()}, \ENG{etc}.};
+
+% Adapter layers
+\node[layer, below=0.1cm of api_object] (validation) {\ENG{Validation} \ENG{Layer}\\\ENG{Type} \ENG{checks}, \ENG{range} \ENG{validation}, \ENG{R/W} \ENG{permissions}};
+
+\node[layer, below=0.1cm of validation] (session) {\ENG{Session} \ENG{Management} \ENG{Layer}\\\ENG{Initialize/Finish} \ENG{tracking}, \ENG{session state}, \ENG{error tracking}};
+
+\node[layer, below=0.1cm of session] (datamodel) {\ENG{Data} \ENG{Model} \ENG{Handler}\\\ENG{cmi.core}.*, \ENG{cmi.objectives}.*, \ENG{cmi.interactions}.*};
+
+\node[layer, below=0.1cm of datamodel] (persistence) {\ENG{Persistence} \ENG{Layer}\\\ENG{Buffering}, \ENG{commit logic}, \ENG{backend sync}, \ENG{error handling}};
+
+% Backend components
+\node[backend, below left=1.5cm and 0.8cm of persistence] (lms_backend) {\ENG{LMS} \ENG{Backend}\\\ENG{Business} \ENG{logic}\\\ENG{Tracking} \ENG{services}};
+
+\node[database, below right=1.5cm and 0.8cm of persistence] (db) {\ENG{Database}\\\ENG{Student} \ENG{data}\\\ENG{Attempt} \ENG{records}};
+
+% Arrows
+\draw[bidiarrow, blue!70] (sco) -- node[right, font=\tiny] {\ENG{JavaScript} \ENG{API} \ENG{calls}} (api_object);
+\draw[arrow] (api_object) -- (validation);
+\draw[arrow] (validation) -- (session);
+\draw[arrow] (session) -- (datamodel);
+\draw[arrow] (datamodel) -- (persistence);
+\draw[arrow] (persistence) -| node[near start, above, font=\tiny] {\ENG{HTTP/AJAX}} (lms_backend);
+\draw[arrow] (persistence) -| (db);
+\draw[bidiarrow, dashed] (lms_backend) -- node[below, font=\tiny] {\ENG{SQL}} (db);
+
+% Box around client-side
+\draw[dashed, gray, thick, rounded corners=5pt] ([xshift=-0.3cm, yshift=0.3cm]sco.north west) rectangle ([xshift=0.3cm, yshift=-0.3cm]persistence.south east);
+\node[font=\tiny\bfseries, anchor=north west, fill=white] at ([xshift=-0.3cm, yshift=0.3cm]sco.north west) {\ENG{Client} \ENG{Side} (\ENG{Browser})};
+
+% Box around server-side
+\draw[dashed, gray, thick, rounded corners=5pt] ([xshift=-0.5cm, yshift=0.3cm]lms_backend.north west) rectangle ([xshift=0.3cm, yshift=-0.3cm]db.south east);
+\node[font=\tiny\bfseries, anchor=north west, fill=white] at ([xshift=-0.5cm, yshift=0.3cm]lms_backend.north west) {\ENG{Server} \ENG{Side}};
+
+\end{tikzpicture}
+\end{chapterfigurebox}
+\caption{Αρχιτεκτονική του \ENG{SCORM} 1.2 \ENG{API} \ENG{Adapter}. Το \ENG{API} \ENG{Object} εκτίθεται στο \ENG{SCO} και επεξεργάζεται τις κλήσεις μέσω πολλαπλών επιπέδων (\ENG{validation}, \ENG{session} \ENG{management}, \ENG{data} \ENG{model}, \ENG{persistence}) πριν την επικοινωνία με το \ENG{backend} \ENG{LMS} και τη βάση δεδομένων.}
+\label{fig:scorm12_api_adapter_architecture}
+\end{figure}

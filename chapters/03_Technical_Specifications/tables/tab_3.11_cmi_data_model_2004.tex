@@ -1,0 +1,180 @@
+\begingroup
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.14}
+\setlength\LTleft{0pt plus 1fil}
+\setlength\LTright{0pt plus 1fil}
+\begin{longtable}{|>{\ttfamily\raggedright\arraybackslash}p{6.8cm}|>{\centering\arraybackslash}p{1.0cm}|>{\raggedright\arraybackslash}p{4.7cm}|}
+\caption{Στοιχεία \ENG{SCORM} 2004 \ENG{CMI} Μοντέλου Δεδομένων}
+\label{tab:cmi_data_model_2004}\\
+\hline
+\normalfont\ENG{Data} \ENG{Model} \ENG{Element} & \ENG{Access} & \ENG{Description} \\
+\hline
+\hline
+\endfirsthead
+\multicolumn{3}{c}{\tablename\ \thetable\ -- συνέχεια} \\
+\hline
+\normalfont\ENG{Data} \ENG{Model} \ENG{Element} & \ENG{Access} & \ENG{Description} \\
+\hline
+\hline
+\endhead
+\hline
+\multicolumn{3}{r}{\footnotesize Συνεχίζεται στην επόμενη σελίδα} \\
+\endfoot
+\hline
+\endlastfoot
+\multicolumn{3}{|c|}{\ENG{Core} \ENG{Learner} \ENG{and} \ENG{Session} \ENG{Information}} \\
+\hline
+\texttt{\ENG{cmi}.\_\ENG{version}} & \ENG{RO} & \ENG{Data} \ENG{model} \ENG{version} (\ENG{e.g}., "1.0" \ENG{for} \ENG{SCORM} 2004 3\ENG{rd} \ENG{Ed}.) \\
+\hline
+\texttt{\ENG{cmi.learner}\_\ENG{id}} & \ENG{RO} & \ENG{Unique} \ENG{identifier} \ENG{for} \ENG{the} \ENG{learner} \\
+\hline
+\texttt{\ENG{cmi.learner}\_\ENG{name}} & \ENG{RO} & \ENG{Learner}'\ENG{s} \ENG{name} (\ENG{localized} \ENG{string}) \\
+\hline
+\texttt{\ENG{cmi.location}} & \ENG{RW} & \ENG{Bookmark/location} \ENG{within} \ENG{SCO} (\ENG{up} \ENG{to} 1000 \ENG{chars}) \\
+\hline
+\texttt{\ENG{cmi.credit}} & \ENG{RO} & \ENG{Indicates} \ENG{credit} \ENG{mode}: \texttt{\ENG{credit}}, \texttt{\ENG{no-credit}} \\
+\hline
+\texttt{\ENG{cmi.mode}} & \ENG{RO} & \ENG{Presentation} \ENG{mode}: \texttt{\ENG{browse}}, \texttt{\ENG{normal}}, \texttt{\ENG{review}} \\
+\hline
+\texttt{\ENG{cmi.entry}} & \ENG{RO} & \ENG{Entry} \ENG{point}: \texttt{\ENG{ab-initio}} (\ENG{first} \ENG{time}), \texttt{\ENG{resume}}, \texttt{""} \\
+\hline
+\texttt{\ENG{cmi.exit}} & \ENG{WO} & \ENG{Exit} \ENG{reason}: \texttt{\ENG{timeout}}, \texttt{\ENG{suspend}}, \texttt{\ENG{logout}}, \texttt{\ENG{normal}}, \texttt{""} \\
+\hline
+\hline
+\multicolumn{3}{|c|}{\ENG{Completion} \ENG{and} \ENG{Success} \ENG{Status}} \\
+\hline
+\texttt{\ENG{cmi.completion}\_\ENG{status}} & \ENG{RW} & \ENG{Completion}: \texttt{\ENG{completed}}, \texttt{\ENG{incomplete}}, \texttt{\ENG{not} \ENG{attempted}}, \texttt{\ENG{unknown}} \\
+\hline
+\texttt{\ENG{cmi.completion}\_\ENG{threshold}} & \ENG{RO} & \ENG{Threshold} \ENG{for} \ENG{automatic} \ENG{completion} (\ENG{real} [0..1]) \\
+\hline
+\texttt{\ENG{cmi.success}\_\ENG{status}} & \ENG{RW} & \ENG{Mastery}: \texttt{\ENG{passed}}, \texttt{\ENG{failed}}, \texttt{\ENG{unknown}} \\
+\hline
+\texttt{\ENG{cmi.progress}\_\ENG{measure}} & \ENG{RW} & \ENG{Progress} \ENG{percentage} (\ENG{real} [0..1]) \\
+\hline
+\hline
+\multicolumn{3}{|c|}{\ENG{Score}} \\
+\hline
+\texttt{\ENG{cmi.score.scaled}} & \ENG{RW} & \ENG{Normalized} \ENG{score} (\ENG{real} [-1..1]) \\
+\hline
+\texttt{\ENG{cmi.score.raw}} & \ENG{RW} & \ENG{Raw} \ENG{score} (\ENG{real}, \ENG{unbounded}) \\
+\hline
+\texttt{\ENG{cmi.score.min}} & \ENG{RW} & \ENG{Minimum} \ENG{possible} \ENG{raw} \ENG{score} \\
+\hline
+\texttt{\ENG{cmi.score.max}} & \ENG{RW} & \ENG{Maximum} \ENG{possible} \ENG{raw} \ENG{score} \\
+\hline
+\texttt{\ENG{cmi.scaled}\_\ENG{passing}\_\ENG{score}} & \ENG{RO} & \ENG{Normalized} \ENG{passing} \ENG{score} (\ENG{real} [-1..1]) \\
+\hline
+\hline
+\multicolumn{3}{|c|}{\ENG{Time} \ENG{Tracking}} \\
+\hline
+\texttt{\ENG{cmi.session}\_\ENG{time}} & \ENG{WO} & \ENG{Session} \ENG{duration} (\ENG{timeinterval}, \ENG{e.g}., \texttt{\ENG{PT1H30M15S}}) \\
+\hline
+\texttt{\ENG{cmi.total}\_\ENG{time}} & \ENG{RO} & \ENG{Cumulative} \ENG{time} \ENG{across} \ENG{all} \ENG{attempts} (\ENG{timeinterval}) \\
+\hline
+\texttt{\ENG{cmi.max}\_\ENG{time}\_\ENG{allowed}} & \ENG{RO} & \ENG{Maximum} \ENG{allowed} \ENG{time} \ENG{for} \ENG{SCO} (\ENG{timeinterval}) \\
+\hline
+\texttt{\ENG{cmi.time}\_\ENG{limit}\_\ENG{action}} & \ENG{RO} & \ENG{Action} \ENG{on} \ENG{time} \ENG{limit}: \texttt{\ENG{exit},\ENG{message}}, \texttt{\ENG{continue},\ENG{message}}, \texttt{\ENG{exit},\ENG{no} \ENG{message}}, \texttt{\ENG{continue},\ENG{no} \ENG{message}} \\
+\hline
+\hline
+\multicolumn{3}{|c|}{\ENG{Suspend} \ENG{Data} \ENG{and} \ENG{Launch} \ENG{Data}} \\
+\hline
+\texttt{\ENG{cmi.suspend}\_\ENG{data}} & \ENG{RW} & \ENG{SCO} \ENG{state} \ENG{data} (4000 \ENG{chars} \ENG{SCORM} 2004 2\ENG{nd} \ENG{Ed}.; 64000 \ENG{chars} 3\ENG{rd/4th} \ENG{Ed}.) \\
+\hline
+\texttt{\ENG{cmi.launch}\_\ENG{data}} & \ENG{RO} & \ENG{Data} \ENG{from} \ENG{manifest} \texttt{\ENG{dataFromLMS}} \ENG{element} (\ENG{up} \ENG{to} 4000 \ENG{chars}) \\
+\hline
+\hline
+\multicolumn{3}{|c|}{\ENG{Comments}} \\
+\hline
+\texttt{\ENG{cmi.comments}\_\ENG{from}\_\ENG{learner}.\_\ENG{count}} & \ENG{RO} & \ENG{Number} \ENG{of} \ENG{learner} \ENG{comments} \\
+\hline
+\texttt{\ENG{cmi.comments}\_\ENG{from}\_\ENG{learner.n.comment}} & \ENG{RW} & \ENG{Comment} \ENG{text} (\ENG{localized} \ENG{string}, \ENG{up} \ENG{to} 4000 \ENG{chars}) \\
+\hline
+\texttt{\ENG{cmi.comments}\_\ENG{from}\_\ENG{learner.n.location}} & \ENG{RW} & \ENG{Location} \ENG{reference} \ENG{for} \ENG{comment} (\ENG{up} \ENG{to} 250 \ENG{chars}) \\
+\hline
+\texttt{\ENG{cmi.comments}\_\ENG{from}\_\ENG{learner.n.timestamp}} & \ENG{RW} & \ENG{Timestamp} (\ENG{ISO} 8601 \ENG{format}) \\
+\hline
+\texttt{\ENG{cmi.comments}\_\ENG{from}\_\ENG{lms}.\_\ENG{count}} & \ENG{RO} & \ENG{Number} \ENG{of} \ENG{LMS} \ENG{comments} \\
+\hline
+\texttt{\ENG{cmi.comments}\_\ENG{from}\_\ENG{lms.n.comment}} & \ENG{RO} & \ENG{LMS} \ENG{comment} \ENG{text} (\ENG{localized} \ENG{string}, \ENG{up} \ENG{to} 4000 \ENG{chars}) \\
+\hline
+\texttt{\ENG{cmi.comments}\_\ENG{from}\_\ENG{lms.n.location}} & \ENG{RO} & \ENG{Location} \ENG{reference} \ENG{for} \ENG{LMS} \ENG{comment} \\
+\hline
+\texttt{\ENG{cmi.comments}\_\ENG{from}\_\ENG{lms.n.timestamp}} & \ENG{RO} & \ENG{Timestamp} \ENG{for} \ENG{LMS} \ENG{comment} \\
+\hline
+\hline
+\multicolumn{3}{|c|}{\ENG{Objectives}} \\
+\hline
+\texttt{\ENG{cmi.objectives}.\_\ENG{count}} & \ENG{RO} & \ENG{Number} \ENG{of} \ENG{objectives} \\
+\hline
+\texttt{\ENG{cmi.objectives.n.id}} & \ENG{RW} & \ENG{Objective} \ENG{identifier} (\ENG{up} \ENG{to} 4000 \ENG{chars}) \\
+\hline
+\texttt{\ENG{cmi.objectives.n.score.scaled}} & \ENG{RW} & \ENG{Objective} \ENG{score} (\ENG{real} [-1..1]) \\
+\hline
+\texttt{\ENG{cmi.objectives.n.score.raw}} & \ENG{RW} & \ENG{Objective} \ENG{raw} \ENG{score} \\
+\hline
+\texttt{\ENG{cmi.objectives.n.score.min}} & \ENG{RW} & \ENG{Objective} \ENG{min} \ENG{score} \\
+\hline
+\texttt{\ENG{cmi.objectives.n.score.max}} & \ENG{RW} & \ENG{Objective} \ENG{max} \ENG{score} \\
+\hline
+\texttt{\ENG{cmi.objectives.n.success}\_\ENG{status}} & \ENG{RW} & \ENG{Objective} \ENG{mastery}: \texttt{\ENG{passed}}, \texttt{\ENG{failed}}, \texttt{\ENG{unknown}} \\
+\hline
+\texttt{\ENG{cmi.objectives.n.completion}\_\ENG{status}} & \ENG{RW} & \ENG{Objective} \ENG{completion}: \texttt{\ENG{completed}}, \texttt{\ENG{incomplete}}, \texttt{\ENG{not} \ENG{attempted}}, \texttt{\ENG{unknown}} \\
+\hline
+\texttt{\ENG{cmi.objectives.n.progress}\_\ENG{measure}} & \ENG{RW} & \ENG{Objective} \ENG{progress} (\ENG{real} [0..1]) \\
+\hline
+\texttt{\ENG{cmi.objectives.n.description}} & \ENG{RW} & \ENG{Objective} \ENG{description} (\ENG{localized} \ENG{string}, \ENG{up} \ENG{to} 250 \ENG{chars}) \\
+\hline
+\hline
+\multicolumn{3}{|c|}{\ENG{Interactions}} \\
+\hline
+\texttt{\ENG{cmi.interactions}.\_\ENG{count}} & \ENG{RO} & \ENG{Number} \ENG{of} \ENG{interactions} \\
+\hline
+\texttt{\ENG{cmi.interactions.n.id}} & \ENG{RW} & \ENG{Interaction} \ENG{identifier} (\ENG{up} \ENG{to} 4000 \ENG{chars}) \\
+\hline
+\texttt{\ENG{cmi.interactions.n.type}} & \ENG{RW} & \ENG{Interaction} \ENG{type}: \texttt{\ENG{true-false}}, \texttt{\ENG{choice}}, \texttt{\ENG{fill-in}}, \texttt{\ENG{long-fill-in}}, \texttt{\ENG{matching}}, \texttt{\ENG{performance}}, \texttt{\ENG{sequencing}}, \texttt{\ENG{likert}}, \texttt{\ENG{numeric}}, \texttt{\ENG{other}} \\
+\hline
+\texttt{\ENG{cmi.interactions.n.timestamp}} & \ENG{RW} & \ENG{Interaction} \ENG{timestamp} (\ENG{ISO} 8601) \\
+\hline
+\texttt{\ENG{cmi.interactions.n.weighting}} & \ENG{RW} & \ENG{Interaction} \ENG{weight} (\ENG{real}, \ENG{unbounded}) \\
+\hline
+\texttt{\ENG{cmi.interactions.n.learner}\_\ENG{response}} & \ENG{RW} & \ENG{Learner} \ENG{response} (\ENG{format} \ENG{depends} \ENG{on} \ENG{type}) \\
+\hline
+\texttt{\ENG{cmi.interactions.n.result}} & \ENG{RW} & \ENG{Interaction} \ENG{result}: \texttt{\ENG{correct}}, \texttt{\ENG{incorrect}}, \texttt{\ENG{unanticipated}}, \texttt{\ENG{neutral}}, \ENG{or} \ENG{real} \ENG{number} \\
+\hline
+\texttt{\ENG{cmi.interactions.n.latency}} & \ENG{RW} & \ENG{Response} \ENG{latency} (\ENG{timeinterval}) \\
+\hline
+\texttt{\ENG{cmi.interactions.n.description}} & \ENG{RW} & \ENG{Interaction} \ENG{description} (\ENG{localized} \ENG{string}, \ENG{up} \ENG{to} 250 \ENG{chars}) \\
+\hline
+\texttt{\ENG{cmi.interactions.n.objectives}.\_\ENG{count}} & \ENG{RO} & \ENG{Number} \ENG{of} \ENG{objectives} \ENG{for} \ENG{interaction} \\
+\hline
+\texttt{\ENG{cmi.interactions.n.objectives.n.id}} & \ENG{RW} & \ENG{Objective} \ENG{ID} \ENG{associated} \ENG{with} \ENG{interaction} \\
+\hline
+\texttt{\ENG{cmi.interactions.n.correct}\_\ENG{responses}.\_\ENG{count}} & \ENG{RO} & \ENG{Number} \ENG{of} \ENG{correct} \ENG{response} \ENG{patterns} \\
+\hline
+\texttt{\ENG{cmi.interactions.n.correct}\_\ENG{responses.n.pattern}} & \ENG{RW} & \ENG{Correct} \ENG{response} \ENG{pattern} (\ENG{format} \ENG{depends} \ENG{on} \ENG{type}) \\
+\hline
+\hline
+\multicolumn{3}{|c|}{\ENG{Learner} \ENG{Preferences}} \\
+\hline
+\texttt{\ENG{cmi.learner}\_\ENG{preference.audio}\_\ENG{level}} & \ENG{RW} & \ENG{Audio} \ENG{level} \ENG{preference} (\ENG{real} [0..*]) \\
+\hline
+\texttt{\ENG{cmi.learner}\_\ENG{preference.language}} & \ENG{RW} & \ENG{Preferred} \ENG{language} (\ENG{language} \ENG{code}, \ENG{up} \ENG{to} 250 \ENG{chars}) \\
+\hline
+\texttt{\ENG{cmi.learner}\_\ENG{preference.delivery}\_\ENG{speed}} & \ENG{RW} & \ENG{Delivery} \ENG{speed} \ENG{preference} (\ENG{real} [0..*]) \\
+\hline
+\texttt{\ENG{cmi.learner}\_\ENG{preference.audio}\_\ENG{captioning}} & \ENG{RW} & \ENG{Captioning} \ENG{preference}: \texttt{-1} (\ENG{off}), \texttt{0} (\ENG{no} \ENG{change}), \texttt{1} (\ENG{on}) \\
+\hline
+\hline
+\multicolumn{3}{|c|}{\ENG{ADL} \ENG{Navigation} (\ENG{adl.nav} \ENG{namespace})} \\
+\hline
+\texttt{\ENG{adl.nav.request}} & \ENG{RW} & \ENG{Navigation} \ENG{request}: \texttt{\ENG{continue}}, \texttt{\ENG{previous}}, \texttt{\ENG{choice}}, \texttt{\ENG{exit}}, \texttt{\ENG{exitAll}}, \texttt{\ENG{abandon}}, \texttt{\ENG{abandonAll}}, \texttt{\ENG{suspendAll}}, \texttt{\_\ENG{none}\_} \\
+\hline
+\texttt{\ENG{adl.nav.request}\_\ENG{valid.continue}} & \ENG{RO} & \ENG{Can} \ENG{continue}? \texttt{\ENG{true}}, \texttt{\ENG{false}}, \texttt{\ENG{unknown}} \\
+\hline
+\texttt{\ENG{adl.nav.request}\_\ENG{valid.previous}} & \ENG{RO} & \ENG{Can} \ENG{go} \ENG{previous}? \texttt{\ENG{true}}, \texttt{\ENG{false}}, \texttt{\ENG{unknown}} \\
+\hline
+\texttt{\ENG{adl.nav.request}\_\ENG{valid.choice}.\{\ENG{target}=\}} & \ENG{RO} & \ENG{Can} \ENG{choose} \ENG{target}? \texttt{\ENG{true}}, \texttt{\ENG{false}}, \texttt{\ENG{unknown}} (\ENG{target} \ENG{specified} \ENG{in} \ENG{curly} \ENG{braces}) \\
+\hline
+\end{longtable}
+\endgroup

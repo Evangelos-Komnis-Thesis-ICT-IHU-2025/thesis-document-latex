@@ -1,0 +1,47 @@
+% Figure 3.8: SCORM 2004 API Communication Flow
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+    process/.style={rectangle, draw=blue!60, fill=blue!10, thick, minimum width=2.6cm, minimum height=0.9cm, align=center, rounded corners},
+    decision/.style={diamond, draw=red!60, fill=red!10, thick, minimum width=2.1cm, minimum height=1.2cm, align=center, aspect=1.6, inner sep=1pt},
+    state/.style={ellipse, draw=green!60, fill=green!10, thick, minimum width=2.4cm, minimum height=0.9cm, align=center},
+    arrow/.style={->, >=stealth, thick},
+    error/.style={rectangle, draw=red!80, fill=red!20, thick, minimum width=2.8cm, minimum height=0.8cm, align=center, text width=2.4cm, font=\scriptsize},
+    note/.style={font=\scriptsize\itshape, text width=3cm, align=left}
+]
+
+\node[state] (launch) at (0,0) {\ENG{SCO} \ENG{Launched}};
+\node[process] (discover) at (2.8,0) {\ENG{Discover}\\\ENG{API}\_1484\_11};
+\node[decision] (found) at (5.7,0) {\ENG{API}\\\ENG{Found}?};
+\node[process] (initialize) at (8.8,0) {\ENG{Call}\\\ENG{Initialize}("")};
+\node[decision] (init_success) at (11.9,0) {\ENG{Success}?};
+
+\node[error] (err_noapi) at (5.7,-2.3) {\ENG{Error}: \ENG{No} \ENG{API}};
+\node[error] (err_init) at (11.9,-2.3) {\ENG{Error}: \ENG{Init} \ENG{Failed}\\(\ENG{Code} 102)};
+
+\node[state, fill=green!20] (running) at (3.1,-4.7) {\ENG{Running}\\\ENG{State}};
+\node[process] (exchange) at (6.3,-4.7) {\ENG{GetValue}() /\\\ENG{SetValue}() /\\\ENG{Commit}()};
+\node[process] (terminate) at (9.5,-4.7) {\ENG{Call}\\\ENG{Terminate}("")};
+\node[decision] (term_success) at (12.5,-4.7) {\ENG{Success}?};
+
+\node[error] (err_term) at (12.5,-7.0) {\ENG{Error}: \ENG{Term} \ENG{Failed}\\(\ENG{Code} 111)};
+\node[state, fill=gray!20] (end) at (12.5,-9.2) {\ENG{SCO} \ENG{Unloaded}};
+
+\draw[arrow] (launch) -- (discover);
+\draw[arrow] (discover) -- (found);
+\draw[arrow] (found) -- node[above, font=\scriptsize] {\ENG{No}} (err_noapi);
+\draw[arrow] (found) -- node[above, font=\scriptsize] {\ENG{Yes}} (initialize);
+\draw[arrow] (initialize) -- (init_success);
+\draw[arrow] (init_success) -- node[above, font=\scriptsize] {\ENG{No}} (err_init);
+\draw[arrow] (init_success.south) |- node[pos=0.25, right, font=\scriptsize] {\ENG{Yes}} (running.north);
+\draw[arrow] (running) -- (exchange);
+\draw[arrow, bend left=28] (exchange.north) to node[above, font=\scriptsize] {\ENG{Loop}} (running.north);
+\draw[arrow] (exchange) -- (terminate);
+\draw[arrow] (terminate) -- (term_success);
+\draw[arrow] (term_success) -- node[right, font=\scriptsize] {\ENG{No}} (err_term);
+\draw[arrow] (term_success) -- node[right, font=\scriptsize] {\ENG{Yes}} (end);
+
+\node[note] at (2.1,-7.2) {\ENG{Data model} \ENG{operations} \ENG{are} \ENG{valid} \ENG{only} \ENG{while} \ENG{the} \ENG{session} \ENG{is} \ENG{running}.};
+\node[note] at (8.8,-7.2) {\ENG{The} \ENG{API} \ENG{enforces} \ENG{the} \ENG{state} \ENG{transition} \ENG{order}.};
+
+\end{tikzpicture}
+\end{chapterfigurebox}

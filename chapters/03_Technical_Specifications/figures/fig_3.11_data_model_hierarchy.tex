@@ -1,0 +1,38 @@
+% Figure 3.11: SCORM 2004 Data Model Hierarchy
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+    every node/.style={font=\small},
+    arrow/.style={->, >=latex, thick},
+    namespace/.style={rectangle, draw=blue!80, fill=blue!20, thick, minimum width=4.6cm, minimum height=0.95cm, align=center, rounded corners},
+    category/.style={rectangle, draw=green!70, fill=green!15, thick, rounded corners, text width=3.2cm, minimum height=2.55cm, align=left, font=\scriptsize},
+    navbox/.style={rectangle, draw=purple!80, fill=purple!20, thick, rounded corners, text width=10.4cm, minimum height=1.45cm, align=left, font=\scriptsize}
+]
+
+\node[namespace] (cmi) at (0,0) {\texttt{\ENG{cmi}} \ENG{namespace}};
+
+\node[category] (core_info) at (-6.0,-2.9) {\textbf{\ENG{Core Info}}\\\texttt{\ENG{learner}\_\ENG{id}}\\\texttt{\ENG{learner}\_\ENG{name}}\\\texttt{\ENG{location}}\\\texttt{\ENG{mode}}};
+\node[category] (status) at (-2.0,-2.9) {\textbf{\ENG{Status}}\\\texttt{\ENG{completion}\_\ENG{status}}\\\texttt{\ENG{success}\_\ENG{status}}\\\texttt{\ENG{progress}\_\ENG{measure}}};
+\node[category] (score) at (2.0,-2.9) {\textbf{\ENG{Score}}\\\texttt{\ENG{score.scaled}}\\\texttt{\ENG{score.raw}}\\\texttt{\ENG{score.min/max}}};
+\node[category] (time) at (6.0,-2.9) {\textbf{\ENG{Time}}\\\texttt{\ENG{session}\_\ENG{time}}\\\texttt{\ENG{total}\_\ENG{time}}\\\texttt{\ENG{max}\_\ENG{time}\_\ENG{allowed}}};
+
+\node[category] (objectives) at (-6.0,-6.6) {\textbf{\ENG{Objectives}}\\\texttt{\ENG{objectives.n.id}}\\\texttt{\ENG{objectives.n.score}}\\\texttt{\ENG{objectives.n.}}\\\texttt{\ENG{success}\_\ENG{status}}};
+\node[category] (interactions) at (-2.0,-6.6) {\textbf{\ENG{Interactions}}\\\texttt{\ENG{interactions.n.}}\\\texttt{\ENG{id}}\\\texttt{\ENG{interactions.n.}}\\\texttt{\ENG{type}}\\\texttt{\ENG{interactions.n.}}\\\texttt{\ENG{learner}\_\ENG{response}}};
+\node[category] (comments) at (2.0,-6.6) {\textbf{\ENG{Comments}}\\\texttt{\ENG{comments}\_\ENG{from}.}\\\texttt{\ENG{learner}}\\\texttt{\ENG{comments}\_\ENG{from}.}\\\texttt{\ENG{lms}}};
+\node[category] (other) at (6.0,-6.6) {\textbf{\ENG{Other}}\\\texttt{\ENG{suspend}\_\ENG{data}}\\\texttt{\ENG{launch}\_\ENG{data}}\\\texttt{\ENG{learner}\_\ENG{preference}}};
+
+\node[
+    draw=gray!60,
+    dashed,
+    rounded corners,
+    inner sep=0.60cm,
+    fit=(core_info) (other),
+    label={[font=\scriptsize\bfseries, anchor=north west]north west:\ENG{Representative} \ENG{data} \ENG{categories}}
+] (cmi_group) {};
+
+\draw[arrow] (cmi) -- (cmi_group.north);
+
+\node[navbox, below=1.7cm of cmi_group] (adlnav) {\texttt{\ENG{adl.nav}} \ENG{namespace}: \texttt{\ENG{request}}, \texttt{\ENG{request}\_\ENG{valid.continue}}\\\texttt{\ENG{request}\_\ENG{valid.previous}}, \texttt{\ENG{request}\_\ENG{valid.choice}}};
+\draw[arrow] (cmi_group.south) -- (adlnav.north);
+
+\end{tikzpicture}
+\end{chapterfigurebox}

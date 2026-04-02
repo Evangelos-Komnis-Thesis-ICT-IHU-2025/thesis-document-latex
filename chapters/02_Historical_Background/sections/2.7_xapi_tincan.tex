@@ -1,0 +1,124 @@
+\section{\ENG{xAPI} / \ENG{Tin} \ENG{Can} \ENG{API} (2011-2016)}
+\label{sec:xapi_tincan}
+
+Το \ENG{Experience} \ENG{API} (\ENG{xAPI}), γνωστό και ως \ENG{Tin} \ENG{Can} \ENG{API}, αποτελεί θεμελιώδη εξέλιξη στα \ENG{e-learning} \ENG{standards}, σηματοδοτώντας τη μετάβαση από \ENG{monolithic}, \ENG{browser-centric} \ENG{architectures} σε \ENG{distributed}, \ENG{cloud-ready} \ENG{systems} που μπορούν να καταγράφουν μαθησιακές εμπειρίες σε οποιοδήποτε περιβάλλον.
+\subsection{Γέννηση και Ανάπτυξη του \ENG{xAPI}}
+\label{subsec:xapi_genesis}
+
+\subsubsection{\ENG{Project} \ENG{Tin} \ENG{Can} (2011)}
+
+Το 2011, το \ENG{Advanced} \ENG{Distributed} \ENG{Learning} (\ENG{ADL}) \ENG{Initiative} εξέδωσε ένα \textit{\ENG{Broad} \ENG{Agency} \ENG{Announcement}} (\ENG{BAA}) αναζητώντας λύσεις για τους περιορισμούς του \ENG{SCORM.} Το \ENG{ADL} αναγνώριζε ότι το \ENG{SCORM}, σχεδιασμένο για \ENG{web} \ENG{browsers} και \ENG{LMS-centric} περιβάλλοντα, δεν μπορούσε να ανταποκριθεί στις σύγχρονες μαθησιακές ανάγκες:
+
+Περιορισμοί \ENG{SCORM} που οδήγησαν στο \ENG{xAPI}: η εξάρτηση από \ENG{web} \ENG{browser} για την εκτέλεση του \ENG{content}, ο εγκλωβισμός των δεδομένων στο \ENG{LMS}, το περιορισμένο \ENG{data} \ENG{model} με σταθερά πεδία που δεν επεκτείνονται, η απουσία \ENG{mobile} \ENG{support} για \ENG{native} \ENG{mobile} \ENG{apps}, η έλλειψη \ENG{offline} \ENG{tracking} χωρίς συνεχή σύνδεση με \ENG{LMS} και ο περιορισμός σε ένα μόνο \ENG{learning} \ENG{context} χωρίς συνδυασμό πολλαπλών περιβαλλόντων.
+
+Η \ENG{Rustici} \ENG{Software} ανέπτυξε το \textit{\ENG{Project} \ENG{Tin} \ENG{Can}}, το οποίο μετονομάστηκε σε \ENG{Experience} \ENG{API} (\ENG{xAPI}). Το όνομα "\ENG{Tin} \ENG{Can}" προέρχεται από την παιδική ιδέα της επικοινωνίας με "\ENG{tin} \ENG{can} \ENG{telephone}" - απλή, \ENG{distributed} \ENG{communication.}
+
+\subsubsection{Χρονολόγιο Εξέλιξης}
+
+Το χρονολόγιο εξέλιξης περιλαμβάνει την κυκλοφορία της \ENG{xAPI} 1.0.0 \ENG{specification} τον Απρίλιο του 2013, την ταχεία υιοθέτηση από \ENG{vendors} και \ENG{LRS} \ENG{providers} το 2013-2014, την έκδοση \ENG{xAPI} 1.0.2 το 2015 (\ENG{bug} \ENG{fixes}, \ENG{clarifications}), την \ENG{xAPI} 1.0.3 το 2016 (\ENG{minor} \ENG{improvements}) και, το 2023, την επίσημη αναγνώριση ως \ENG{IEEE} 9274.1.1-2023 \ENG{standard}.
+
+\subsection{Αρχιτεκτονική \ENG{xAPI}}
+\label{subsec:xapi_architecture}
+
+\subsubsection{Βασική Ιδέα: \ENG{Actor-Verb-Object} \ENG{Statements}}
+
+Το \ENG{xAPI} βασίζεται σε απλή ιδέα: καταγραφή εμπειριών με \ENG{statements} της μορφής:
+
+\begin{center}
+\textbf{"\ENG{Actor} \ENG{Verb} \ENG{Object}"}
+\end{center}
+
+Παραδείγματα: "\ENG{John} \textit{\ENG{completed}} \ENG{Module} 1", "\ENG{Mary} \textit{\ENG{watched}} \ENG{Video} \ENG{Tutorial}", "\ENG{Team} \ENG{A} \textit{\ENG{achieved}} \ENG{Sales} \ENG{Goal}" και "\ENG{Student} \textit{\ENG{failed}} \ENG{Final} \ENG{Exam}".
+
+\subsubsection{Ανατομία \ENG{xAPI} \ENG{Statement}}
+
+Ένα \ENG{xAPI} \ENG{statement} είναι \ENG{JSON} \ENG{object} με τα εξής κύρια στοιχεία:
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{verbatim}
+{
+  "actor": {
+    "objectType": "Agent",
+    "name": "John Doe",
+    "mbox": "mailto:john.doe@example.com"
+  },
+  "verb": {
+    "id": "http://adlnet.gov/expapi/verbs/completed",
+    "display": {"en-US": "completed"}
+  },
+  "object": {
+    "objectType": "Activity",
+    "id": "http://example.com/activities/module1",
+    "definition": {
+      "name": {"en-US": "Introduction to SCORM"},
+      "description": {"en-US": "Basic SCORM concepts"}
+    }
+  },
+  "result": {
+    "score": {"scaled": 0.85, "raw": 85, "min": 0, "max": 100},
+    "completion": true,
+    "success": true,
+    "duration": "PT2H30M"
+  },
+  "context": {
+    "registration": "a4c5e0b3-...",
+    "contextActivities": {
+      "parent": [{"id": "http://example.com/courses/scorm101"}]
+    },
+    "platform": "Example LMS",
+    "language": "en-US"
+  },
+  "timestamp": "2026-01-01T10:30:00Z",
+  "stored": "2026-01-01T10:30:01Z"
+}
+\end{verbatim}
+}
+
+\input{chapters/02_Historical_Background/tables/2.7_xapi_statement_elements}
+
+\subsection{\ENG{Learning} \ENG{Record} \ENG{Store} (\ENG{LRS})}
+\label{subsec:lrs}
+
+Το \ENG{Learning} \ENG{Record} \ENG{Store} (\ENG{LRS}) είναι κεντρικό στοιχείο της αρχιτεκτονικής \ENG{xAPI.} Αποτελεί το σύστημα αποθήκευσης \ENG{xAPI} \ENG{statements}~\cite{xapicom2024lrs,rustici2023lrs}.
+
+\subsubsection{Χαρακτηριστικά \ENG{LRS}}
+
+Τα βασικά χαρακτηριστικά και οι κύριες κατηγορίες \ENG{LRS} συνοψίζονται στον Πίνακα~\ref{tab:lrs_characteristics}.
+
+\input{chapters/02_Historical_Background/tables/2.7_lrs_characteristics}
+
+\subsection{Τα "4 \ENG{Freedoms}" του \ENG{xAPI}}
+\label{subsec:xapi_freedoms}
+
+Το \ENG{xAPI} σχεδιάστηκε γύρω από τέσσερις θεμελιώδεις ελευθερίες~\cite{adl2013xapi_spec}:
+
+\begin{itemize}
+  \item \ENG{Freedom of Statement:} Επιτρέπει την καταγραφή οποιασδήποτε εμπειρίας, όχι μόνο \ENG{course completions}.
+  \item \ENG{Freedom of History:} Τα δεδομένα αποθηκεύονται μόνιμα στο \ENG{LRS}, και δεν χάνονται όπως τα \ENG{session data}.
+  \item \ENG{Freedom of Device:} Εξασφαλίζει ότι το \ENG{xAPI} λειτουργεί σε \ENG{desktop}, \ENG{mobile}, \ENG{tablets}, \ENG{IoT} και \ENG{wearables}.
+  \item \ENG{Freedom of Workflow:} Δεν περιορίζεται σε \ENG{linear workflows}, υποστηρίζοντας \ENG{blended}, \ENG{social} και \ENG{informal learning}.
+\end{itemize}
+
+\subsection{\ENG{xAPI} \ENG{Profiles} και \ENG{Recipes}}
+\label{subsec:xapi_profiles}
+
+Για να εξασφαλιστεί \ENG{consistency}, το \ENG{xAPI} χρησιμοποιεί \ENG{Profiles}, δηλαδή έγγραφα που ορίζουν συγκεκριμένα \ENG{verbs} για το \ENG{domain}, \ENG{activity} \ENG{types}, \ENG{statement} \ENG{templates} και \ENG{rules} ή \ENG{patterns}. Ενδεικτικά, το \ENG{Video} \ENG{Profile} ορίζει \ENG{verbs} για \ENG{played}, \ENG{paused}, \ENG{seeked} και \ENG{volume-change}, το \ENG{Serious} \ENG{Games} \ENG{Profile} καλύπτει \ENG{game-specific} \ENG{interactions}, ενώ το \ENG{cmi5} \ENG{Profile} παρέχει \ENG{SCORM-like} \ENG{structure} με \ENG{xAPI}.
+
+\subsection{Ασφάλεια και Προστασία Δεδομένων}
+\label{subsec:xapi_security}
+
+Το \ENG{xAPI} απαιτεί \ENG{HTTPS} για \ENG{production} και \ENG{TLS} 1.2+ \ENG{encryption}. Υποστηρίζει \ENG{OAuth} 2.0 με \ENG{scopes} (\ENG{read}, \ENG{write}, \ENG{define}), \ENG{HTTP} \ENG{Basic} με \ENG{SSL} και \ENG{certificate-based} \ENG{authentication}. Η \ENG{privacy} περιλαμβάνει \ENG{granular} \ENG{permissions} (\ENG{read/write/define}), δυνατότητες \ENG{anonymization}, συμμόρφωση με \ENG{GDPR} και υποστήριξη για \ENG{right} \ENG{to} \ENG{erasure}.
+
+\subsection{Υιοθέτηση και \ENG{Ecosystem} (2016-2026)}
+\label{subsec:xapi_adoption}
+
+Η υιοθέτηση περιλαμβάνει χρήση από \ENG{Fortune} 500 εταιρείες, \ENG{government/military} \ENG{applications}, \ENG{healthcare} \ENG{training} \ENG{programs} και \ENG{higher} \ENG{education} \ENG{initiatives}. Ενδεικτικά εργαλεία συγγραφής περιλαμβάνουν τα \ENG{Articulate} \ENG{Storyline} 360 (\ENG{xAPI} \ENG{support}), \ENG{Adobe} \ENG{Captivate}, \ENG{Adapt} \ENG{Learning} \ENG{Framework} και \ENG{Lectora}. Οι ενδεικτικοί \ENG{LRS} \ENG{providers} περιλαμβάνουν τους \ENG{Learning} \ENG{Locker} (\ENG{open} \ENG{source}), \ENG{Watershed} \ENG{by} \ENG{Rustici}, \ENG{Veracity} \ENG{Learning} και \ENG{SCORM} \ENG{Cloud}. Το \ENG{xAPI} έχει γίνει το \ENG{standard} επιλογής για οργανισμούς που χρειάζονται \ENG{comprehensive} \ENG{learning} \ENG{analytics} και \ENG{tracking} πέρα από τα \ENG{traditional} \ENG{e-learning} \ENG{courses}.
+
+% \ENG{Figure}: \ENG{xAPI} \ENG{Statement} \ENG{Anatomy}
+\begin{figure}[H]
+  \centering
+  \input{chapters/02_Historical_Background/figures/fig_2.7_xapi_statement}
+  \caption{Ανατομία \ENG{xAPI} \ENG{Statement} - \ENG{Actor-Verb-Object} \ENG{Structure}}
+  \label{fig:xapi_statement}
+\end{figure}
+

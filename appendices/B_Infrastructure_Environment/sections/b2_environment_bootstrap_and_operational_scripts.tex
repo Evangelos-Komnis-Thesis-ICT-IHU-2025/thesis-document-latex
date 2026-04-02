@@ -1,0 +1,17 @@
+\section{Εκκίνηση, Έλεγχος Περιβάλλοντος και Τοπική Λειτουργία}
+\label{sec:appendix_environment_bootstrap}
+
+Η αναπαραγωγιμότητα της σύνθεσης δεν στηρίζεται αποκλειστικά στο \texttt{\ENG{docker-compose.yml}},
+αλλά και σε ένα σύνολο \ENG{scripts} που περιγράφουν πώς πρέπει να προετοιμαστεί και να ελεγχθεί το περιβάλλον.
+Το \texttt{\ENG{.env.example}} λειτουργεί ως πρότυπο ελάχιστου configuration και δηλώνει κρίσιμες παραμέτρους,
+όπως \ENG{database credentials}, \ENG{MinIO buckets}, \ENG{JWT secrets}, \ENG{player commit interval}
+και βασικές μεταβλητές του \ENG{LMS}.
+
+\input{appendices/B_Infrastructure_Environment/figures/fig_b2_operational_validation_flow}
+
+\begin{table}[H]
+\centering
+\caption{Κρίσιμα \ENG{environment} και \ENG{persistence artifacts} της υποδομής ανάπτυξης}
+\label{tab:appendix_volume_env_role_matrix}
+\input{appendices/B_Infrastructure_Environment/tables/tab_b2_volume_and_env_role_matrix}
+\end{table}

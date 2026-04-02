@@ -1,0 +1,26 @@
+\section{Οργανωσιακό Οικοσύστημα και Όρια των Αποθετηρίων}
+\label{sec:appendix_ecosystem_scope}
+
+Η υλοποίηση της διατριβής δεν αναπτύχθηκε σε ένα μονολιθικό αποθετήριο, αλλά σε ένα μικρό οργανωσιακό οικοσύστημα
+γύρω από το \ENG{GitHub Organization} \texttt{\ENG{Evangelos-Komnis-Thesis-ICT-IHU-2025}}.
+Το οποίο φιλοξενεί τον \ENG{SCORM Engine}, τον \ENG{player},
+το \ENG{PHP SDK}, το \ENG{Laravel LMS} για λόγους δοκιμών, την κεντρική \ENG{docker} υποδομή, το αποθετήριο του παρόντος κειμένου,
+και επιπλέον βοηθητικά αποθετήρια για \ENG{workflow templating}, \ENG{AI-assisted prompts} και παραδείγματα μαθημάτων.
+Η εικόνα αυτή έχει σημασία επειδή αποκαλύπτει ότι η συγκεκριμένη υλοποίηση δεν στηρίζεται μόνο σε κώδικα, αλλά και σε ένα 
+ρητά οργανωμένο περιβάλλον αυτοματοποίησης και συγγραφικής υποστήριξης.
+
+Η βασική οργανωτική διάκριση είναι επομένως τριμερής. Πρώτον, υπάρχει το \ENG{runtime and integration perimeter}, όπου ανήκουν τα αποθετήρια
+που σχετίζονται με την εκτέλεση και την ενσωμάτωση της πλατφόρμας. Δεύτερον, υπάρχει το \ENG{operational perimeter}, όπου ανήκουν η κεντρική
+υποδομή, τα \ENG{workflow templates} και τα διάφορα \ENG{scripts} επαλήθευσης. Τρίτον, υπάρχει το \ENG{research and writing perimeter},
+όπου εντάσσονται το αποθετήριο της διπλωματικής και τα \ENG{AI-assisted} συγγραφικά \ENG{artifacts}.
+Το Σχήμα~\ref{fig:appendix_org_repository_map} συνοψίζει αυτή τη διάκριση, ενώ ο Πίνακας~\ref{tab:appendix_repository_evidence_matrix} 
+αποδίδει για κάθε βασικό αποθετήριο τον τεκμηριωμένο ρόλο του και τη θέση του στο σύνολο.
+
+\input{appendices/A_Engineering_Ecosystem/figures/fig_a1_org_repository_map}
+
+\begin{table}[H]
+\centering
+\caption{Χαρτογράφηση αποθετηρίων, τεκμηρίων και ρόλων στο συνολικό τεχνικό οικοσύστημα}
+\label{tab:appendix_repository_evidence_matrix}
+\input{appendices/A_Engineering_Ecosystem/tables/tab_a1_repository_evidence_matrix}
+\end{table}

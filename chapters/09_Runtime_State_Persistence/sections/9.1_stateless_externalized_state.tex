@@ -1,0 +1,22 @@
+\section{Εκτέλεση χωρίς τοπική διατήρηση κατάστασης και αποθήκευση σε εξωτερικά αποθετήρια}
+\label{sec:stateless_externalized_state}
+
+Η υλοποίηση ακολουθεί συχνά το μοτίβο εκτέλεσης χωρίς τοπική διατήρηση κατάστασης (\ENG{stateless runtime}), αλλά η διατύπωση αυτή χρειάζεται ακρίβεια. Ο \ENG{engine} δεν διατηρεί στη μνήμη του \ENG{application process} την έγκυρη κατάσταση της συνεδρίας. Η ενεργή κατάσταση κάθε \ENG{launch} αποθηκεύεται σε εξωτερικό αποθετήριο στη \ENG{Redis} μέσω του \texttt{\ENG{RuntimeStateStore}}. Έτσι η κατάσταση των χρηστών είναι ρητά κατανεμημένη σε εξειδικευμένα συστήματα αποθηκεύσης με διαφορετικό βαθμό μονιμότητας και διαφορετικό ρόλο ως προς την έγκυρη μορφή αναφοράς.
+
+Το αντικείμενο \texttt{\ENG{LaunchRuntimeState}} συγκεντρώνει τις κρίσιμες πληροφορίες μιας ενεργής συνεδρίας: \ENG{launchId}, \ENG{attemptId}, χρήστη, μάθημα, πρότυπο, τελευταία αποδεκτή ακολουθία, τελευταία χρονική στιγμή εμφάνισης και το \texttt{\ENG{NormalizedProgress}}. Ο \texttt{\ENG{LaunchRuntimeStateFactory}} το αρχικοποιεί κατά τη δημιουργία του \ENG{launch}, ενώ ο \texttt{\ENG{RuntimeOrchestrator}} το ενημερώνει σε κάθε αποδεκτό \ENG{commit}. Το \texttt{\ENG{RedisRuntimeStateStore}} σειριοποιεί το αντικείμενο ως \ENG{JSON}, ορίζει \ENG{TTL} και επιτρέπει τόσο την ανάκτηση μιας συγκεκριμένης κατάστασης όσο και τον εντοπισμό παλαιών, μη συγχρονισμένων (\ENG{dirty}) καταστάσεων.
+
+Η μόνιμη και έγκυρη αποθήκευση τοποθετείται στην \ENG{Postgres}. Σύμφωνα με τον σχεδιασμό της βάσης ο πίνακας \texttt{\ENG{attempts}} αποθηκεύει το συγκεντρωτικό αποτέλεσμα μιας προσπάθειας, δηλαδή \ENG{completion status}, \ENG{success status}, βαθμολογίες, συνολικό χρόνο, τελευταία θέση και τη χρονική στιγμή του τελευταίου \ENG{commit}. Παράλληλα, ο πίνακας \texttt{\ENG{attempt\_runtime\_snapshots}} διατηρεί στιγμιότυπα του \ENG{raw runtime JSON} και της κανονικοποιημένης προόδου. Η διάκριση αυτή είναι σημαντική καθώς η \ENG{Redis} διατηρεί την ενεργή, μεταβαλλόμενη κατάσταση, ενώ η \ENG{Postgres} διατηρεί την ιστορική και τελική αναπαράσταση που πρέπει να παραμένει ανακτήσιμη μετά τη λήξη της συνεδρίας.
+
+Η μεταφορά από την προσωρινή κατάσταση στη μόνιμη αποθήκευση γίνεται από τον \texttt{\ENG{RuntimeFlushService}}. Κατά τον κανονικό τερματισμό, η υπηρεσία ανακτά το ενεργό \ENG{LaunchRuntimeState}, εφαρμόζει το \texttt{\ENG{NormalizedProgress}} στο \ENG{attempt}, αποθηκεύει στιγμιότυπο των δεδομένων και κλείνει τόσο την προσπάθεια όσο και το \ENG{launch}. Η ίδια υπηρεσία χρησιμοποιείται και από τον \texttt{\ENG{RuntimeFlushScheduler}}, ο οποίος περιοδικά εντοπίζει χρονικά παρωχημένα ενεργά \ENG{launches} και τα κλείνει ως \ENG{ABANDONED}. Έτσι, η πλατφόρμα δεν εξαρτά την τελική καταγραφή μόνο από ομαλούς τερματισμούς μέσω του \ENG{browser}.
+
+Το Σχήμα~\ref{fig:stateless_state} αποτυπώνει αυτή την κατανομή ρόλων αναφοράς. Το Σχήμα~\ref{fig:runtime_flush_sequence} εξειδικεύει τη ροή συγχρονισμού προς μόνιμη αποθήκευση από το ενεργό \ENG{launch}. Ο Πίνακας~\ref{tab:state_authority_matrix} συμπληρώνει το σχήμα, καταγράφοντας για κάθε αποθετήριο αν λειτουργεί ως κύριο αποθετήριο αναφοράς ή ως υποστηρικτικό επίπεδο.
+
+\input{chapters/09_Runtime_State_Persistence/figures/fig_9.1_stateless_state}
+\input{chapters/09_Runtime_State_Persistence/figures/fig_9.2_flush_sequence}
+
+\begin{table}[H]
+\centering
+\caption{Ρόλοι αναφοράς και λειτουργίες των αποθετηρίων κατάστασης στην υλοποίηση}
+\label{tab:state_authority_matrix}
+\input{chapters/09_Runtime_State_Persistence/tables/tab_9.1_state_authority_matrix}
+\end{table}

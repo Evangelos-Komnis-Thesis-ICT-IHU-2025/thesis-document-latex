@@ -1,0 +1,88 @@
+\section{\ENG{cmi5}: Γεφυρώνοντας \ENG{SCORM} και \ENG{xAPI} (2016-σήμερα)}
+\label{sec:cmi5}
+
+Ενώ το \ENG{xAPI} παρείχε πρωτοφανή ευελιξία στην καταγραφή μαθησιακών εμπειριών, πολλοί οργανισμοί αντιμετώπιζαν προκλήσεις στην υιοθέτησή του. Η έλλειψη τυποποίησης στα \ENG{verbs} και \ENG{activities}, η πολυπλοκότητα του \ENG{LRS} \ENG{setup} και η απουσία κοινών κανόνων για την εκκίνηση (\textit{\ENG{launch}}) περιεχομένου καθιστούσαν δύσκολη τη μετάβαση από το \ENG{SCORM.} Το \ENG{cmi5} αναδύθηκε ως λύση σε αυτά τα προβλήματα, συνδυάζοντας τη δομή και την αξιοπιστία του \ENG{SCORM} με τη δύναμη και την ευελιξία του \ENG{xAPI}~\cite{xapicom2024cmi5overview,aicc2022cmi5}.
+
+\subsection{Η Γέννηση του \ENG{cmi5}}
+\label{subsec:cmi5_genesis}
+
+Το \ENG{cmi5} ξεκίνησε ως πρωτοβουλία του \textit{\ENG{Aviation} \ENG{Industry} \ENG{Computer-Based} \ENG{Training} \ENG{Committee}} (\ENG{AICC})—του ίδιου οργανισμού που είχε αναπτύξει τα πρώτα \ENG{E-Learning} \ENG{standards} στα τέλη της δεκαετίας του 1980. Όταν το \ENG{AICC} διαλύθηκε επισήμως το 2014, η ανάπτυξη του \ENG{cmi5} συνεχίστηκε υπό την αιγίδα του \ENG{ADL}, σε στενή συνεργασία με την κοινότητα του \ENG{xAPI}~\cite{adl2019cmi5,xapicom2024cmi5}.
+
+Η ονομασία «\ENG{cmi5}» προέρχεται από το \textit{\ENG{Computer} \ENG{Managed} \ENG{Instruction}} (\ENG{CMI})—το ίδιο αρκτικόλεξο που χρησιμοποιήθηκε στο \ENG{AICC} \ENG{CMI001}—και το «5» αντιπροσωπεύει την πέμπτη γενιά \ENG{CMI} \ENG{specifications.} Η πρώτη επίσημη έκδοση (\ENG{v1.0}) του \ENG{cmi5} κυκλοφόρησε τον Ιούνιο του 2016, ακολουθούμενη από αναθεωρήσεις και βελτιώσεις στις επόμενες εκδόσεις.
+
+\subsection{Τι Είναι το \ENG{cmi5}}
+\label{subsec:cmi5_definition}
+
+Το \ENG{cmi5} είναι ένα \ENG{xAPI} \ENG{Profile}—ένα σύνολο κανόνων και προδιαγραφών που ορίζουν πώς να χρησιμοποιηθεί το \ENG{xAPI} για συγκεκριμένους σκοπούς. Συγκεκριμένα, το \ENG{cmi5} ορίζει τον \ENG{Launch} \ENG{Mechanism} (πώς το \ENG{LMS} εκκινεί ένα \ENG{cmi5} \ENG{assignable} \ENG{unit} (\ENG{AU}) και πώς το \ENG{AU} επικοινωνεί με το \ENG{LRS}), την \ENG{Authorization} (πώς το \ENG{AU} αποκτά \ENG{authorization} \ENG{token} για να στείλει \ENG{statements} στο \ENG{LRS}), τα \ENG{Required} \ENG{Statements} (π.χ. \texttt{\ENG{initialized}}, \texttt{\ENG{completed}}, \texttt{\ENG{passed/failed}}, \texttt{\ENG{terminated}}), τη \ENG{Course} \ENG{Structure} (πώς να οργανωθεί το περιεχόμενο σε \ENG{assignable} \ENG{units} (\ENG{AUs}) και πώς να περιγραφεί η δομή του μαθήματος σε \ENG{XML} αρχείο \ENG{cmi5.xml}) και το \ENG{Reporting} \ENG{and} \ENG{Data} \ENG{Model} (ποια δεδομένα πρέπει να αναφέρονται και πώς να ερμηνευτούν τα \ENG{statements} για παρακολούθηση προόδου)~\cite{nextsoftware2024cmi5,easygenerator2025cmi5}.
+
+Με άλλα λόγια, το \ENG{cmi5} παρέχει την «κορυφή» του \ENG{SCORM} (δομή, εκκίνηση, παρακολούθηση) πάνω στη «βάση» του \ENG{xAPI} (ευέλικτα \ENG{statements}, \ENG{LRS}). Αυτό το καθιστά πιο εύκολο για οργανισμούς να μεταβούν από το \ENG{SCORM} στο \ENG{xAPI} χωρίς να χάσουν τις λειτουργίες που είχαν συνηθίσει.
+
+\subsection{Βασικά Χαρακτηριστικά του \ENG{cmi5}}
+\label{subsec:cmi5_features}
+
+\subsubsection{\ENG{Plug-and-Play} Διαλειτουργικότητα}
+
+Ένα από τα κύρια οφέλη του \ENG{cmi5} είναι η \ENG{plug-and-play} \ENG{interoperability}. Ένα \ENG{cmi5} \ENG{course} \ENG{package} μπορεί να ανέβει σε οποιοδήποτε \ENG{cmi5-compliant} \ENG{LMS} και να λειτουργήσει χωρίς τροποποιήσεις. Αυτό επιτυγχάνεται μέσω σαφώς καθορισμένων κανόνων εκκίνησης (\ENG{launch} \ENG{parameters}), κοινών \ENG{xAPI} \ENG{statements} και \ENG{verbs} που όλα τα συστήματα κατανοούν και τυποποιημένης δομής \ENG{course} \ENG{package} (\ENG{ZIP} \ENG{file} με \ENG{cmi5.xml} \ENG{manifest}).
+
+\subsubsection{\ENG{Launch}, \ENG{Authorization} και \ENG{Reporting}}
+
+Η ροή εργασίας του \ENG{cmi5} ξεκινά όταν ο εκπαιδευόμενος επιλέγει ένα \ENG{cmi5} \ENG{AU} από το \ENG{LMS.} Το \ENG{LMS} δημιουργεί ένα \textit{\ENG{launch} \ENG{URL}} με παραμέτρους όπως \texttt{\ENG{endpoint}} (το \ENG{URL} του \ENG{LRS}), \texttt{\ENG{fetch}} (το \ENG{URL} από το οποίο το \ENG{AU} ανακτά \ENG{authorization} \ENG{token} και πληροφορίες πλαισίου), \texttt{\ENG{actor}} (\ENG{JSON} \ENG{object} που αναπαριστά τον εκπαιδευόμενο), \texttt{\ENG{registration}} (\ENG{UUID} της συνεδρίας μάθησης) και \texttt{\ENG{activityId}} (το \ENG{xAPI} \ENG{activity} \ENG{ID} για το \ENG{AU}). Στη συνέχεια, το \ENG{AU} φορτώνει και καλεί το \texttt{\ENG{fetch}} \ENG{URL} για να λάβει \ENG{OAuth} 2.0 \ENG{token}, στέλνει το \texttt{\ENG{initialized}} \ENG{statement} στο \ENG{LRS} και καταγράφει την πρόοδο με \ENG{xAPI} \ENG{statements} κατά την αλληλεπίδραση του εκπαιδευόμενου, ενώ με την ολοκλήρωση αποστέλλονται \texttt{\ENG{completed}}, \texttt{\ENG{passed}} ή \texttt{\ENG{failed}} και, τελικά, \texttt{\ENG{terminated}} \ENG{statements}~\cite{rustici2021cmi5}.
+
+\subsubsection{\ENG{Course} \ENG{Structure} \ENG{File} (\ENG{cmi5.xml})}
+
+Το \ENG{cmi5} χρησιμοποιεί ένα \ENG{XML} αρχείο (\texttt{\ENG{cmi5.xml}}) για να περιγράψει τη δομή του μαθήματος. Αυτό το αρχείο είναι παρόμοιο με το \texttt{\ENG{imsmanifest.xml}} του \ENG{SCORM}, αλλά απλοποιημένο. Παράδειγμα:
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{verbatim}
+<?xml version="1.0" encoding="utf-8"?>
+<courseStructure xmlns="https://w3id.org/xapi/profiles/cmi5/v1/CourseStructure.xsd">
+  <course id="http://example.com/courses/intro-programming">
+    <title>
+      <langstring lang="en-US">Introduction to Programming</langstring>
+    </title>
+    <description>
+      <langstring lang="en-US">A beginner's course on programming</langstring>
+    </description>
+    <au id="http://example.com/aus/module1" 
+        launchMethod="OwnWindow" 
+        moveOn="Completed">
+      <title>
+        <langstring lang="en-US">Module 1: Variables and Data Types</langstring>
+      </title>
+      <url>module1/index.html</url>
+    </au>
+    <au id="http://example.com/aus/module2" 
+        launchMethod="OwnWindow" 
+        moveOn="Passed">
+      <title>
+        <langstring lang="en-US">Module 2: Control Structures</langstring>
+      </title>
+      <url>module2/index.html</url>
+    </au>
+  </course>
+</courseStructure>
+\end{verbatim}
+}
+Το \texttt{\ENG{moveOn}} \ENG{attribute} ορίζει πότε ο εκπαιδευόμενος μπορεί να προχωρήσει στο επόμενο \ENG{AU} (π.χ. μετά την ολοκλήρωση, μετά την επιτυχή ολοκλήρωση, ή αμέσως).
+
+\subsubsection{\ENG{Required} \ENG{xAPI} \ENG{Statements}}
+
+Το \ENG{cmi5} απαιτεί συγκεκριμένα \ENG{statements} για να διασφαλιστεί συνέπεια: \ENG{initialized} (το \ENG{AU} ξεκίνησε), \ENG{completed} (ο εκπαιδευόμενος ολοκλήρωσε το \ENG{AU}), \ENG{passed/failed} (το αποτέλεσμα της αξιολόγησης, αν υπάρχει), \ENG{terminated} (τερματισμός του \ENG{AU} και κλείσιμο \ENG{session}) και \ENG{satisfied} (πλήρωση των κριτηρίων \texttt{\ENG{moveOn}}).
+
+Αυτά τα \ENG{statements} χρησιμοποιούν \ENG{ADL} \ENG{xAPI} \ENG{verbs} και ακολουθούν συγκεκριμένες δομές ώστε τα \ENG{LMS} να μπορούν να τα ερμηνεύσουν με συνέπεια.
+
+\subsection{\ENG{cmi5} \ENG{vs} \ENG{SCORM} \ENG{vs} \ENG{xAPI}: Σύγκριση}
+\label{subsec:cmi5_comparison}
+
+\input{chapters/02_Historical_Background/tables/2.8_standards_comparison}
+
+Τα βασικά πλεονεκτήματα του \ENG{cmi5} είναι~\cite{xapicom2024cmi5comparison} η εύκολη μετάβαση από το \ENG{SCORM} με λιγότερες αλλαγές στη ροή εργασίας, η συνέπεια μέσω τυποποιημένων κανόνων που εξασφαλίζουν ομοιόμορφη λειτουργία σε διαφορετικά \ENG{LMS}, η ευελιξία του \ENG{xAPI} που επιτρέπει προσαρμοσμένα \ENG{xAPI} \ENG{statements} πέρα από τα \ENG{required} και η καλύτερη υποστήριξη \ENG{mobile} και \ENG{offline} πλατφορμών σε σχέση με το \ENG{SCORM.}
+
+\subsection{Υιοθέτηση και Μέλλον του \ENG{cmi5}}
+\label{subsec:cmi5_adoption}
+
+Η υιοθέτηση του \ENG{cmi5} αυξάνεται σταδιακά, ιδίως σε οργανισμούς που θέλουν να εκμεταλλευτούν το \ENG{xAPI} αλλά χρειάζονται τη δομή του \ENG{SCORM.} Μεγάλα \ENG{LMS} όπως το \ENG{Moodle}, το \ENG{Totara}, το \ENG{Cornerstone} \ENG{OnDemand}, το \ENG{Schoox} και το \ENG{Docebo} έχουν προσθέσει υποστήριξη για \ENG{cmi5}~\cite{xapicom2024cmi5technical}.
+
+Το \ENG{ADL} συνεχίζει να αναπτύσσει και να βελτιώνει το \ENG{cmi5}, με έμφαση σε βελτιωμένη τεκμηρίωση και εργαλεία συμμόρφωσης, ενσωμάτωση με άλλα \ENG{xAPI} \ENG{profiles}, υποστήριξη για νέες τεχνολογίες (\ENG{AR/VR}, \ENG{AI-driven} \ENG{learning}) και διεθνοποίηση με προσαρμογή σε διαφορετικά εκπαιδευτικά πλαίσια.
+
+Το \ENG{cmi5} αντιπροσωπεύει μια ισορροπημένη προσέγγιση μεταξύ καινοτομίας και πρακτικότητας, προσφέροντας στους οργανισμούς έναν ομαλό δρόμο προς τη μετάβαση από το \ENG{legacy} \ENG{SCORM} στο σύγχρονο οικοσύστημα του \ENG{xAPI}~\cite{dtic2024cmi5bestpractices}.
+

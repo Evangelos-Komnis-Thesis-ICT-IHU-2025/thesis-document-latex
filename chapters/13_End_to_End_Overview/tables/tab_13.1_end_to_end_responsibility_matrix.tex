@@ -1,0 +1,28 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{3.2cm}|p{3.5cm}|p{4.3cm}|p{3.6cm}|}
+\hline
+Φάση & Υπεύθυνο υποσύστημα & Κύριο συμβόλαιο εισόδου/εξόδου & Επίδραση στην κατάσταση \\
+\hline
+Εισαγωγή μαθήματος & \ENG{LMS} + \ENG{SDK} + \ENG{engine} & \texttt{\ENG{POST /api/v1/courses/import}} & \ENG{ZIP} στο \ENG{MinIO}, \ENG{course metadata} στο \ENG{Postgres} \\
+\hline
+Συγχρονισμός χρήστη και εγγραφής & \ENG{LMS} + \ENG{SDK} + \ENG{engine} & \texttt{\ENG{/users}}, \texttt{\ENG{/enrollments}} & Εγγραφές χρηστών και \ENG{enrollments} στο \ENG{Postgres} \\
+\hline
+Δημιουργία \ENG{launch} & \ENG{LMS} + \ENG{engine} & \texttt{\ENG{POST /api/v1/launches}} & Νέα \ENG{attempt}/\ENG{launch} στο \ENG{Postgres}, αρχική κατάσταση στο \ENG{Redis} \\
+\hline
+Σύνθεση \ENG{launch page} & \ENG{player} + \ENG{engine} & \texttt{\ENG{GET /launch/:launchId}}, \texttt{\ENG{GET /api/v1/launches/\{id\}}} & Ανάκτηση \ENG{launch context}, τοπική καταχώριση μεταδεδομένων συνεδρίας στον \ENG{player} \\
+\hline
+Διανομή περιεχομένου & \ENG{player} + \ENG{MinIO} & \ENG{Presigned ZIP URL}, \texttt{\ENG{/content/:launchId/*}} & Τοπική αποσυμπίεση στον \ENG{player cache} \\
+\hline
+\ENG{Commit cycle} & \ENG{Browser} + \ENG{player} + \ENG{engine} & \ENG{Internal player routes}, \texttt{\ENG{/runtime/launches/\{id\}/commit}} & Ενημέρωση \ENG{LaunchRuntimeState} στο \ENG{Redis} \\
+\hline
+Τερματισμός / συγχρονισμός & \ENG{player} + \ENG{engine} & \texttt{\ENG{/internal/launch/:id/terminate}}, \texttt{\ENG{/api/v1/launches/\{id\}/terminate}} & Στιγμιότυπο και τελική πρόοδος στο \ENG{Postgres}, διαγραφή κατάστασης από \ENG{Redis} \\
+\hline
+Προβολή προόδου & \ENG{LMS} + \ENG{SDK} + \ENG{engine} & \texttt{\ENG{GET /api/v1/attempts/\{attemptId\}/progress}} & Ανάκτηση έγκυρης προόδου για παρουσίαση στον χρήστη \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

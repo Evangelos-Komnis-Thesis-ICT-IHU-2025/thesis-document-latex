@@ -1,0 +1,57 @@
+% Figure 3.10: SCORM 2004 Navigation Controls and Request Flow
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+    component/.style={rectangle, draw=blue!60, fill=blue!10, thick, minimum width=3.4cm, minimum height=1.1cm, align=center, rounded corners},
+    source/.style={ellipse, draw=green!60, fill=green!10, thick, minimum width=2.9cm, minimum height=1.0cm, align=center},
+    request/.style={rectangle, draw=orange!60, fill=orange!10, thick, minimum width=2.45cm, minimum height=0.85cm, align=center, rounded corners, font=\scriptsize},
+    arrow/.style={->, >=stealth, thick}
+]
+
+% Navigation Request Sources
+\node[source] (learner) at (-4.8,0) {\ENG{Learner}\\\ENG{Action}};
+\node[source] (sco_nav) at (0,0) {\ENG{SCO} \ENG{Nav}\\\ENG{Request}};
+\node[source] (seq_action) at (4.8,0) {\ENG{Sequencing}\\\ENG{Action}};
+
+% Central Navigation Request Handler
+\node[component, minimum width=9.2cm, minimum height=1.35cm] (nav_handler) at (0,-2.4) {\ENG{Navigation} \ENG{Request} \ENG{Handler}};
+
+\draw[arrow] (learner) -- (nav_handler);
+\draw[arrow] (sco_nav) -- (nav_handler);
+\draw[arrow] (seq_action) -- (nav_handler);
+
+\node[request] (continue_evt) at (-4.9,-5.2) {\ENG{continue}};
+\node[request] (previous_evt) at (-1.6,-5.2) {\ENG{previous}};
+\node[request] (choice_evt) at (1.6,-5.2) {\ENG{choice}};
+\node[request] (exit_evt) at (4.9,-5.2) {\ENG{exit}};
+\node[request] (exitAll_evt) at (-4.9,-6.8) {\ENG{exitAll}};
+\node[request] (abandon_evt) at (-1.6,-6.8) {\ENG{abandon}};
+\node[request] (suspendAll_evt) at (1.6,-6.8) {\ENG{suspendAll}};
+\node[request] (abandonAll_evt) at (4.9,-6.8) {\ENG{abandonAll}};
+
+\node[
+    draw=gray!60,
+    dashed,
+    rounded corners,
+    inner sep=0.45cm,
+    fit=(continue_evt) (abandonAll_evt),
+    label={[font=\scriptsize\bfseries, anchor=north west]north west:\ENG{Navigation} \ENG{requests}}
+] (request_group) {};
+
+\draw[arrow] (nav_handler) -- (request_group.north);
+
+% Sequencing Process
+\node[component, minimum width=8cm] (sequencing) at (0,-9.6) {\ENG{Sequencing} \ENG{Process}};
+\draw[arrow] (request_group.south) -- (sequencing.north);
+
+% Control Modes
+\node[component, fill=purple!10, draw=purple!60, text width=11.4cm, minimum height=1.95cm] (control_modes) at (0,-12.6) {\ENG{Control} \ENG{modes} \ENG{and} \ENG{constraints}: \ENG{Choice}, \ENG{Flow}, \ENG{ForwardOnly}, \ENG{ChoiceExit}, \ENG{ConstrainChoice}, \ENG{PreventActivation}};
+
+\draw[arrow, dashed, thick, red!60] (control_modes) -- node[right, font=\scriptsize] {\ENG{Restrict}} (sequencing);
+
+% Annotations
+\node[font=\scriptsize\itshape, text width=3.4cm, align=left, above=0.4cm of learner] {\ENG{TOC} \ENG{selection},\\\ENG{buttons}};
+\node[font=\scriptsize\itshape, text width=3.4cm, align=center, above=0.4cm of sco_nav] {\ENG{adl.nav.request}};
+\node[font=\scriptsize\itshape, text width=3.4cm, align=right, above=0.4cm of seq_action] {\ENG{Rule} \ENG{actions}};
+
+\end{tikzpicture}
+\end{chapterfigurebox}

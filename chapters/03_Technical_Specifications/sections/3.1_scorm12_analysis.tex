@@ -1,0 +1,427 @@
+\section{\ENG{SCORM} 1.2 Τεχνική Ανάλυση}
+\label{sec:scorm12_analysis}
+\label{sec:scorm12_technical}
+
+Η τεχνική ανάλυση του \ENG{SCORM} 1.2 οργανώνεται γύρω από τους τρεις πυλώνες που καθόρισαν την ιστορική του επιτυχία, δηλαδή το \ENG{Content} \ENG{Aggregation} \ENG{Model}, το \ENG{Run-Time} \ENG{Environment} και το σύστημα μεταδεδομένων που βασίζεται στο \ENG{IEEE} \ENG{LOM}. Η σημασία του προτύπου δεν έγκειται μόνο στον ορισμό επιμέρους αρχείων ή κλήσεων \ENG{API}, αλλά κυρίως στο ότι συνδέει τη δομή περιεχομένου, τη διαδικασία εκτέλεσης και την περιγραφική τεκμηρίωση σε ένα ενιαίο μοντέλο διαλειτουργικότητας.
+
+\subsection{\ENG{Content} \ENG{Aggregation} \ENG{Model} (\ENG{CAM})}
+\label{subsec:scorm12_cam}
+
+Το \ENG{Content} \ENG{Aggregation} \ENG{Model} (\ENG{CAM}) του \ENG{SCORM} 1.2 ορίζει τον τρόπο με τον οποίο το εκπαιδευτικό περιεχόμενο οργανώνεται, συσκευάζεται και περιγράφεται πριν παραδοθεί σε ένα \ENG{Learning} \ENG{Management} \ENG{System}. Η σχεδίασή του βασίζεται στην προδιαγραφή \ENG{IMS} \ENG{Content} \ENG{Packaging}, την οποία το \ENG{ADL} εξειδίκευσε ώστε να υποστηρίζει εκτελέσιμες μαθησιακές ενότητες και φορητά πακέτα μαθημάτων. Κατά συνέπεια, το \ENG{CAM} δεν λειτουργεί απλώς ως μορφή αποθήκευσης αρχείων, αλλά ως τυπικό συμβόλαιο ανάμεσα στον δημιουργό περιεχομένου και στο \ENG{LMS}.
+
+\subsubsection{Βασικά Συστατικά του \ENG{CAM}}
+
+Η βασική εννοιολογική διάκριση του \ENG{CAM} αφορά τα \ENG{assets}, τα \ENG{SCOs} και την οργάνωση περιεχομένου που τα συνδέει. Τα \ENG{assets} αποτελούν την απλούστερη μορφή μαθησιακού πόρου και περιλαμβάνουν αρχεία όπως \ENG{HTML} σελίδες, εικόνες, βίντεο, \ENG{CSS} ή κώδικα \ENG{JavaScript}. Πρόκειται για παθητικά αντικείμενα, τα οποία μπορούν να παρουσιαστούν από έναν \ENG{web browser} χωρίς να απαιτούν επίγνωση του περιβάλλοντος εκτέλεσης ή άμεση επικοινωνία με το \ENG{LMS}.
+
+Πάνω από αυτό το επίπεδο βρίσκεται το \ENG{Shareable} \ENG{Content} \ENG{Object} (\ENG{SCO}), το οποίο συνιστά τη βασική ανεξάρτητη μονάδα εκτέλεσης στο \ENG{SCORM} 1.2. Ένα \ENG{SCO} μπορεί να εκκινείται αυτόνομα από το \ENG{LMS}, να αναζητά το \ENG{API} στο περιβάλλον του \ENG{browser} και να ανταλλάσσει δεδομένα, όπως βαθμολογία, πρόοδο, χρόνο και κατάσταση ολοκλήρωσης. Η έννοια της επαναχρησιμοποίησης, από την οποία προέρχεται και ο όρος \ENG{shareable}, βασίζεται ακριβώς στην υπόθεση ότι το \ENG{SCO} παραμένει λειτουργικά αυτάρκες και άρα μπορεί να μεταφερθεί από ένα συμβατό \ENG{LMS} σε άλλο χωρίς εσωτερική τροποποίηση.
+
+Η τρίτη διάσταση του \ENG{CAM} είναι η οργάνωση περιεχομένου, δηλαδή η λογική δομή μέσα στην οποία εντάσσονται τα \ENG{assets} και τα \ENG{SCOs}. Η οργάνωση αυτή αναπαρίσταται ως δενδρική ιεραρχία, όπου κάθε κόμβος μπορεί είτε να αναφέρεται σε εκτελέσιμο πόρο είτε να λειτουργεί ως καθαρά δομικός κόμβος ομαδοποίησης. Με τον τρόπο αυτό το \ENG{SCORM} 1.2 διαχωρίζει τη φυσική αποθήκευση των πόρων από την παιδαγωγική διάταξη με την οποία το μάθημα παρουσιάζεται στον εκπαιδευόμενο.
+
+\subsubsection{\ENG{Package} \ENG{Interchange} \ENG{File} (\ENG{PIF})}
+
+Η πρακτική μορφή διανομής ενός μαθήματος \ENG{SCORM} 1.2 είναι το \ENG{Package} \ENG{Interchange} \ENG{File} (\ENG{PIF}), δηλαδή ένα συμπιεσμένο αρχείο \ENG{ZIP} το οποίο λειτουργεί ως αυτοτελής φορέας μεταφοράς. Στη ρίζα του πακέτου πρέπει να βρίσκεται το αρχείο \texttt{\ENG{imsmanifest.xml}}, το οποίο αποτελεί το σημείο εκκίνησης για την εισαγωγή του μαθήματος στο \ENG{LMS}. Μαζί με το \ENG{manifest} περιλαμβάνονται όλα τα φυσικά αρχεία που αναφέρονται από αυτό, όπως σελίδες \ENG{HTML}, σενάρια \ENG{JavaScript}, εικόνες, πολυμεσικά αρχεία και βοηθητικοί πόροι.
+
+Στο ίδιο πακέτο μπορούν επίσης να συνυπάρχουν τα \ENG{XSD schema files} που προβλέπει η προδιαγραφή, καθώς και προαιρετικά αρχεία μεταδεδομένων. Η απαίτηση αυτοτέλειας είναι κρίσιμη, επειδή το \ENG{SCORM} 1.2 υποθέτει ότι ένα πακέτο μπορεί να εξαχθεί από ένα περιβάλλον και να εισαχθεί σε άλλο χωρίς εξωτερικές εξαρτήσεις, μη καταγεγραμμένους πόρους ή ανάγκη επαναρύθμισης των αρχείων.
+
+\subsubsection{Δομή του \ENG{imsmanifest.xml}}
+
+Το αρχείο \texttt{\ENG{imsmanifest.xml}} αποτελεί το κεντρικό τεχνικό τεκμήριο του \ENG{Content Package}, καθώς συγκεντρώνει την πληροφορία που χρειάζεται το \ENG{LMS} για να κατανοήσει τη δομή, τη λογική οργάνωση και τους διαθέσιμους πόρους του μαθήματος. Η εσωτερική του οργάνωση συνοψίζεται στον Πίνακα \ref{tab:scorm12_manifest_elements}, ο οποίος παρουσιάζει την ιεραρχία των βασικών στοιχείων του \ENG{manifest}.
+
+\input{chapters/03_Technical_Specifications/tables/tab_3.1_manifest_elements}
+
+Σε εννοιολογικό επίπεδο, το \ENG{manifest} συνδυάζει τέσσερις λειτουργίες. Η ενότητα \ENG{Metadata} παρέχει περιγραφικά στοιχεία για το σύνολο του πακέτου, η ενότητα \ENG{Organizations} αποτυπώνει την παιδαγωγική και πλοηγητική δομή του μαθήματος, η ενότητα \ENG{Resources} καταγράφει τους φυσικούς πόρους που μπορούν να παρουσιαστούν ή να εκτελεστούν, ενώ τα προαιρετικά \ENG{sub-manifests} επιτρέπουν αρθρωτή οργάνωση μεγαλύτερων πακέτων. Η σημασία αυτής της διάκρισης είναι ότι διαφορετικά επίπεδα περιγραφής συνυπάρχουν στο ίδιο έγγραφο χωρίς να συγχέονται: άλλο είναι η λογική ακολουθία μάθησης και άλλο ο κατάλογος των πραγματικών αρχείων.
+
+Η ενότητα \texttt{<\ENG{organizations}>} περιέχει μία ή περισσότερες δομές \texttt{<\ENG{organization}>}, από τις οποίες το \ENG{LMS} επιλέγει συνήθως μία ως προεπιλεγμένη μέσω του αντίστοιχου \ENG{attribute}. Κάθε \texttt{<\ENG{organization}>} αποτελείται από στοιχεία \texttt{<\ENG{item}>} με υποχρεωτικό \texttt{\ENG{identifier}} και με εμφανιζόμενο τίτλο μέσω του \texttt{<\ENG{title}>}. Τα \texttt{<\ENG{item}>} μπορούν να αναφέρονται σε πραγματικούς πόρους με το \texttt{\ENG{identifierref}} ή να λειτουργούν ως ενδιάμεσοι κόμβοι ομαδοποίησης, ενώ υποστηρίζουν και \ENG{ADL} επεκτάσεις όπως \texttt{\ENG{adlcp:masteryscore}} και \texttt{\ENG{adlcp:prerequisites}}. Έτσι, η δομή αυτή δεν είναι απλή λίστα αρχείων αλλά μαθησιακή αναπαράσταση της πορείας του χρήστη μέσα στο μάθημα.
+
+Η ενότητα \texttt{<\ENG{resources}>}, αντίθετα, περιγράφει το εκτελέσιμο και επαναχρησιμοποιήσιμο τμήμα του πακέτου. Κάθε \texttt{<\ENG{resource}>} ορίζεται από μοναδικό \texttt{\ENG{identifier}}, δηλώνει τον γενικό τύπο περιεχομένου μέσω του \texttt{\ENG{type}} και χρησιμοποιεί το \ENG{SCORM}-ειδικό \texttt{\ENG{adlcp:scormtype}} για να διακρίνει αν ο πόρος είναι \ENG{SCO} ή απλό \ENG{asset}. Στους εκτελέσιμους πόρους το \texttt{\ENG{href}} δηλώνει το αρχείο εισόδου, ενώ τα στοιχεία \texttt{<\ENG{file}>} και \texttt{<\ENG{dependency}>} καταγράφουν τόσο τα επιμέρους αρχεία όσο και τυχόν κοινόχρηστες εξαρτήσεις. Το ακόλουθο παράδειγμα αποτυπώνει ακριβώς αυτή τη διάκριση ανάμεσα σε έναν εκτελέσιμο πόρο και σε έναν κοινό κατάλογο υποστηρικτικών αρχείων.
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{lstlisting}[language=XML, caption={Παράδειγμα \ENG{SCORM} 1.2 \ENG{Resources} \ENG{Section}}, label={lst:scorm12_resources}]
+<resources>
+  <resource identifier="RES001" type="webcontent" 
+            adlcp:scormtype="sco" href="modules/module1/index.html">
+    <file href="modules/module1/index.html"/>
+    <file href="modules/module1/script.js"/>
+    <file href="modules/module1/styles.css"/>
+    <file href="shared/images/logo.png"/>
+    <dependency identifierref="SHARED_ASSETS"/>
+  </resource>
+  
+  <resource identifier="SHARED_ASSETS" type="webcontent"
+            adlcp:scormtype="asset">
+    <file href="shared/images/logo.png"/>
+    <file href="shared/scripts/common.js"/>
+  </resource>
+</resources>
+\end{lstlisting}
+}
+
+Το Σχήμα \ref{fig:scorm12_content_package} απεικονίζει γραφικά τη συνολική δομή ενός \ENG{SCORM} 1.2 \ENG{Content Package} και καθιστά σαφή τη συνύπαρξη λογικής οργάνωσης και φυσικών πόρων μέσα σε μία ενιαία προδιαγραφή.
+
+\input{chapters/03_Technical_Specifications/figures/fig_3.1_scorm12_content_package}
+
+\subsubsection{Σχέσεις μεταξύ \ENG{Organization} και \ENG{Resources}}
+
+Η λειτουργική σχέση ανάμεσα στα \texttt{<\ENG{organizations}>} και τα \texttt{<\ENG{resources}>} είναι θεμελιώδης για την ορθή εκτέλεση ενός πακέτου. Τα στοιχεία \texttt{<\ENG{item}>} της οργανωτικής δομής συνδέονται με τους πραγματικούς πόρους μέσω του \texttt{\ENG{identifierref}}, γεγονός που επιτρέπει σε πολλαπλούς κόμβους να αναφέρονται στον ίδιο πόρο και συνεπώς να αξιοποιούν την ίδια μονάδα περιεχομένου σε διαφορετικά μαθησιακά μονοπάτια. Αν ένα \texttt{<\ENG{item}>} δεν περιλαμβάνει \texttt{\ENG{identifierref}}, παραμένει καθαρά δομικός κόμβος και λειτουργεί ως φάκελος ή ενότητα. Μόνο όσα \texttt{<\ENG{item}>} συνδέονται τελικά με \ENG{SCO} είναι δυνατό να εκκινηθούν και να συμμετάσχουν στον μηχανισμό παρακολούθησης του \ENG{RTE}. Η αλληλεξάρτηση αυτή παρουσιάζεται αναλυτικά στο Σχήμα \ref{fig:scorm12_cam_manifest_structure}, όπου φαίνεται πώς η ιεραρχία του \ENG{manifest} καταλήγει στα εκτελέσιμα αντικείμενα.
+
+\input{chapters/03_Technical_Specifications/figures/fig_3.2_cam_manifest_structure}
+
+\subsubsection{\ENG{SCORM} 1.2 \ENG{Extensions} (\ENG{adlcp} \ENG{namespace})}
+
+Παρότι το \ENG{SCORM} 1.2 βασίζεται στο \ENG{IMS} \ENG{Content} \ENG{Packaging}, εισάγει κρίσιμες επεκτάσεις μέσω του \ENG{namespace} \texttt{\ENG{adlcp}:}, ώστε το πακέτο να μεταφέρει όχι μόνο δομική πληροφορία αλλά και κανόνες συμπεριφοράς που είναι χρήσιμοι κατά την εκτέλεση. Η επέκταση \texttt{\ENG{adlcp:scormtype}} διακρίνει ρητά τους επικοινωνούντες πόρους (\ENG{SCOs}) από τα παθητικά \ENG{assets}, η \texttt{\ENG{adlcp:masteryscore}} δηλώνει το κατώφλι επιτυχίας, η \texttt{\ENG{adlcp:prerequisites}} εκφράζει απλές λογικές εξαρτήσεις ανάμεσα σε \ENG{items}, ενώ οι \texttt{\ENG{adlcp:maxtimeallowed}} και \texttt{\ENG{adlcp:timelimitaction}} συνδέουν τη μαθησιακή δραστηριότητα με χρονικούς περιορισμούς και αντίστοιχες ενέργειες του συστήματος. Τέλος, η \texttt{\ENG{adlcp:datafromlms}} επιτρέπει στο \ENG{LMS} να αποστείλει αρχικές παραμέτρους στο \ENG{SCO} υπό μορφή συμβολοσειράς. Οι επεκτάσεις αυτές αυξάνουν σημαντικά την εκφραστικότητα του \ENG{manifest}, παρότι η πρακτική τους υποστήριξη διέφερε ιστορικά από \ENG{LMS} σε \ENG{LMS}.
+
+\subsubsection{Περιορισμοί και \ENG{Best} \ENG{Practices}}
+
+Η διαλειτουργικότητα του \ENG{SCORM} 1.2 εξαρτάται σε μεγάλο βαθμό από ορισμένους αυστηρούς περιορισμούς πακεταρίσματος. Όλες οι διαδρομές που δηλώνονται στο \ENG{manifest} και μέσα στο περιεχόμενο πρέπει να είναι σχετικές ως προς τον βασικό κατάλογο του \ENG{PIF}, το \texttt{\ENG{imsmanifest.xml}} οφείλει να βρίσκεται στη ρίζα του \ENG{ZIP} με ακριβώς αυτό το όνομα και το πακέτο δεν πρέπει να εξαρτάται από εξωτερικούς διακομιστές ή μη δηλωμένους πόρους. Παράλληλα, κάθε \ENG{SCO} πρέπει να αντιμετωπίζεται ως ανεξάρτητη μονάδα, χωρίς άμεση εξάρτηση από την εσωτερική κατάσταση άλλων \ENG{SCOs}, ώστε να διατηρείται η φορητότητα μεταξύ διαφορετικών \ENG{LMS} υλοποιήσεων.
+
+Πέρα από τις υποχρεωτικές απαιτήσεις, η πρακτική ανάπτυξης ώριμου περιεχομένου ευνοεί τη χρήση λογικής δομής φακέλων, τη δήλωση \ENG{dependencies} για κοινόχρηστους πόρους ώστε να αποφεύγεται ο πλεονασμός, τον εμπλουτισμό του πακέτου με ουσιαστικά μεταδεδομένα και τον συστηματικό έλεγχο συμβατότητας με το \ENG{ADL Test Suite}. Με αυτόν τον τρόπο η προδιαγραφή του \ENG{CAM} δεν αντιμετωπίζεται απλώς ως φορμαλισμός, αλλά ως μηχανισμός παραγωγής ανθεκτικών και επαναχρησιμοποιήσιμων μαθησιακών πακέτων.
+
+\subsection{\ENG{Run-Time} \ENG{Environment} (\ENG{RTE})}
+\label{subsec:scorm12_rte}
+
+Το \ENG{Run-Time} \ENG{Environment} (\ENG{RTE}) του \ENG{SCORM} 1.2 καθορίζει το πώς ένα \ENG{LMS} εκκινεί ένα \ENG{SCO}, πώς το περιεχόμενο ανακαλύπτει το διαθέσιμο \ENG{API} και πώς πραγματοποιείται η ανταλλαγή δεδομένων παρακολούθησης σε όλη τη διάρκεια της συνεδρίας. Η τεχνική αξία του \ENG{RTE} έγκειται στο ότι μετατρέπει ένα απλό \ENG{web} περιεχόμενο σε διαλειτουργική μαθησιακή εφαρμογή, η οποία μπορεί να ενημερώνει το \ENG{LMS} για πρόοδο, επίδοση, χρόνο και κατάσταση ολοκλήρωσης.
+
+\subsubsection{\ENG{Launch} \ENG{Mechanism}}
+
+Η διαδικασία \ENG{launch} ξεκινά από το \ENG{LMS}, το οποίο δημιουργεί πρώτα το αντικείμενο \ENG{API Adapter}, προετοιμάζει το παράθυρο ή το \ENG{frame} στο οποίο θα παρουσιαστεί το \ENG{SCO} και στη συνέχεια φορτώνει το αρχείο εισόδου που έχει δηλωθεί στο \ENG{manifest}. Από εκεί και πέρα, η ευθύνη μεταφέρεται στο ίδιο το \ENG{SCO}, το οποίο πρέπει να εντοπίσει το \ENG{API} μέσα στην ιεραρχία του \ENG{browser}, να καλέσει τη μέθοδο \texttt{\ENG{LMSInitialize}("")} και να ξεκινήσει τη συνεδρία επικοινωνίας. Η εκτέλεση αυτή δεν είναι δευτερεύουσα λεπτομέρεια υλοποίησης, αλλά τυπικό μέρος της προδιαγραφής, διότι από την επιτυχία της εξαρτάται η δυνατότητα του περιεχομένου να ανταλλάξει έγκυρα δεδομένα με το \ENG{LMS}.
+
+Το Σχήμα \ref{fig:scorm12_runtime_flow} αποτυπώνει τη ροή επικοινωνίας κατά το \ENG{launch} και την εκτέλεση, αναδεικνύοντας τη μετάβαση από τη φάση φόρτωσης στη φάση ενεργής συνεδρίας.
+
+\input{chapters/03_Technical_Specifications/figures/fig_3.3_scorm12_runtime_flow}
+
+Ο αλγόριθμος εντοπισμού του \ENG{API} αποτελεί χαρακτηριστικό γνώρισμα του \ENG{SCORM} 1.2 και αντανακλά τις ιστορικές τεχνικές παραδοχές της εποχής των πολλαπλών \ENG{frames}. Το \ENG{SCO} αναζητά αρχικά το αντικείμενο \texttt{\ENG{API}} στο γονικό του παράθυρο και συνεχίζει ανοδικά μέχρι το ανώτερο επίπεδο της ιεραρχίας. Αν η αναζήτηση αποτύχει, η ίδια διαδικασία επαναλαμβάνεται στην ιεραρχία του \ENG{opener window}, όταν το περιεχόμενο έχει ανοίξει σε αναδυόμενο παράθυρο. Η προδιαγραφή θεωρεί αποτυχία οποιαδήποτε περίπτωση στην οποία το αντικείμενο δεν είναι ορατό με το ακριβές όνομα \texttt{\ENG{API}} στο διαθέσιμο \ENG{JavaScript scope}.
+
+\subsubsection{\ENG{SCORM} 1.2 \ENG{API} \ENG{Methods}}
+
+Το \ENG{SCORM} 1.2 \ENG{API Adapter} παρέχει οκτώ βασικές μεθόδους επικοινωνίας, οι οποίες περιγράφονται αναλυτικά στον Πίνακα \ref{tab:scorm12_api_methods}. Η τυποποίηση αυτών των μεθόδων είναι κρίσιμη, επειδή επιτρέπει σε διαφορετικά \ENG{LMS} να εκθέτουν ομοιόμορφη διεπαφή προς περιεχόμενο που έχει αναπτυχθεί από ανεξάρτητους προμηθευτές.
+
+\input{chapters/03_Technical_Specifications/tables/tab_3.2_scorm12_api_methods}
+
+Σε επίπεδο κύκλου ζωής, κάθε \ENG{SCO} οφείλει να ακολουθεί μια αυστηρή ακολουθία ενεργειών: πρώτα ανακαλύπτει το \ENG{API}, έπειτα αρχικοποιεί τη συνεδρία, στη συνέχεια διαβάζει και γράφει στοιχεία του μοντέλου δεδομένων, προαιρετικά δεσμεύει ρητά την αποθήκευση με \texttt{\ENG{LMSCommit}()}, και τέλος τερματίζει τη συνεδρία με \texttt{\ENG{LMSFinish}("")}. Το ακόλουθο παράδειγμα παρουσιάζει αυτό το μοτίβο επικοινωνίας στην απλούστερη μορφή του.
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{lstlisting}[language=JavaScript, caption={Βασικό \ENG{SCORM} 1.2 \ENG{Communication} \ENG{Pattern}}, label={lst:scorm12_basic_comm}]
+// 1. Find API
+var API = null;
+function findAPI(win) {
+    while ((win.API == null) && (win.parent != null) && 
+           (win.parent != win)) {
+        win = win.parent;
+    }
+    return win.API;
+}
+
+// Search in parent hierarchy
+if (window.parent && window.parent != window) {
+    API = findAPI(window.parent);
+}
+
+// Search in opener hierarchy if not found
+if ((API == null) && (window.opener != null)) {
+    API = findAPI(window.opener);
+}
+
+// 2. Initialize communication
+if (API != null) {
+    var result = API.LMSInitialize("");
+    if (result == "true") {
+        console.log("Communication initialized successfully");
+    }
+}
+
+// 3. Exchange data during execution
+API.LMSSetValue("cmi.core.lesson_status", "incomplete");
+API.LMSCommit("");
+
+// 4. Terminate communication when done
+API.LMSFinish("");
+\end{lstlisting}
+}
+
+Η μεθοδολογία αυτή συνοδεύεται από συγκεκριμένο μοντέλο αναφοράς σφαλμάτων. Οι περισσότερες μέθοδοι επιστρέφουν τις συμβολοσειρές ``\ENG{true}'' ή ``\ENG{false}'', ενώ σε περίπτωση αποτυχίας το \ENG{SCO} μπορεί να ανακτήσει τον κωδικό του τελευταίου σφάλματος μέσω της \texttt{\ENG{LMSGetLastError}()}, μία σύντομη τυποποιημένη περιγραφή μέσω της \texttt{\ENG{LMSGetErrorString}()} και αναλυτικότερη διαγνωστική πληροφορία μέσω της \texttt{\ENG{LMSGetDiagnostic}()}. Ο Πίνακας \ref{tab:scorm12_error_codes} συγκεντρώνει τους βασικούς κωδικούς σφαλμάτων που χρησιμοποιούνται από την προδιαγραφή.
+
+\input{chapters/03_Technical_Specifications/tables/tab_3.4_scorm12_error_codes}
+
+\subsubsection{\ENG{SCORM} 1.2 \ENG{Data} \ENG{Model}}
+
+Το \ENG{SCORM} 1.2 \ENG{Data Model} βασίζεται στο \ENG{CMI} (\ENG{Computer Managed Instruction}) και ορίζει ένα προκαθορισμένο σύνολο στοιχείων που το \ENG{SCO} μπορεί να αναγνώσει ή να τροποποιήσει μέσω των \texttt{\ENG{LMSGetValue}()} και \texttt{\ENG{LMSSetValue}()}. Το μοντέλο αυτό συγκροτεί τον κοινό λεξιλογικό χώρο μέσω του οποίου το περιεχόμενο και το \ENG{LMS} κατανοούν με τον ίδιο τρόπο έννοιες όπως η πρόοδος, η επιτυχία, η διάρκεια, η θέση συνέχισης και οι επιμέρους αλληλεπιδράσεις.
+
+Η εσωτερική οργάνωση του μοντέλου διακρίνει επιμέρους \ENG{namespaces} με διαφορετικό λειτουργικό ρόλο. Το \texttt{\ENG{cmi.core}} καλύπτει τα βασικά στοιχεία παρακολούθησης, όπως κατάσταση μαθήματος, βαθμολογίες και χρόνους, ενώ το \texttt{\ENG{cmi.suspend}\_\ENG{data}} υποστηρίζει αποθήκευση αυθαίρετης κατάστασης για μηχανισμούς \ENG{suspend/resume}. Το \texttt{\ENG{cmi.launch}\_\ENG{data}} μεταφέρει αρχικές παραμέτρους από το \ENG{LMS} προς το περιεχόμενο, τα \texttt{\ENG{cmi.comments}} και \texttt{\ENG{cmi.comments}\_\ENG{from}\_\ENG{lms}} καλύπτουν αμφίδρομα σχόλια, τα \texttt{\ENG{cmi.objectives}} επιτρέπουν παρακολούθηση πολλαπλών μαθησιακών στόχων, τα \texttt{\ENG{cmi.student}\_\ENG{data}} και \texttt{\ENG{cmi.student}\_\ENG{preference}} μεταφέρουν πληροφορίες για τον χρήστη, ενώ το \texttt{\ENG{cmi.interactions}} καταγράφει λεπτομερώς τις επιμέρους αλληλεπιδράσεις. Ο Πίνακας \ref{tab:scorm12_data_model} παρουσιάζει συγκεντρωτικά τα κύρια στοιχεία του μοντέλου.
+
+\input{chapters/03_Technical_Specifications/tables/tab_3.3_scorm12_data_model}
+
+Ιδιαίτερη βαρύτητα έχει το \texttt{\ENG{cmi.core}}, επειδή αποτελεί την ελάχιστη κοινή βάση παρακολούθησης που σχεδόν κάθε \ENG{SCO} χρησιμοποιεί. Τα στοιχεία \texttt{\ENG{cmi.core.student}\_\ENG{id}} και \texttt{\ENG{cmi.core.student}\_\ENG{name}} προσδιορίζουν τον εκπαιδευόμενο με \ENG{read-only} τρόπο, ενώ το \texttt{\ENG{cmi.core.lesson}\_\ENG{location}} επιτρέπει αποθήκευση της θέσης συνέχισης μέσα στο \ENG{SCO}. Η κατάσταση φοίτησης αποτυπώνεται μέσω του \texttt{\ENG{cmi.core.lesson}\_\ENG{status}}, το οποίο μπορεί να λάβει τιμές όπως ``\ENG{passed}'', ``\ENG{completed}'', ``\ENG{failed}'', ``\ENG{incomplete}'', ``\ENG{browsed}'' και ``\ENG{not attempted}'', ενώ η πληροφορία \texttt{\ENG{cmi.core.entry}} διακρίνει αν η συνεδρία είναι νέα, επαναφορά ή κανονική είσοδος. Οι τιμές \texttt{\ENG{cmi.core.score.raw}}, \texttt{\ENG{cmi.core.score.min}} και \texttt{\ENG{cmi.core.score.max}} υποστηρίζουν ποσοτική αξιολόγηση, το \texttt{\ENG{cmi.core.total}\_\ENG{time}} εκφράζει τον συνολικό συσσωρευμένο χρόνο φοίτησης, το \texttt{\ENG{cmi.core.lesson}\_\ENG{mode}} δηλώνει αν η εμπειρία είναι \ENG{browse}, \ENG{normal} ή \ENG{review}, ενώ τα \texttt{\ENG{cmi.core.exit}} και \texttt{\ENG{cmi.core.session}\_\ENG{time}} συνδέονται με τον ορθό τερματισμό της τρέχουσας συνεδρίας.
+
+Το υποσύστημα \texttt{\ENG{cmi.interactions}} εξειδικεύει ακόμη περισσότερο την παρακολούθηση, καθώς επιτρέπει στο \ENG{SCO} να καταγράφει αναλυτικά κάθε ερώτηση ή αλληλεπιδραστικό γεγονός. Για κάθε εγγραφή μπορούν να δηλωθούν αναγνωριστικό, τύπος αλληλεπίδρασης, απάντηση του εκπαιδευόμενου, πρότυπο ορθής απάντησης, αποτέλεσμα, βαρύτητα, καθυστέρηση και χρονική σήμανση. Το ακόλουθο παράδειγμα δείχνει την πρακτική χρήση του μοντέλου για την καταγραφή μιας ερώτησης.
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{lstlisting}[language=JavaScript, caption={Παράδειγμα \ENG{Interactions} \ENG{Tracking}}, label={lst:scorm12_interactions}]
+// Get current count
+var numInteractions = API.LMSGetValue("cmi.interactions._count");
+var index = parseInt(numInteractions);
+
+// Set interaction details
+API.LMSSetValue("cmi.interactions." + index + ".id", "Q1");
+API.LMSSetValue("cmi.interactions." + index + ".type", "choice");
+API.LMSSetValue("cmi.interactions." + index + ".student_response", "A");
+API.LMSSetValue("cmi.interactions." + index + ".correct_responses.0.pattern", "C");
+API.LMSSetValue("cmi.interactions." + index + ".result", "wrong");
+API.LMSSetValue("cmi.interactions." + index + ".weighting", "1.0");
+API.LMSSetValue("cmi.interactions." + index + ".latency", "00:00:15");
+API.LMSSetValue("cmi.interactions." + index + ".time", "14:23:07");
+
+API.LMSCommit("");
+\end{lstlisting}
+}
+
+Η προδιαγραφή αναγνωρίζει τύπους αλληλεπίδρασης όπως \texttt{\ENG{true-false}}, \texttt{\ENG{choice}}, \texttt{\ENG{fill-in}}, \texttt{\ENG{matching}}, \texttt{\ENG{performance}}, \texttt{\ENG{sequencing}}, \texttt{\ENG{likert}} και \texttt{\ENG{numeric}}, στοιχείο που αποκαλύπτει ότι το \ENG{SCORM} 1.2 δεν περιορίζεται σε απλή βαθμολογία αλλά υποστηρίζει σημαντικό επίπεδο παιδαγωγικής αναλυτικότητας.
+
+Αντίστοιχα, το μοντέλο \texttt{\ENG{cmi.objectives}} επιτρέπει την ανεξάρτητη παρακολούθηση πολλαπλών μαθησιακών στόχων μέσα στο ίδιο \ENG{SCO}. Για κάθε στόχο μπορούν να δηλωθούν αναγνωριστικό, βαθμολογικά στοιχεία και κατάσταση ολοκλήρωσης ή επιτυχίας, ώστε το περιεχόμενο να τεκμηριώνει επιμέρους αποτελέσματα μάθησης και όχι μόνο μία συνολική επίδοση.
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{lstlisting}[language=JavaScript, caption={Παράδειγμα \ENG{Objectives} \ENG{Tracking}}, label={lst:scorm12_objectives}]
+// Set objective 0
+API.LMSSetValue("cmi.objectives.0.id", "OBJ_MODULE1");
+API.LMSSetValue("cmi.objectives.0.score.raw", "85");
+API.LMSSetValue("cmi.objectives.0.score.min", "0");
+API.LMSSetValue("cmi.objectives.0.score.max", "100");
+API.LMSSetValue("cmi.objectives.0.status", "passed");
+
+// Set objective 1
+API.LMSSetValue("cmi.objectives.1.id", "OBJ_MODULE2");
+API.LMSSetValue("cmi.objectives.1.status", "incomplete");
+
+API.LMSCommit("");
+\end{lstlisting}
+}
+
+Τέλος, το \texttt{\ENG{cmi.suspend}\_\ENG{data}} παίζει καθοριστικό ρόλο στη διατήρηση της κατάστασης μεταξύ συνεδριών. Παρότι το μέγιστο μήκος του περιορίζεται στους 4096 χαρακτήρες, παρέχει στο \ENG{SCO} έναν γενικής χρήσης χώρο αποθήκευσης όπου μπορούν να κωδικοποιηθούν πληροφορίες όπως η τρέχουσα σελίδα, οι απαντημένες ερωτήσεις ή άλλες δομές που απαιτούνται για ακριβή επαναφορά της μαθησιακής κατάστασης.
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{lstlisting}[language=JavaScript, caption={Παράδειγμα \ENG{Suspend} \ENG{Data}}, label={lst:scorm12_suspend}]
+// Save state when suspending
+var state = {
+    currentPage: 5,
+    questionsAnswered: [1, 3, 5],
+    userSelections: { q1: "A", q3: "C", q5: "B" }
+};
+var suspendData = JSON.stringify(state);
+API.LMSSetValue("cmi.core.exit", "suspend");
+API.LMSSetValue("cmi.suspend_data", suspendData);
+API.LMSCommit("");
+API.LMSFinish("");
+
+// Resume: Read suspend data
+var entry = API.LMSGetValue("cmi.core.entry");
+if (entry == "resume") {
+    var suspendData = API.LMSGetValue("cmi.suspend_data");
+    var state = JSON.parse(suspendData);
+    // Restore state
+    goToPage(state.currentPage);
+}
+\end{lstlisting}
+}
+
+\subsubsection{\ENG{API} \ENG{Adapter} \ENG{Architecture}}
+
+Το Σχήμα \ref{fig:scorm12_api_adapter_architecture} απεικονίζει την αρχιτεκτονική του \ENG{API Adapter} ως ενδιάμεσου στρώματος ανάμεσα στο \ENG{SCO} και στις υπηρεσίες του \ENG{LMS}.
+
+\input{chapters/03_Technical_Specifications/figures/fig_3.4_api_adapter_architecture}
+
+Σε λειτουργικό επίπεδο, ο \ENG{API Adapter} εκθέτει ένα \ENG{client-side JavaScript object} προς το \ENG{SCO}, ελέγχει τη συντακτική και σημασιολογική εγκυρότητα των τιμών που ανταλλάσσονται, διαχειρίζεται την κατάσταση της συνεδρίας, διαμεσολαβεί με τα \ENG{server-side} υποσυστήματα αποθήκευσης και επιστρέφει κωδικούς ή διαγνωστικά σφάλματα. Η αρχιτεκτονική αυτή εξηγεί γιατί το \ENG{SCORM} 1.2 δεν πρέπει να εκλαμβάνεται ως απλή βιβλιοθήκη \ENG{JavaScript}, αλλά ως πλήρες πρωτόκολλο συνεργασίας μεταξύ \ENG{browser-side} περιεχομένου και \ENG{LMS backend}.
+
+Για να διατηρείται η ορθότητα του μοντέλου, ο \ENG{API Adapter} οφείλει να εφαρμόζει αυστηρούς κανόνες επικύρωσης. Αυτό περιλαμβάνει έλεγχο τύπου δεδομένων, επικύρωση επιτρεπτών τιμών και ορίων, σεβασμό περιορισμών μήκους όπως στο \texttt{\ENG{cmi.suspend}\_\ENG{data}}, διάκριση μεταξύ \ENG{read-only}, \ENG{write-only} και \ENG{read-write} στοιχείων, καθώς και επιβολή της σωστής ακολουθίας κλήσεων, ώστε μέθοδοι όπως η \texttt{\ENG{LMSInitialize}()} να προηγούνται κάθε άλλης αλληλεπίδρασης.
+
+\subsubsection{\ENG{Best} \ENG{Practices} για \ENG{SCO} \ENG{Development}}
+
+Η ανάπτυξη ανθεκτικών \ENG{SCORM} 1.2 \ENG{SCOs} προϋποθέτει συνεπή τήρηση ορισμένων πρακτικών που απορρέουν άμεσα από τους περιορισμούς του προτύπου. Η κλήση της \texttt{\ENG{LMSInitialize}()} πρέπει να προηγείται οποιασδήποτε άλλης ενέργειας, ενώ η \texttt{\ENG{LMSFinish}()} πρέπει να εκτελείται ακόμη και σε περιπτώσεις \ENG{unload} γεγονότων, ώστε να αποφεύγεται απώλεια κατάστασης. Επειδή τα \ENG{LMS} δεν εγγυώνται ότι κάθε \texttt{\ENG{LMSSetValue}()} θα αποθηκευθεί άμεσα, η περιοδική χρήση της \texttt{\ENG{LMSCommit}()} παραμένει ουσιώδης, όπως και ο προσεκτικός έλεγχος των επιστρεφόμενων τιμών σε κάθε κλήση. Παράλληλα, η απουσία του \ENG{API} πρέπει να αντιμετωπίζεται με ελεγχόμενη υποβάθμιση λειτουργίας, το \texttt{\ENG{cmi.suspend}\_\ENG{data}} να χρησιμοποιείται με επίγνωση του ορίου μεγέθους και το \texttt{\ENG{cmi.core.session}\_\ENG{time}} να τίθεται πριν τον τερματισμό ώστε να εξασφαλίζεται ακριβής χρονομέτρηση. Τέλος, η διαλειτουργικότητα δεν πρέπει να θεωρείται δεδομένη χωρίς δοκιμές σε πολλαπλά \ENG{LMS vendors}, καθώς ιστορικά υπήρξαν αισθητές αποκλίσεις στις επιμέρους υλοποιήσεις.
+
+\subsection{\ENG{Metadata}}
+\label{subsec:scorm12_metadata}
+
+Το \ENG{SCORM} 1.2 ενσωματώνει το πρότυπο \ENG{IEEE} \ENG{Learning} \ENG{Object} \ENG{Metadata} (\ENG{LOM}) με σκοπό να προσδώσει στο εκπαιδευτικό περιεχόμενο δομημένη περιγραφική πληροφορία. Η λειτουργία των μεταδεδομένων δεν περιορίζεται στην τεκμηρίωση για τον δημιουργό ή τον διαχειριστή, αλλά επεκτείνεται στην αναζήτηση, στην αξιολόγηση καταλληλότητας, στην καταλογογράφηση και τελικά στην επαναχρησιμοποίηση μαθησιακών αντικειμένων σε διαφορετικά περιβάλλοντα.
+
+\subsubsection{\ENG{IEEE} \ENG{LOM} \ENG{Overview}}
+
+Το \ENG{IEEE} \ENG{LOM} ορίζει ένα εννοιολογικό σχήμα περιγραφής μαθησιακών αντικειμένων, το οποίο οργανώνεται σε εννέα κύριες κατηγορίες. Η σχεδίαση αυτή επιδιώκει να αποδώσει όχι μόνο τεχνικά χαρακτηριστικά αλλά και παιδαγωγικό νόημα, συνθήκες χρήσης, δικαιώματα, σχέσεις με άλλα αντικείμενα και ταξινομική ένταξη. Το Σχήμα \ref{fig:scorm12_lom_categories} αποτυπώνει οπτικά αυτή τη συνολική δομή.
+
+\input{chapters/03_Technical_Specifications/figures/fig_3.5_lom_categories}
+
+\subsubsection{\ENG{LOM} \ENG{Metadata} \ENG{Categories}}
+
+Ο Πίνακας \ref{tab:scorm12_lom_elements} συγκεντρώνει τις βασικές κατηγορίες και τα σημαντικότερα στοιχεία του \ENG{IEEE LOM}. Η αξία του \ENG{LOM} για το \ENG{SCORM} 1.2 έγκειται στο ότι προσφέρει κοινό περιγραφικό λεξιλόγιο για τεχνικά, διοικητικά και παιδαγωγικά χαρακτηριστικά του ίδιου μαθησιακού αντικειμένου.
+
+\input{chapters/03_Technical_Specifications/tables/tab_3.5_lom_elements}
+
+Η κατηγορία \ENG{General} συγκροτεί την ταυτότητα του μαθησιακού αντικειμένου, καθώς περιλαμβάνει στοιχεία όπως \ENG{identifier}, \ENG{title}, \ENG{language}, \ENG{description}, \ENG{keyword}, \ENG{coverage}, \ENG{structure} και \ENG{aggregation level}. Η \ENG{Lifecycle} κατηγορία συμπληρώνει αυτή την ταυτότητα με πληροφορίες για την εξέλιξη και την τρέχουσα κατάσταση του πόρου, όπως \ENG{version}, \ENG{status} και αναλυτικά δεδομένα συνεισφερόντων μέσω του στοιχείου \ENG{contribute}, όπου τεκμηριώνονται ρόλοι, οντότητες σε μορφή \ENG{vCard} και ημερομηνίες συνεισφοράς. Σε επόμενο επίπεδο, η \ENG{Meta-Metadata} στρέφεται στα ίδια τα μεταδεδομένα, καταγράφοντας το αναγνωριστικό της εγγραφής, τη γλώσσα, το σχήμα στο οποίο στηρίζεται και τους φορείς που δημιούργησαν ή τροποποίησαν την περιγραφική τεκμηρίωση.
+
+Η κατηγορία \ENG{Technical} εστιάζει στα χαρακτηριστικά που επηρεάζουν την εκτέλεση και την πρόσβαση στο περιεχόμενο. Σε αυτήν δηλώνονται μορφότυποι \ENG{MIME}, μέγεθος αρχείων, τοποθεσίες \ENG{URL/URI}, απαιτήσεις ως προς λειτουργικά συστήματα και \ENG{browsers}, οδηγίες εγκατάστασης, πρόσθετες τεχνικές προϋποθέσεις και, όπου χρειάζεται, η τυπική διάρκεια. Η κατηγορία \ENG{Educational}, αντίστοιχα, μεταφέρει παιδαγωγικό νόημα μέσω στοιχείων όπως το \ENG{interactivity type}, το \ENG{learning resource type}, το επίπεδο αλληλεπίδρασης, η \ENG{semantic density}, ο προβλεπόμενος ρόλος τελικού χρήστη, το εκπαιδευτικό πλαίσιο, το ηλικιακό εύρος, η δυσκολία, ο τυπικός χρόνος μάθησης και η γλώσσα του κοινού. Με αυτόν τον τρόπο, το \ENG{LOM} λειτουργεί όχι απλώς ως κατάλογος αρχείων αλλά ως λεπτομερής περιγραφή του τρόπου με τον οποίο ένα μαθησιακό αντικείμενο μπορεί να αξιοποιηθεί.
+
+Οι υπόλοιπες κατηγορίες συμπληρώνουν το εννοιολογικό προφίλ του αντικειμένου. Η \ENG{Rights} προσδιορίζει αν υπάρχουν οικονομικοί όροι ή περιορισμοί πνευματικής ιδιοκτησίας και τεκμηριώνει τις συνθήκες χρήσης. Η \ENG{Relation} εκφράζει δεσμούς με άλλα μαθησιακά αντικείμενα μέσω τύπων σχέσης όπως \ENG{ispartof}, \ENG{haspart}, \ENG{references} ή \ENG{requires}. Η \ENG{Annotation} επιτρέπει τη συσχέτιση σχολίων με φορέα και ημερομηνία, ενώ η \ENG{Classification} συνδέει το περιεχόμενο με ταξονομίες, σκοπούς ταξινόμησης, \ENG{taxon paths}, περιγραφές και λέξεις-κλειδιά. Ως σύνολο, οι εννέα κατηγορίες επιτρέπουν σε ένα \ENG{LMS} ή σε ένα αποθετήριο να ανακαλύπτει, να συγκρίνει και να ανακτά περιεχόμενο με πολύ πιο ουσιαστικό τρόπο από ό,τι θα ήταν δυνατό μόνο με βάση το όνομα ή τη θέση ενός αρχείου.
+
+\subsubsection{\ENG{Metadata} στο \ENG{SCORM} 1.2 \ENG{Manifest}}
+
+Το \ENG{SCORM} 1.2 επιτρέπει την ενσωμάτωση μεταδεδομένων σε περισσότερα από ένα επίπεδα του \ENG{manifest}, ώστε η περιγραφή να μπορεί να αντιστοιχεί είτε στο συνολικό πακέτο είτε σε επιμέρους συνιστώσες του. Μεταδεδομένα μπορούν να δηλωθούν στο ριζικό \texttt{<\ENG{manifest}>} για να περιγράψουν το μάθημα ως σύνολο, σε επίπεδο \texttt{<\ENG{organization}>} για να αποδώσουν χαρακτηριστικά σε μια συγκεκριμένη μαθησιακή διάρθρωση και σε επίπεδο \texttt{<\ENG{resource}>} για να τεκμηριώσουν ξεχωριστά \ENG{SCOs} ή \ENG{assets}. Το ακόλουθο παράδειγμα δείχνει πώς το \ENG{LOM} ενσωματώνεται απευθείας στο \ENG{manifest}.
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{lstlisting}[language=XML, caption={Παράδειγμα \ENG{SCORM} 1.2 \ENG{Metadata}}, label={lst:scorm12_metadata}]
+<manifest identifier="MANIFEST_001" version="1.0"
+          xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+          xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="...">
+  
+  <metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>1.2</schemaversion>
+    <lom xmlns="http://www.imsglobal.org/xsd/imsmd_rootv1p2p1">
+      <general>
+        <identifier>
+          <catalog>URI</catalog>
+          <entry>http://example.com/courses/scorm101</entry>
+        </identifier>
+        <title>
+          <langstring xml:lang="en">Introduction to SCORM 1.2</langstring>
+        </title>
+        <language>en</language>
+        <description>
+          <langstring xml:lang="en">
+            A comprehensive introduction to SCORM 1.2 specifications
+          </langstring>
+        </description>
+        <keyword>
+          <langstring xml:lang="en">SCORM</langstring>
+        </keyword>
+        <keyword>
+          <langstring xml:lang="en">e-learning</langstring>
+        </keyword>
+      </general>
+      
+      <lifecycle>
+        <version>
+          <langstring xml:lang="en">1.0</langstring>
+        </version>
+        <status>
+          <source>
+            <langstring xml:lang="x-none">LOMv1.0</langstring>
+          </source>
+          <value>
+            <langstring xml:lang="x-none">final</langstring>
+          </value>
+        </status>
+        <contribute>
+          <role>
+            <source>
+              <langstring xml:lang="x-none">LOMv1.0</langstring>
+            </source>
+            <value>
+              <langstring xml:lang="x-none">author</langstring>
+            </value>
+          </role>
+          <entity>BEGIN:VCARD
+VERSION:3.0
+FN:John Doe
+EMAIL:john.doe@example.com
+END:VCARD</entity>
+          <date>
+            <datetime>2026-01-01</datetime>
+          </date>
+        </contribute>
+      </lifecycle>
+      
+      <technical>
+        <format>text/html</format>
+        <requirement>
+          <type>
+            <source>
+              <langstring xml:lang="x-none">LOMv1.0</langstring>
+            </source>
+            <value>
+              <langstring xml:lang="x-none">browser</langstring>
+            </value>
+          </type>
+          <name>
+            <source>
+              <langstring xml:lang="x-none">LOMv1.0</langstring>
+            </source>
+            <value>
+              <langstring xml:lang="x-none">any</langstring>
+            </value>
+          </name>
+        </requirement>
+      </technical>
+      
+      <educational>
+        <learningresourcetype>
+          <source>
+            <langstring xml:lang="x-none">LOMv1.0</langstring>
+          </source>
+          <value>
+            <langstring xml:lang="x-none">lecture</langstring>
+          </value>
+        </learningresourcetype>
+        <intendedenduserrole>
+          <source>
+            <langstring xml:lang="x-none">LOMv1.0</langstring>
+          </source>
+          <value>
+            <langstring xml:lang="x-none">learner</langstring>
+          </value>
+        </intendedenduserrole>
+        <context>
+          <source>
+            <langstring xml:lang="x-none">LOMv1.0</langstring>
+          </source>
+          <value>
+            <langstring xml:lang="x-none">higher education</langstring>
+          </value>
+        </context>
+        <typicallearningtime>
+          <duration>PT2H</duration>
+        </typicallearningtime>
+      </educational>
+      
+      <rights>
+        <cost>
+          <source>
+            <langstring xml:lang="x-none">LOMv1.0</langstring>
+          </source>
+          <value>
+            <langstring xml:lang="x-none">no</langstring>
+          </value>
+        </cost>
+        <copyrightandotherrestrictions>
+          <source>
+            <langstring xml:lang="x-none">LOMv1.0</langstring>
+          </source>
+          <value>
+            <langstring xml:lang="x-none">yes</langstring>
+          </value>
+        </copyrightandotherrestrictions>
+        <description>
+          <langstring xml:lang="en">
+            Copyright 2026 Example University. All rights reserved.
+          </langstring>
+        </description>
+      </rights>
+    </lom>
+  </metadata>
+  
+  <organizations default="ORG001">
+    <!-- ... -->
+  </organizations>
+  
+  <resources>
+    <!-- ... -->
+  </resources>
+</manifest>
+\end{lstlisting}
+}
+
+\subsubsection{\ENG{Metadata} \ENG{Best} \ENG{Practices}}
+
+Η αποτελεσματική χρήση μεταδεδομένων στο \ENG{SCORM} 1.2 προϋποθέτει πληρότητα, συνέπεια και συντήρηση. Όσο πλουσιότερη είναι η περιγραφή, τόσο καλύτερα υποστηρίζονται η αναζήτηση και η επαναχρησιμοποίηση, αρκεί να τηρούνται τα ελεγχόμενα λεξιλόγια του \ENG{LOM} και να παραμένει σαφές ποια στοιχεία αναφέρονται στο πακέτο, ποια στην οργανωτική δομή και ποια σε επιμέρους πόρους. Σε πολυγλωσσικά περιβάλλοντα είναι σκόπιμη η παροχή τιμών σε περισσότερες από μία γλώσσες, ενώ σε μεγάλα ή σύνθετα πακέτα είναι συχνά χρήσιμη η χρήση εξωτερικών αρχείων \ENG{XML} για τη διαχείριση εκτενών μεταδεδομένων. Ιδιαίτερη έμφαση πρέπει επίσης να δίνεται στα παιδαγωγικά και νομικά στοιχεία, επειδή από αυτά εξαρτάται τόσο η σωστή επιλογή περιεχομένου όσο και η ασφαλής επαναδιάθεσή του.
+
+\subsubsection{\ENG{Metadata} και \ENG{Reusability}}
+
+Η συμβολή των μεταδεδομένων στην επαναχρησιμοποίηση είναι στρατηγική. Μέσω αυτών ένα αποθετήριο ή ένα \ENG{LMS} μπορεί να εντοπίσει σχετικό περιεχόμενο, να αξιολογήσει αν είναι κατάλληλο για συγκεκριμένο εκπαιδευτικό πλαίσιο, να επιλέξει τον ορθό μαθησιακό πόρο με βάση τεχνικά και παιδαγωγικά κριτήρια, να εκτιμήσει τη δυνατότητα προσαρμογής του σε νέο κοινό και να κατανοήσει τους όρους χρήσης και αναδιανομής του. Για τον λόγο αυτό, στο \ENG{SCORM} 1.2 τα μεταδεδομένα δεν αποτελούν επικουρικό στολίδι τεκμηρίωσης, αλλά κρίσιμο μηχανισμό που συνδέει την τυποποίηση με την πρακτική επαναχρησιμοποίηση του εκπαιδευτικού περιεχομένου.

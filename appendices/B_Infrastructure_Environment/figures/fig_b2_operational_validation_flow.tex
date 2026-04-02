@@ -1,0 +1,31 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.9cm and 2.4cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.5cm, minimum height=1.05cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.7cm, minimum height=1.05cm, font=\footnotesize\bfseries},
+      arrow/.style={-Latex, thick},
+      future/.style={-Latex, thick, dashed}
+    ]
+    \node[box] (env) {\texttt{\ENG{.env.example}}\\+\texttt{\ENG{validate-env.sh}}};
+    \node[emph, below=1.9cm of env] (composeup) {\ENG{docker compose up}};
+    \node[box, left=2.8cm of composeup] (mock) {\texttt{\ENG{docker-compose.}}\\\texttt{\ENG{mock.yml}}\\\ENG{PR mode}};
+    \node[box, below left=1.9cm and 2.1cm of composeup] (bootstrap) {\ENG{LMS entrypoint}\\\ENG{bootstrap}};
+    \node[box, below right=1.9cm and 2.1cm of composeup] (buckets) {\ENG{minio-init}\\\ENG{bucket creation}};
+    \node[emph, below=2.1cm of composeup] (smoke) {\texttt{\ENG{smoke-check.sh}}};
+    \node[box, below=1.9cm of smoke] (services) {\ENG{Engine / Player / LMS /}\\\ENG{MinIO / Kibana}};
+
+    \draw[arrow] (env) -- (composeup);
+    \draw[arrow] (composeup) -- (bootstrap);
+    \draw[arrow] (composeup) -- (buckets);
+    \draw[arrow] (bootstrap) -- (smoke);
+    \draw[arrow] (buckets) -- (smoke);
+    \draw[arrow] (smoke) -- (services);
+    \draw[future] (mock) -- (composeup);
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Ροή προετοιμασίας και λειτουργικής επαλήθευσης του τοπικού περιβάλλοντος ανάπτυξης.}
+  \label{fig:appendix_operational_validation_flow}
+\end{figure}

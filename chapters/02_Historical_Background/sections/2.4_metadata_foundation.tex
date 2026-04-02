@@ -1,0 +1,114 @@
+\section{\ENG{Metadata} \ENG{Standards} \ENG{Foundation} (1995-2002)}
+\label{sec:metadata_foundation}
+
+Παράλληλα με την ανάπτυξη των προτύπων επικοινωνίας και δομής περιεχομένου (όπως το \ENG{AICC}), η δεκαετία του 1990 σηματοδότησε την έναρξη συστηματικών προσπαθειών για την τυποποίηση των μεταδεδομένων (\textit{\ENG{metadata}}) εκπαιδευτικών πόρων. Τα \ENG{metadata} αποτελούν «δεδομένα για δεδομένα» και περιγράφουν χαρακτηριστικά του εκπαιδευτικού περιεχομένου όπως ο τίτλος, ο συγγραφέας, η γλώσσα, το επίπεδο δυσκολίας, οι μαθησιακοί στόχοι και τεχνικά χαρακτηριστικά~\cite{dcmi2020dcmi_terms,ieee2002lom_standard,dublincore2024metadata}. Η ύπαρξη τυποποιημένων μεταδεδομένων είναι κρίσιμη για την ανευρεσιμότητα (\textit{\ENG{discoverability}}), την επαναχρησιμοποιησιμότητα (\textit{\ENG{reusability}}) και την διαλειτουργικότητα (\textit{\ENG{interoperability}}) εκπαιδευτικών πόρων.
+
+Σε πρακτικό επίπεδο, τα \ENG{metadata standards} υποστηρίζουν τη διασύνδεση διαφορετικών συστημάτων και την ανταλλαγή εκπαιδευτικών πόρων μέσω \ENG{repositories}, διευκολύνοντας την αναζήτηση και την επαναχρησιμοποίηση σε ετερογενή περιβάλλοντα~\cite{inokufu2024metadata,researchgate2025metadata}.
+
+\subsection{\ENG{Dublin} \ENG{Core} \ENG{Metadata} \ENG{Initiative} (1995)}
+\label{subsec:dublin_core}
+
+Το \ENG{Dublin} \ENG{Core} \ENG{Metadata} \ENG{Element} \ENG{Set} αναπτύχθηκε το 1995 κατά τη διάρκεια ενός εργαστηρίου στο \ENG{Dublin} του \ENG{Ohio}, με στόχο τη δημιουργία ενός απλού και ευρέως εφαρμόσιμου συνόλου μεταδεδομένων για την περιγραφή ψηφιακών πόρων~\cite{dcmi2020dcmi_terms,dcpapers2024educational}. Το \ENG{Dublin} \ENG{Core} \ENG{Metadata} \ENG{Initiative} (\ENG{DCMI}) δημιούργησε ένα σύνολο 15 βασικών στοιχείων μεταδεδομένων που μπορούν να εφαρμοστούν σε οποιονδήποτε τύπο ψηφιακού πόρου, συμπεριλαμβανομένου του εκπαιδευτικού περιεχομένου.
+
+Τα 15 βασικά στοιχεία του \ENG{Dublin} \ENG{Core} είναι:
+
+\input{chapters/02_Historical_Background/tables/2.4_dublin_core_elements}
+
+\subsection{\ENG{IEEE} \ENG{Learning} \ENG{Object} \ENG{Metadata} (\ENG{LOM}) (1997-2002)}
+\label{subsec:ieee_lom}
+
+Για να αντιμετωπιστούν οι περιορισμοί του \ENG{Dublin} \ENG{Core} στον τομέα του \ENG{E-Learning}, το \ENG{IEEE} \ENG{Learning} \ENG{Technology} \ENG{Standards} \ENG{Committee} (\ENG{LTSC}) ανέπτυξε το \ENG{IEEE} \ENG{Learning} \ENG{Object} \ENG{Metadata} (\ENG{LOM}), το οποίο εγκρίθηκε ως \ENG{standard} το 2002 με κωδικό \ENG{IEEE} 1484.12.1-2002~\cite{ieee2002lom_standard,ieee2002lom,wiki_lom}.
+Το 2020 δημοσιεύτηκε αναθεωρημένη έκδοση ως \ENG{IEEE} 1484.12.1-2020, διατηρώντας τη βασική δομή αλλά επικαιροποιώντας το πλαίσιο περιγραφής~\cite{ieee2020lom}.
+
+Το \ENG{IEEE} \ENG{LOM} είναι ένα εκτεταμένο σχήμα \ENG{metadata} που περιλαμβάνει 76 στοιχεία οργανωμένα σε 9 κατηγορίες:
+
+\input{chapters/02_Historical_Background/tables/2.4_ieee_lom_categories}
+
+\subsubsection{Παράδειγμα \ENG{IEEE} \ENG{LOM} σε \ENG{XML}}
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+
+\begin{verbatim}
+  <lom xmlns="http://ltsc.ieee.org/xsd/LOM">
+  <general>
+    <title><string language="en">Introduction to SCORM</string></title>
+    <language>en</language>
+    <description>
+      <string language="en">Basic overview of SCORM standards</string>
+    </description>
+    <keyword><string language="en">SCORM</string></keyword>
+    <keyword><string language="en">E-Learning</string></keyword>
+  </general>
+  <technical>
+    <format>text/html</format>
+    <size>2048000</size>
+    <location>http://example.com/scorm_intro.zip</location>
+    <duration><duration>PT45M</duration></duration>
+  </technical>
+  <educational>
+    <learningResourceType>
+      <value>lecture</value>
+    </learningResourceType>
+    <intendedEndUserRole><value>learner</value></intendedEndUserRole>
+    <context><value>higher education</value></context>
+    <typicalLearningTime><duration>PT1H</duration></typicalLearningTime>
+    <difficulty><value>medium</value></difficulty>
+  </educational>
+  <rights>
+    <cost><value>no</value></cost>
+    <copyrightAndOtherRestrictions><value>yes</value></copyrightAndOtherRestrictions>
+  </rights>
+</lom>
+\end{verbatim}
+}
+
+
+Το \ENG{LOM} αξιοποιήθηκε επίσης ως βάση για το \ENG{SCORM} \ENG{metadata profile}, ώστε η περιγραφή των μαθησιακών αντικειμένων να παραμένει συνεπής μεταξύ διαφορετικών \ENG{LMS}~\cite{osu2024metadata}.
+
+\subsection{Υιοθέτηση και Εξελίξεις του \ENG{LOM}}
+\label{subsec:lom_adoption}
+
+Το \ENG{IEEE} \ENG{Learning} \ENG{Object} \ENG{Metadata} (\ENG{LOM}) υιοθετήθηκε ευρέως και αποτέλεσε τη βάση για την ανάπτυξη πολλών εθνικών και διεθνών σχημάτων μεταδεδομένων (\ENG{metadata schemas}). Η ευελιξία του μοντέλου επέτρεψε την προσαρμογή του σε διαφορετικά εκπαιδευτικά συστήματα και τεχνολογικά περιβάλλοντα, οδηγώντας στη δημιουργία εξειδικευμένων προφίλ και επεκτάσεων.
+
+Ένα από τα σημαντικότερα παραδείγματα αποτελεί το \ENG{IMS} \ENG{Learning} \ENG{Resource} \ENG{Metadata} (\ENG{LRM}), το οποίο αναπτύχθηκε από τον οργανισμό \ENG{IMS} \ENG{Global}. Το σχήμα αυτό βασίστηκε στο πρότυπο \ENG{IEEE} \ENG{LOM}, αλλά εισήγαγε πρόσθετες επεκτάσεις ώστε να καλύπτει ειδικότερες ανάγκες διαχείρισης και ανταλλαγής εκπαιδευτικών πόρων.
+
+Παράλληλα, στον Καναδά αναπτύχθηκε το \ENG{CanCore}, ένα προφίλ του \ENG{LOM} που παρείχε σαφείς οδηγίες χρήσης και πρακτικές κατευθύνσεις για την εφαρμογή των μεταδεδομένων στο εκπαιδευτικό σύστημα της χώρας. Το \ENG{CanCore} επικεντρώθηκε στη βελτίωση της συνέπειας και της διαλειτουργικότητας μεταξύ διαφορετικών εκπαιδευτικών αποθετηρίων.
+
+Στο Ηνωμένο Βασίλειο δημιουργήθηκε το \ENG{UK} \ENG{LOM} \ENG{Core}, ένα υποσύνολο του \ENG{LOM} που προσαρμόστηκε στις ανάγκες της υποχρεωτικής και της τριτοβάθμιας εκπαίδευσης. Το προφίλ αυτό επικεντρώθηκε στην απλοποίηση του αρχικού μοντέλου και στη διευκόλυνση της υιοθέτησής του από εκπαιδευτικούς οργανισμούς.
+
+Αντίστοιχα, στη Σιγκαπούρη αναπτύχθηκε το \ENG{SingCore}, μια προσαρμογή του \ENG{LOM} που ενσωμάτωσε χαρακτηριστικά προσαρμοσμένα στις ανάγκες του ασιατικού εκπαιδευτικού περιβάλλοντος. Η ύπαρξη αυτών των διαφορετικών προφίλ καταδεικνύει την ευελιξία του \ENG{LOM} και τον ρόλο του ως θεμελιώδους προτύπου για την περιγραφή και την ανταλλαγή μαθησιακών αντικειμένων σε διεθνές επίπεδο.
+\subsection{Κριτική και Προκλήσεις του \ENG{IEEE} \ENG{LOM}}
+\label{subsec:lom_challenges}
+
+Παρά την ευρεία υιοθέτηση, το \ENG{IEEE} \ENG{LOM} αντιμετώπισε σημαντικές προκλήσεις:
+
+\input{chapters/02_Historical_Background/tables/2.4_ieee_lom_challenges}
+
+Έρευνες έδειξαν ότι το μέσο \ENG{LOM} \ENG{record} συμπλήρωνε μόνο 10-15 από τα 76 πεδία, κυρίως τα βασικά (\ENG{Title}, \ENG{Description}, \ENG{Keywords}, \ENG{Technical} \ENG{Format})~\cite{barker2005metadata_practice}.
+
+\subsection{Εξέλιξη προς Απλούστερα \ENG{Schemas}}
+\label{subsec:metadata_evolution}
+
+Η εμπειρία από την εφαρμογή του \ENG{IEEE LOM} ανέδειξε στην πράξη ότι, παρότι το πρότυπο παρείχε ένα πλούσιο και εκτενές πλαίσιο περιγραφής, η αξιοποίησή του σε πραγματικά περιβάλλοντα απαιτούσε πρόσθετες προσαρμογές και απλοποιήσεις. Στο πλαίσιο αυτό, αναγνωρίστηκε πρώτα η ανάγκη για \ENG{profiling}, δηλαδή για τη δημιουργία απλούστερων υποσυνόλων του \ENG{LOM} που να ανταποκρίνονται στις απαιτήσεις συγκεκριμένων κοινοτήτων και περιπτώσεων χρήσης, χωρίς να επιβαρύνουν τη διαδικασία καταγραφής με περιττή πολυπλοκότητα. Παράλληλα, έγινε σαφές ότι σε πολλές εφαρμογές ήταν αναγκαία η υιοθέτηση \ENG{application profiles}, τα οποία συνδυάζουν στοιχεία από πολλαπλά \ENG{metadata schemas} (όπως \ENG{Dublin Core}, \ENG{LOM} και \ENG{domain-specific} επεκτάσεις), ώστε να καλύπτονται τόσο γενικές όσο και εξειδικευμένες ανάγκες περιγραφής.
+
+Επιπλέον, η δυσκολία της χειροκίνητης συμπλήρωσης εκτενών μεταδεδομένων οδήγησε στην κατεύθυνση της \ENG{automated metadata generation}, δηλαδή στη χρήση τεχνικών μηχανικής μάθησης και αυτοματοποιημένων μεθόδων για την εξαγωγή \ENG{metadata} απευθείας από το ίδιο το περιεχόμενο. Τέλος, αναδείχθηκε και η αξία του \ENG{social tagging}, όπου \ENG{user-generated tags} και \ENG{folksonomies} μπορούν να λειτουργήσουν συμπληρωματικά προς τα \ENG{formalized metadata}, προσφέροντας πιο ευέλικτες και «ζωντανές» περιγραφές που αντανακλούν τον τρόπο με τον οποίο οι χρήστες αντιλαμβάνονται και αναζητούν το περιεχόμενο.
+
+\subsection{Σύγχρονη Κατάσταση \ENG{Metadata} \ENG{Standards} (2026)}
+\label{subsec:metadata_modern}
+
+Σήμερα, η κατάσταση των \ENG{metadata standards} χαρακτηρίζεται από μια πιο πολυδιάστατη και «μεικτή» πραγματικότητα, όπου δεν υπάρχει ένα μοναδικό καθολικό σχήμα που να καλύπτει όλες τις ανάγκες. Αντίθετα, παρατηρείται συνύπαρξη πολλαπλών \ENG{schemas}, τα οποία χρησιμοποιούνται ανάλογα με το πλαίσιο: το \ENG{Dublin Core} συναντάται συχνά σε πιο απλά \ENG{use cases}, τα \ENG{LOM profiles} αξιοποιούνται κυρίως σε εκπαιδευτικά \ENG{repositories}, ενώ το \ENG{Schema.org} έχει κερδίσει έδαφος λόγω της συμβολής του στη \ENG{web discoverability}. Παράλληλα, το \ENG{LRMI} (\ENG{Learning Resource Metadata Initiative}) λειτουργεί ως γέφυρα ενσωμάτωσης εκπαιδευτικών περιγραφών μέσα στο οικοσύστημα του \ENG{Schema.org}, διευκολύνοντας την προβολή και την αναζήτηση εκπαιδευτικών πόρων στο διαδίκτυο~\cite{lrmi2024guide}. Σε πιο λειτουργικό επίπεδο, τα \ENG{xAPI} \ENG{profiles} χρησιμοποιούνται για πιο λεπτομερή καταγραφή εμπειριών μάθησης, συμπληρώνοντας τα παραδοσιακά \ENG{metadata}.
+
+Ταυτόχρονα, τα \ENG{metadata} συνδέονται ολοένα και περισσότερο με τεχνικές \ENG{AI}, καθώς αυξάνεται η ανάγκη για αυτοματοποίηση σε περιβάλλοντα με μεγάλο όγκο περιεχομένου. Σε αυτό το πλαίσιο, εφαρμόζεται \ENG{automated content analysis} για \ENG{metadata extraction}, ενώ τεχνικές \ENG{Natural Language Processing} χρησιμοποιούνται για ταξινόμηση και κατηγοριοποίηση. Επιπλέον, εργαλεία \ENG{Computer Vision} αξιοποιούνται για την περιγραφή εικόνων και \ENG{videos}, προσθέτοντας νέες δυνατότητες εμπλουτισμού μεταδεδομένων που παλαιότερα απαιτούσαν αποκλειστικά χειροκίνητη εργασία.
+
+Μια ακόμη σύγχρονη τάση είναι η προσέγγιση του \ENG{Linked Data}, όπου η αναπαράσταση μεταδεδομένων με \ENG{RDF} και η αξιοποίηση \ENG{SPARQL} επιτρέπουν πιο δυναμική διασύνδεση και αναζήτηση πληροφορίας. Μέσω της σύνδεσης με \ENG{external vocabularies} (όπως \ENG{DBpedia} και \ENG{Wikidata}), επιδιώκεται η ενίσχυση της \ENG{semantic interoperability}, ώστε διαφορετικά συστήματα να μπορούν να «καταλαβαίνουν» με μεγαλύτερη συνέπεια το ίδιο περιεχόμενο και τις ιδιότητές του.
+
+Παρά τις προκλήσεις, η θεμελίωση των \ENG{metadata standards} κατά την περίοδο 1995–2002 αποδείχθηκε κρίσιμη για τη διαμόρφωση και την εξέλιξη του \ENG{e-learning ecosystem}. Οι βασικές έννοιες που εισήχθησαν τότε, όπως οι \ENG{learning resource types}, το \ENG{educational context} και τα \ENG{technical requirements}, παραμένουν επίκαιρες μέχρι σήμερα, ακόμη κι αν πλέον εφαρμόζονται σε πιο απλοποιημένες ή προσαρμοσμένες μορφές.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\textwidth}{!}{%
+    \input{chapters/02_Historical_Background/figures/fig_2.4_ieee_lom_structure}
+  }
+  \caption{Δομή \ENG{IEEE} \ENG{LOM} - 9 Κατηγορίες Μεταδεδομένων}
+  \label{fig:ieee_lom}
+\end{figure}

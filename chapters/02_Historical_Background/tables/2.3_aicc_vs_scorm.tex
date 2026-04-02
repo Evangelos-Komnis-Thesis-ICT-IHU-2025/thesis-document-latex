@@ -1,0 +1,136 @@
+\setlength{\LTleft}{0pt plus 1fil}
+\setlength{\LTright}{0pt plus 1fil}
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{@{}p{3.5cm}p{5cm}p{5.5cm}@{}}
+\caption{Σύγκριση \ENG{AICC} και \ENG{SCORM} - Χαρακτηριστικά και Κληρονομιά}
+\label{tab:aicc_vs_scorm}\\
+\toprule
+\textbf{Χαρακτηριστικό} & \textbf{\ENG{AICC} (1988-2014)} & \textbf{\ENG{SCORM} 1.2/2004 (2001-σήμερα)} \\
+\midrule
+\endfirsthead
+
+\caption[]{Σύγκριση \ENG{AICC} και \ENG{SCORM} - Χαρακτηριστικά και Κληρονομιά (συνέχεια)}\\
+\toprule
+\textbf{Χαρακτηριστικό} & \textbf{\ENG{AICC} (1988-2014)} & \textbf{\ENG{SCORM} 1.2/2004 (2001-σήμερα)} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{3}{r}{\footnotesize Συνεχίζεται στην επόμενη σελίδα}\\
+\endfoot
+
+\bottomrule
+\endlastfoot
+\rowcolor{gray!10}
+\textbf{Πρωτόκολλο Επικοινωνίας} & 
+\ENG{HTTP-based} \ENG{AICC} \ENG{Communication} \ENG{Protocol} (\ENG{HACP})
+\newline \textbullet{} \ENG{HTTP} \ENG{GET/POST} \ENG{requests}
+\newline \textbullet{} \ENG{Name-value} \ENG{pairs}
+\newline \textbullet{} \ENG{Server-dependent} &
+\ENG{JavaScript} \ENG{API}
+\newline \textbullet{} \ENG{Browser-based} (\ENG{window.API} \ENG{or} \ENG{API}\_1484\_11)
+\newline \textbullet{} \ENG{Function} \ENG{calls} (\ENG{LMSInitialize}, \ENG{LMSGetValue}, \ENG{etc.})
+\newline \textbullet{} \ENG{Client-side} \ENG{execution} \\
+\midrule
+\textbf{\ENG{Data} \ENG{Model}} & 
+\ENG{CMI001} \ENG{specification}
+\newline \textbullet{} \ENG{student}\_\ENG{id}, \ENG{student}\_\ENG{name}
+\newline \textbullet{} \ENG{lesson}\_\ENG{status}
+\newline \textbullet{} \ENG{score}, \ENG{time}
+\newline \textbullet{} \ENG{lesson}\_\ENG{location}
+\newline \textbullet{} \ENG{suspend}\_\ENG{data} &
+\ENG{SCORM} 1.2: \ENG{CMI} \ENG{data} \ENG{model} (\ENG{extended} \ENG{from} \ENG{AICC})
+\newline \ENG{SCORM} 2004: \ENG{CMI-5} \ENG{extended} \ENG{model}
+\newline \textbullet{} \ENG{cmi.core.student}\_\ENG{id}
+\newline \textbullet{} \ENG{cmi.core.lesson}\_\ENG{status}
+\newline \textbullet{} \ENG{cmi.core.score.raw}
+\newline \textbullet{} \ENG{cmi.suspend}\_\ENG{data} (4096 \ENG{chars} \ENG{in} 2004) \\
+\midrule
+\rowcolor{gray!10}
+\textbf{\ENG{Content} \ENG{Packaging}} & 
+\ENG{Course} \ENG{Structure} \ENG{Files}:
+\newline \textbullet{} .\ENG{crs} (\ENG{Course} \ENG{Description})
+\newline \textbullet{} .\ENG{au} (\ENG{Assignable} \ENG{Units})
+\newline \textbullet{} .\ENG{des} (\ENG{Descriptor})
+\newline \textbullet{} .\ENG{cst} (\ENG{Course} \ENG{Structure})
+\newline \ENG{Plain} \ENG{text}, \ENG{name}=\ENG{value} \ENG{syntax} &
+\ENG{IMS} \ENG{Content} \ENG{Packaging} (\ENG{manifest})
+\newline \textbullet{} \ENG{imsmanifest.xml}
+\newline \textbullet{} \ENG{Organizations}, \ENG{Resources}
+\newline \textbullet{} \ENG{Metadata} (\ENG{IEEE} \ENG{LOM} \ENG{subset})
+\newline \textbullet{} \ENG{ZIP} \ENG{package} (.\ENG{zip} \ENG{or} .\ENG{pif}) \\
+\midrule
+\textbf{\ENG{Sequencing} \& \ENG{Navigation}} & 
+\textcolor{red}{Περιορισμένη υποστήριξη}
+\newline \textbullet{} Βασική \ENG{linear} \ENG{navigation}
+\newline \textbullet{} \ENG{Lesson}\_\ENG{location} για \ENG{bookmarking}
+\newline \textbullet{} Δεν υπάρχει \ENG{sequencing} \ENG{logic} &
+\ENG{SCORM} 1.2: Περιορισμένο (όπως \ENG{AICC})
+\newline \textbf{\ENG{SCORM} 2004:} \ENG{IMS} \ENG{Simple} \ENG{Sequencing} (\ENG{SS})
+\newline \textbullet{} \ENG{Sequencing} \ENG{rules}
+\newline \textbullet{} \ENG{Objectives}, \ENG{rollup} \ENG{rules}
+\newline \textbullet{} \ENG{Advanced} \ENG{navigation} \ENG{controls} \\
+\midrule
+\rowcolor{gray!10}
+\textbf{\ENG{Metadata} \ENG{Support}} & 
+\textcolor{orange}{\ENG{Minimal}}
+\newline \textbullet{} \ENG{Basic} \ENG{descriptors} \ENG{in} .\ENG{des} \ENG{files}
+\newline \textbullet{} Δεν ενσωματώνει \ENG{Dublin} \ENG{Core} ή \ENG{IEEE} \ENG{LOM} πλήρως &
+\textcolor{ForestGreen}{Πλήρης}
+\newline \textbullet{} \ENG{IEEE} \ENG{LOM} \ENG{subset} (\ENG{SCORM} 1.2)
+\newline \textbullet{} \ENG{Full} \ENG{IEEE} \ENG{LOM} \ENG{support} (\ENG{SCORM} 2004)
+\newline \textbullet{} \ENG{XML-based} \ENG{metadata} \ENG{in} \ENG{manifest} \\
+\midrule
+\textbf{\ENG{Offline} \ENG{Capability}} & 
+\textcolor{red}{Περιορισμένη}
+\newline Απαιτεί σύνδεση με \ENG{LMS} \ENG{server} για \ENG{HACP} \ENG{communication} &
+\textcolor{ForestGreen}{Καλύτερη}
+\newline Περιεχόμενο μπορεί να εκτελεστεί τοπικά
+\newline \ENG{API} \ENG{calls} \ENG{buffered} \ENG{locally} (με περιορισμούς) \\
+\midrule
+\rowcolor{gray!10}
+\textbf{\ENG{Adoption} \& \ENG{Legacy}} & 
+\textbullet{} Πρώιμη υιοθέτηση (1990\ENG{s-early} 2000\ENG{s})
+\newline \textbullet{} Κυρίως \ENG{aviation/corporate} \ENG{training}
+\newline \textbullet{} Διάλυση οργανισμού 2014
+\newline \textcolor{blue}{\textbf{\ENG{Legacy}:}} Βάση για \ENG{SCORM} \ENG{API} &
+\textbullet{} Ευρεία υιοθέτηση (2001-σήμερα)
+\newline \textbullet{} \ENG{SCORM} 1.2: \textasciitilde 95\% \ENG{LMS} \ENG{support}
+\newline \textbullet{} \ENG{SCORM} 2004: Πολυπλοκότερο, αργότερη υιοθέτηση
+\newline \textcolor{ForestGreen}{\textbf{\ENG{Current}:}} Παραμένει \ENG{active} \ENG{standard} \\
+\midrule
+\textbf{Τεχνικοί Περιορισμοί} & 
+\textbullet{} Εξάρτηση από \ENG{HTTP} \ENG{server}
+\newline \textbullet{} 128-\ENG{char} \ENG{data} \ENG{limits} (\ENG{suspend}\_\ENG{data})
+\newline \textbullet{} Δεν υποστηρίζει προηγμένη \ENG{navigation}
+\newline \textbullet{} Περιορισμένα \ENG{metadata} &
+\ENG{SCORM} 1.2:
+\newline \textbullet{} 4096-\ENG{char} \ENG{suspend}\_\ENG{data} \ENG{limit}
+\newline \textbullet{} Δεν υποστηρίζει \ENG{sequencing}
+\newline \ENG{SCORM} 2004:
+\newline \textbullet{} Πολυπλοκότητα \ENG{implementation}
+\newline \textbullet{} \ENG{LMS-centric} (δεν καλύπτει \ENG{mobile/social}) \\
+\midrule
+\rowcolor{gray!10}
+\textbf{Κληρονομιά στα Σύγχρονα \ENG{Standards}} & 
+\textbullet{} \ENG{HACP} \ENG{protocol} $\rightarrow$ \ENG{SCORM} \ENG{API} \ENG{design}
+\newline \textbullet{} \ENG{CMI} \ENG{data} \ENG{model} $\rightarrow$ \ENG{SCORM} 1.2 \ENG{data} \ENG{model}
+\newline \textbullet{} \ENG{Bookmarking} \ENG{concept} $\rightarrow$ \ENG{lesson}\_\ENG{location}
+\newline \textbullet{} \ENG{Interoperability} \ENG{mindset} $\rightarrow$ όλα τα επόμενα \ENG{standards} &
+\textbullet{} \ENG{SCORM} \ENG{API} $\rightarrow$ \ENG{cmi5} \ENG{API} (\ENG{xAPI} \ENG{wrapper})
+\newline \textbullet{} \ENG{Content} \ENG{packaging} $\rightarrow$ \ENG{IMS} \ENG{Common} \ENG{Cartridge}
+\newline \textbullet{} \ENG{Metadata} $\rightarrow$ \ENG{LRMI}, \ENG{schema.org} \ENG{extensions}
+\newline \textbullet{} \ENG{Sequencing} \ENG{rules} $\rightarrow$ \ENG{xAPI} \ENG{profiles} (\ENG{adaptive} \ENG{learning}) \\
+\end{longtable}
+\normalsize
+
+
+
+
+
+
+
+
+

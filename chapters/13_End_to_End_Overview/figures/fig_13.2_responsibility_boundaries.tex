@@ -1,0 +1,33 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=0.8cm and 2.1cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.0cm, minimum height=1.08cm},
+      boundary/.style={draw, dashed, rounded corners, inner sep=12pt}
+    ]
+    \node[box] (lms1) {\ENG{Course import UI}};
+    \node[box, below=of lms1] (lms2) {\ENG{User / enrollment orchestration}};
+    \node[box, below=of lms2] (lms3) {\ENG{Progress presentation}};
+
+    \node[box, right=2.2cm of lms1] (rt1) {\ENG{Launch issuance}};
+    \node[box, below=of rt1] (rt2) {Διαχείριση κατάστασης εκτέλεσης};
+    \node[box, below=of rt2] (rt3) {\ENG{SCORM API} mediation};
+
+    \node[box, right=2.2cm of rt1] (infra1) {\ENG{MinIO package storage}};
+    \node[box, below=of infra1] (infra2) {\ENG{Redis} ενεργή κατάσταση};
+    \node[box, below=of infra2] (infra3) {\ENG{Postgres} μόνιμο ιστορικό};
+
+    \node[boundary, fit=(lms1)(lms2)(lms3)] (lmsb) {};
+    \node[boundary, fit=(rt1)(rt2)(rt3)] (rtb) {};
+    \node[boundary, fit=(infra1)(infra2)(infra3)] (infrab) {};
+
+    \node[font=\footnotesize, above=0.12cm of lmsb] {\ENG{LMS responsibilities}};
+    \node[font=\footnotesize, above=0.12cm of rtb] {\ENG{Runtime responsibilities}};
+    \node[font=\footnotesize, above=0.12cm of infrab] {\ENG{Infrastructure responsibilities}};
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Όρια ευθύνης ανάμεσα στο \ENG{LMS}, στο υποσύστημα εκτέλεσης και στα υποστηρικτικά αποθετήρια της πλατφόρμας.}
+  \label{fig:responsibility_boundaries}
+\end{figure}

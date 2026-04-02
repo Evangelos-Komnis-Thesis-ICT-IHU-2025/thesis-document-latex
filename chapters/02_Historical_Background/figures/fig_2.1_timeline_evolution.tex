@@ -1,0 +1,101 @@
+% TikZ-based horizontal timeline
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+  scale=0.85,
+  every node/.style={font=\small},
+  timeline/.style={draw, thick, -latex},
+  era/.style={rectangle, rounded corners, draw, fill=white, minimum width=2cm, minimum height=0.8cm, align=center, drop shadow},
+  milestone/.style={circle, draw, fill=white, inner sep=2pt, font=\tiny\bfseries}
+]
+
+% Main timeline axis
+\draw[timeline, line width=2pt] (0,0) -- (16,0) node[right, font=\small\bfseries] {2026};
+
+% Timeline markers (years)
+\foreach \x/\year in {0/1980, 2/1988, 4/1995, 6/2000, 8/2004, 10/2010, 12/2016, 14/2020, 16/2026} {
+  \draw[thick] (\x,0.1) -- (\x,-0.1) node[below, font=\scriptsize] {\year};
+}
+
+% ERA 1: Pre-Standardization (1980-1993)
+\node[era, fill=problemred!20, text width=2.5cm] at (1, 2) (pre) {
+  \textbf{Προ-\ENG{Standard}}\\
+  \tiny \ENG{CBT}\\
+  \tiny Ιδιόκτητες λύσεις
+};
+\draw[->, thick, problemred] (pre) -- (1, 0.2);
+
+% ERA 2: AICC Foundation (1988)
+\node[era, fill=aiccblue!30] at (2, -2) (aicc) {
+  \textbf{\ENG{AICC}}\\
+  \tiny 1988
+};
+\draw[->, thick, aiccblue] (aicc) -- (2, -0.2);
+
+% ERA 3: Metadata Standards (1995-2002)
+\node[era, fill=metadatagray!30, text width=2cm] at (4, 2.2) (metadata) {
+  \textbf{\ENG{Metadata}}\\
+  \tiny \ENG{Dublin} \ENG{Core}\\
+  \tiny \ENG{IEEE} \ENG{LOM}
+};
+\draw[->, thick, metadatagray] (metadata) -- (4, 0.2);
+
+% ERA 4: IMS Global (1997)
+\node[era, fill=imslightblue!40, text width=1.8cm] at (5, -2.2) (ims) {
+  \textbf{\ENG{IMS} \ENG{Global}}\\
+  \tiny 1997
+};
+\draw[->, thick, imslightblue] (ims) -- (5, -0.2);
+
+% ERA 5: SCORM Birth (2000-2004)
+\node[era, fill=scormgreen!40, text width=2cm] at (7, 2.5) (scorm) {
+  \textbf{\ENG{SCORM}}\\
+  \tiny 1.0 → 2004
+};
+\draw[->, thick, scormgreen] (scorm) -- (7, 0.2);
+
+% ERA 6: SCORM Maturity (2004-2009)
+\node[era, fill=scormgreen!60, text width=2cm] at (9, -2.5) (scorm2) {
+  \textbf{\ENG{SCORM} 2004}\\
+  \tiny 4\ENG{th} \ENG{Edition}
+};
+\draw[->, thick, scormgreen!80] (scorm2) -- (9, -0.2);
+
+% ERA 7: xAPI Revolution (2011-2016)
+\node[era, fill=xapiorange!50, text width=2cm] at (11, 2.8) (xapi) {
+  \textbf{\ENG{xAPI}}\\
+  \tiny \ENG{Tin} \ENG{Can} \ENG{API}\\
+  \tiny 2011
+};
+\draw[->, thick, xapiorange] (xapi) -- (11, 0.2);
+
+% ERA 8: cmi5 (2016)
+\node[era, fill=accentpurple!40] at (12, -2.8) (cmi5) {
+  \textbf{\ENG{cmi5}}\\
+  \tiny 2016
+};
+\draw[->, thick, accentpurple] (cmi5) -- (12, -0.2);
+
+% ERA 9: Contemporary (2020+)
+\node[era, fill=blue!20, text width=2.5cm] at (15, 3) (contemporary) {
+  \textbf{\ENG{AI/Analytics} \ENG{Era}}\\
+  \tiny \ENG{LRS}, \ENG{xAPI} 2.0\\
+  \tiny \ENG{Generative} \ENG{AI}
+};
+\draw[->, thick, blue!70] (contemporary) -- (15, 0.2);
+
+% Key milestones (dots)
+\node[milestone, fill=aiccblue] at (2,0) {};
+\node[milestone, fill=scormgreen] at (6,0) {};
+\node[milestone, fill=xapiorange] at (11,0) {};
+\node[milestone, fill=accentpurple] at (12,0) {};
+
+% Legend
+\node[below, font=\tiny, align=left] at (8, -3.5) {
+  \textcolor{problemred}{\textbullet} Προ-\ENG{Standard} (1980-1993) \quad
+  \textcolor{aiccblue}{\textbullet} \ENG{AICC/IMS} (1988-2000) \quad
+  \textcolor{scormgreen}{\textbullet} \ENG{SCORM} \ENG{Era} (2000-2010) \quad
+  \textcolor{xapiorange}{\textbullet} \ENG{xAPI/cmi5} (2011-σήμερα)
+};
+
+\end{tikzpicture}
+\end{chapterfigurebox}

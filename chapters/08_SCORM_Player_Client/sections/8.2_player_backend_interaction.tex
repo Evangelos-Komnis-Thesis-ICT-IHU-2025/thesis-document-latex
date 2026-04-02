@@ -1,0 +1,12 @@
+\section{\ENG{SCORM Player \& Backend Runtime Interaction}}
+\label{sec:player_backend_interaction}
+
+Η αλληλεπίδραση ανάμεσα στον \ENG{player} και στον \ENG{backend} πυρήνα είναι συχνή, αλλά όχι συμμετρική. Ο \ENG{player} εξαρτάται από το \ENG{engine} για το \ENG{launch context}, για την παραλαβή και καταγραφή των \ENG{commits} και για τον τερματισμό του \ENG{launch}. Το αντίστροφο δεν συμβαίνει: ο \ENG{engine} δεν γνωρίζει τίποτε για την εσωτερική απόδοση του κελύφους \ENG{HTML} ή για τον τοπικό μηχανισμό προσωρινής αποθήκευσης περιεχομένου.
+
+Η βασική διαδρομή προς το \ENG{backend} βρίσκεται στα εσωτερικά \ENG{routes} \texttt{\ENG{/internal/launch/:launchId/commit}} και \texttt{\ENG{/internal/launch/:launchId/terminate}}. Ο \ENG{browser} δεν επικοινωνεί απευθείας με το \ENG{engine}. Καλεί τα εσωτερικά \ENG{endpoints} του \ENG{player}, τα οποία ελέγχουν την ύπαρξη \ENG{token}, επικυρώνουν το \ENG{commit payload} με \texttt{\ENG{zod}} \ENG{schema} και έπειτα προωθούν το αίτημα στο \ENG{engine} μέσω του \texttt{\ENG{RuntimeCommitService}}.
+
+Το μοντέλο αλληλεπίδρασης αποτυπώνεται με σαφήνεια στο \texttt{\ENG{LaunchPageRenderer}}. Η σελίδα που δημιουργείται κρατά \ENG{in-memory state} με \texttt{\ENG{sequence}}, \texttt{\ENG{payload}}, \texttt{\ENG{terminating}} και \texttt{\ENG{terminated}} \ENG{flags}. Κάθε \texttt{\ENG{SetValue()}} ενημερώνει το τοπικό \ENG{payload}. Κάθε \ENG{commit} στέλνει συγκεντρωτικά το τρέχον σύνολο μεταβολών, ενώ υπάρχει και περιοδικός μηχανισμός \ENG{auto-commit} μέσω \texttt{\ENG{setInterval()}}. Κατά το \ENG{beforeunload}, η σελίδα χρησιμοποιεί \texttt{\ENG{navigator.sendBeacon()}} για να αποστείλει ένα τελευταίο \ENG{commit}, γεγονός που δείχνει ότι ο \ENG{player} επιδιώκει ελαχιστοποίηση απώλειας δεδομένων ακόμη και σε μη κανονικούς τερματισμούς του παραθύρου.
+
+Το Σχήμα~\ref{fig:player_backend_interaction} καθιστά σαφή αυτή τη διαδοχή \ENG{browser -> player internal routes -> engine runtime API}. Το σημείο αυτό είναι ουσιώδες για τη συνολική ερμηνεία του συστήματος: ο \ENG{player} λειτουργεί ταυτόχρονα ως κέλυφος παρουσίασης, μηχανισμός διαμεσολάβησης περιεχομένου και διαμεσολαβητής της επικοινωνίας εκτέλεσης, αλλά όχι ως κύριο αποθετήριο της συνεδρίας.
+
+\input{chapters/08_SCORM_Player_Client/figures/fig_8.2_player_backend_interaction}

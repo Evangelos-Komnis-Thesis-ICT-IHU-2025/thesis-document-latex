@@ -1,0 +1,37 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.8cm and 2.4cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.2cm, minimum height=1.1cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.5cm, minimum height=1.1cm, font=\footnotesize\bfseries},
+      store/.style={draw, cylinder, shape border rotate=90, aspect=0.28, minimum height=1.2cm, minimum width=3.2cm, align=center, fill=gray!5},
+      arrow/.style={-Latex, thick}
+    ]
+    \node[emph] (player) {\ENG{SCORM Player}};
+    \node[box, below left=1.8cm and 1.8cm of player] (launchc) {\texttt{\ENG{LaunchController}}};
+    \node[box, below right=1.8cm and 1.8cm of player] (runtimec) {\texttt{\ENG{RuntimeController}}};
+    \node[emph, below=of launchc] (launcho) {\texttt{\ENG{LaunchOrchestrator}}};
+    \node[emph, below=of runtimec] (runtimeo) {\texttt{\ENG{RuntimeOrchestrator}}};
+    \node[box, below=of runtimeo] (registry) {\texttt{\ENG{StandardAdapterRegistry}}};
+
+    \node[store, below=2.0cm of launcho] (postgres) {\ENG{Postgres}\\\ENG{attempts / launches}};
+    \node[store, right=of postgres] (redis) {\ENG{Redis}\\κατάσταση εκτέλεσης};
+    \node[store, right=of redis] (minio) {\ENG{MinIO}\\\ENG{ZIP content}};
+
+    \draw[arrow] (player) -- (launchc);
+    \draw[arrow] (player) -- (runtimec);
+    \draw[arrow] (launchc) -- (launcho);
+    \draw[arrow] (runtimec) -- (runtimeo);
+    \draw[arrow] (runtimeo) -- (registry);
+    \draw[arrow] (launcho) -- (postgres);
+    \draw[arrow] (launcho) -- (redis);
+    \draw[arrow] (launcho) -- (minio);
+    \draw[arrow] (runtimeo) -- (redis);
+    \draw[arrow] (runtimeo) |- (postgres);
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Υψηλού επιπέδου αρχιτεκτονική του \ENG{runtime} πυρήνα, από τον \ENG{player} έως τα κύρια όρια μόνιμης αποθήκευσης.}
+  \label{fig:top_level_runtime}
+\end{figure}

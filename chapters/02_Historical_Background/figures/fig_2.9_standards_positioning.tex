@@ -1,0 +1,37 @@
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+  scale=0.92,
+  every node/.style={font=\small},
+  axislabel/.style={font=\small\bfseries},
+  helper/.style={font=\footnotesize, text=black!70},
+  standard/.style={rectangle, rounded corners, draw, thick, minimum width=2.2cm, minimum height=0.9cm, align=center, fill=white, drop shadow}
+]
+
+\draw[->, very thick] (0,0) -- (10.4,0);
+\draw[->, very thick] (0,0) -- (0,6.4);
+\draw[dashed, gray!50] (5.1,0) -- (5.1,6.1);
+\draw[dashed, gray!50] (0,3.05) -- (10.1,3.05);
+
+\node[axislabel] at (5.2,-0.75) {Βαθμός αποσύζευξης από το \ENG{LMS}};
+\node[helper] at (1.5,-0.3) {Σφιχτή σύζευξη};
+\node[helper] at (8.8,-0.3) {Ανεξάρτητες υπηρεσίες};
+
+\node[axislabel, rotate=90] at (-0.95,3.2) {Ευελιξία μοντέλου δεδομένων};
+\node[helper, rotate=90] at (-0.35,1.0) {Σταθερό μοντέλο};
+\node[helper, rotate=90] at (-0.35,5.1) {Ευέλικτο μοντέλο};
+
+\node[standard, fill=aiccblue!25] (aicc) at (1.4,1.0) {\ENG{AICC}};
+\node[standard, fill=scormgreen!25] (scorm12) at (3.1,1.5) {\ENG{SCORM} 1.2};
+\node[standard, fill=scormgreen!45] (scorm2004) at (3.5,2.5) {\ENG{SCORM} 2004};
+\node[standard, fill=imslightblue!35] (lti) at (8.1,1.7) {\ENG{LTI}};
+\node[standard, fill=accentpurple!35] (cmi5) at (6.8,4.0) {\ENG{cmi5}};
+\node[standard, fill=xapiorange!45] (xapi) at (8.5,5.1) {\ENG{xAPI}};
+
+\draw[-Latex, thick, scormgreen] (scorm2004) to[bend left=15] (xapi);
+\draw[-Latex, thick, xapiorange] (xapi) to[bend left=15] (cmi5);
+
+\node[helper, align=center, text width=2.7cm] at (2.0,5.2) {Πακέτα περιεχομένου με ισχυρή εξάρτηση από \ENG{LMS/browser}};
+\node[helper, align=center, text width=2.7cm] at (8.2,3.2) {Υπηρεσιακή αρχιτεκτονική με έμφαση σε \ENG{events} και ενσωμάτωση};
+
+\end{tikzpicture}
+\end{chapterfigurebox}

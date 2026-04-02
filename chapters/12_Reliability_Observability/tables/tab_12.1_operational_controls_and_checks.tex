@@ -1,0 +1,28 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{3.4cm}|p{4.2cm}|p{5.2cm}|}
+\hline
+\ENG{Μηχανισμός} & Υλοποιημένο \ENG{artifact} & Λειτουργικός ρόλος \\
+\hline
+\ENG{Structured engine logging} & \texttt{\ENG{logback-spring.xml}}, \texttt{\ENG{RequestLogFilter}} & Συνεπής \ENG{JSON} καταγραφή αιτήσεων και γεγονότων πυρήνα \\
+\hline
+\ENG{Correlation IDs} & \texttt{\ENG{CorrelationIdFilter}} & Συσχέτιση αιτήσεων σε πολλαπλά επίπεδα του συστήματος \\
+\hline
+\ENG{Player logging} & \ENG{pino}, \ENG{pino-http}, \texttt{\ENG{ObservedEngineClient}} & Καταγραφή αιτήσεων του \ENG{player} και κλήσεων προς το \ENG{engine} \\
+\hline
+Μετρικές κατάστασης εκτέλεσης & \texttt{\ENG{ObservedRuntimeStateStore}} με \ENG{Micrometer} & Βασική κάλυψη μετρικής παρακολούθησης για λειτουργίες του αποθετηρίου κατάστασης \\
+\hline
+Κεντρική συγκέντρωση \ENG{logs} & \ENG{gelf driver}, \texttt{\ENG{logstash.conf}}, \ENG{Elasticsearch}, \ENG{Kibana} & Αναζήτηση και επιθεώρηση \ENG{logs} σε επίπεδο πλατφόρμας \\
+\hline
+Έλεγχος παραμέτρων περιβάλλοντος & \texttt{\ENG{validate-env.sh}} & Έγκαιρη ανίχνευση ελλιπών ή λανθασμένων μεταβλητών \ENG{.env} \\
+\hline
+\ENG{Smoke checks} σύνθεσης & \texttt{\ENG{smoke-check.sh}} & Επαλήθευση \ENG{readiness} και προσβασιμότητας κρίσιμων υπηρεσιών \\
+\hline
+\ENG{CI workflows} & \ENG{GitHub Actions} στα αποθετήρια και \ENG{mock compose mode} στην \ENG{infra} σύνθεση & Επαναλήψιμη επαλήθευση \ENG{build}, \ENG{tests} και βασικής λειτουργικότητας \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

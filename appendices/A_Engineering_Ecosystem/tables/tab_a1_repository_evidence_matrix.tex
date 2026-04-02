@@ -1,0 +1,28 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{3.0cm}|p{3.9cm}|p{4.8cm}|p{3.5cm}|}
+\hline
+Αποθετήριο & Κύριος ρόλος & Ισχυρότερα τεκμήρια & Ρόλος στα παραρτήματα \\
+\hline
+\texttt{\ENG{scorm-engine}} & Κεντρικός \ENG{backend} πυρήνας και επιφάνεια διεπαφών & \texttt{\ENG{pom.xml}}, \texttt{\ENG{application.yml}}, \texttt{\ENG{OpenApiConfig.java}}, \texttt{\ENG{V1\_\_init\_schema.sql}} & \ENG{API support}, \ENG{QA}, \ENG{coverage}, \ENG{release}, \ENG{observability} \\
+\hline
+\texttt{\ENG{player}} & \ENG{Browser-facing} υπηρεσία εκκίνησης και διανομής περιεχομένου & \texttt{\ENG{Dockerfile}}, \texttt{\ENG{package.json}}, \texttt{\ENG{LaunchPageRenderer.ts}}, \texttt{\ENG{ContentCacheService.ts}} & \ENG{runtime support tooling}, \ENG{coverage}, \ENG{containerization} \\
+\hline
+\texttt{\ENG{scorm-engine-php-sdk}} & Τυποποιημένο \ENG{client contract layer} προς το \ENG{engine} & \texttt{\ENG{composer.json}}, \texttt{\ENG{phpunit.xml}}, \texttt{\ENG{ApiHttpClient.php}}, \texttt{\ENG{RetryTransport.php}} & \ENG{contract support}, \ENG{QA}, \ENG{versioning} \\
+\hline
+\texttt{\ENG{example-lms-client}} & \ENG{Laravel LMS} αναφοράς και \ENG{integration consumer} & \texttt{\ENG{ScormEngineServiceProvider.php}}, \texttt{\ENG{ScormEngineGateway.php}}, \texttt{\ENG{LearnerController.php}} & \ENG{integration practice}, \ENG{CI}, περιορισμένη \ENG{test evidence} \\
+\hline
+\texttt{\ENG{central-docker-infrastructure}} & \ENG{Compose} υποδομή, \ENG{stores}, \ENG{smoke checks}, \ENG{logging pipeline} & \texttt{\ENG{docker-compose.yml}}, \texttt{\ENG{entrypoint.sh}}, \texttt{\ENG{smoke-check.sh}}, \texttt{\ENG{logstash.conf}} & \ENG{infrastructure}, \ENG{DevOps}, \ENG{reproducibility} \\
+\hline
+\texttt{\ENG{github-actions-template}} & Τοπικό \ENG{template} παραγωγής \ENG{workflow} και \ENG{repository metadata} & \texttt{\ENG{template\_repo\_agent.py}}, \texttt{\ENG{README.md}} & \ENG{engineering support tooling} \\
+\hline
+\texttt{\ENG{ai-agents-instructions}} & \ENG{AI-assisted prompts} για ανάπτυξη και συγγραφή & \texttt{\ENG{ai\_unit\_test\_writer\_agent\_prompt.md}}, \texttt{\ENG{ai\_openapi\_documentation\_writer\_prompt.md}} & \ENG{AI support workflow evidence} \\
+\hline
+\texttt{\ENG{thesis-document-latex}} & Συγγραφική υποδομή της διατριβής & \texttt{\ENG{thesis.tex}}, \ENG{chapter folders}, \texttt{\ENG{build.cmd}} & Μορφολογική και τεκμηριωτική υποστήριξη, όχι \ENG{runtime subsystem} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

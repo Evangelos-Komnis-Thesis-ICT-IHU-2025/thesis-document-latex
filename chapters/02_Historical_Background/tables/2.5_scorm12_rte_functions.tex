@@ -1,0 +1,32 @@
+﻿\begin{table}[H]
+\centering
+\caption{Βασικές λειτουργίες του \ENG{SCORM} 1.2 \ENG{RTE}}
+\label{tab:scorm12_rte_functions}
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{chaptertablebox}
+\begin{tabular}{|p{5.2cm}|p{8.3cm}|}
+\hline
+\textbf{Λειτουργία} & \textbf{Ρόλος} \\
+\hline
+\hline
+\texttt{\ENG{LMSInitialize}()} & Εκκινεί το \ENG{SCO} και εγκαθιδρύει επικοινωνία με το \ENG{LMS.} \\
+\hline
+\texttt{\ENG{LMSFinish}()} & Ολοκληρώνει το \ENG{SCO} και κλείνει την επικοινωνία. \\
+\hline
+\texttt{\ENG{LMSGetValue}(\ENG{element})} & Ανακτά την τιμή ενός στοιχείου από το \ENG{LMS.} \\
+\hline
+\texttt{\ENG{LMSSetValue}(\ENG{element}, \ENG{value})} & Ορίζει τιμή σε στοιχείο του \ENG{LMS.} \\
+\hline
+\texttt{\ENG{LMSCommit}()} & Αποθηκεύει άμεσα τα δεδομένα στο \ENG{LMS} (προαιρετικό). \\
+\hline
+\texttt{\ENG{LMSGetLastError}()} & Επιστρέφει τον τελευταίο κωδικό σφάλματος. \\
+\hline
+\texttt{\ENG{LMSGetErrorString}(\ENG{errorCode})} & Παρέχει περιγραφή για τον κωδικό σφάλματος. \\
+\hline
+\texttt{\ENG{LMSGetDiagnostic}(\ENG{errorCode})} & Παρέχει διαγνωστικές πληροφορίες για το σφάλμα. \\
+\hline
+\end{tabular}
+\end{chaptertablebox}
+\end{table}

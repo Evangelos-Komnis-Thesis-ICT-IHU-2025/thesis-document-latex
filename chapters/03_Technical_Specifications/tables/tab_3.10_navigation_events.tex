@@ -1,0 +1,31 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{center,max width=\textwidth,max totalheight=0.86\textheight}
+\begin{tabular}{|p{3cm}|p{3cm}|p{7.5cm}|}
+\hline
+\ENG{Navigation} \ENG{Event} & \ENG{Source} & \ENG{Description} \ENG{and} \ENG{Sequencing} \ENG{Effect} \\
+\hline
+\hline
+\texttt{\ENG{continue}} & \ENG{Learner}, \ENG{SCO}, \ENG{Sequencing} & \ENG{Requests} \ENG{delivery} \ENG{of} \ENG{the} \ENG{logically} "\ENG{next}" \ENG{activity} \ENG{in} \ENG{a} \ENG{flow-enabled} \ENG{cluster}. \ENG{Triggers} \texttt{\ENG{Flow}} \ENG{sequencing} \ENG{subprocess}. \ENG{If} \ENG{no} \ENG{next} \ENG{activity} \ENG{exists}, \ENG{may} \ENG{exit} \ENG{parent} \ENG{or} \ENG{course}. \\
+\hline
+\texttt{\ENG{previous}} & \ENG{Learner}, \ENG{SCO}, \ENG{Sequencing} & \ENG{Requests} \ENG{delivery} \ENG{of} \ENG{the} \ENG{logically} "\ENG{previous}" \ENG{activity} \ENG{in} \ENG{a} \ENG{flow-enabled} \ENG{cluster}. \ENG{Triggers} \ENG{reverse} \texttt{\ENG{Flow}} \ENG{sequencing} \ENG{subprocess}. \ENG{Restricted} \ENG{by} \texttt{\ENG{forwardOnly}} \ENG{control} \ENG{mode}. \\
+\hline
+\texttt{\ENG{choice}} & \ENG{Learner}, \ENG{SCO} & \ENG{Requests} \ENG{delivery} \ENG{of} \ENG{a} \ENG{specific} \ENG{activity} \ENG{identified} \ENG{by} \ENG{its} \texttt{\ENG{identifier}}. \ENG{Valid} \ENG{only} \ENG{if} \texttt{\ENG{choice}} \ENG{control} \ENG{mode} \ENG{is} \ENG{enabled} \ENG{for} \ENG{the} \ENG{parent} \ENG{cluster}. \ENG{Subject} \ENG{to} \texttt{\ENG{constrainChoice}} \ENG{and} \texttt{\ENG{preventActivation}} \ENG{restrictions}. \\
+\hline
+\texttt{\ENG{exit}} & \ENG{Learner}, \ENG{SCO}, \ENG{Sequencing} & \ENG{Terminates} \ENG{the} \ENG{current} \ENG{activity} \ENG{and} \ENG{bubbles} \ENG{exit} \ENG{request} \ENG{to} \ENG{parent}. \ENG{Triggers} \ENG{parent}'\ENG{s} \ENG{exit} \ENG{sequencing} \ENG{rules}. \ENG{May} \ENG{result} \ENG{in} \ENG{delivery} \ENG{of} \ENG{next} \ENG{activity} \ENG{or} \ENG{course} \ENG{termination}. \\
+\hline
+\texttt{\ENG{exitAll}} & \ENG{Learner}, \ENG{SCO}, \ENG{Sequencing} & \ENG{Terminates} \ENG{the} \ENG{current} \ENG{activity} \ENG{and} \ENG{all} \ENG{ancestors} \ENG{up} \ENG{to} \ENG{the} \ENG{root}. \ENG{Causes} \ENG{course} \ENG{to} \ENG{exit}. \ENG{Learner} \ENG{progress} \ENG{and} \ENG{status} \ENG{are} \ENG{persisted}. \\
+\hline
+\texttt{\ENG{abandon}} & \ENG{Learner}, \ENG{SCO} & \ENG{Terminates} \ENG{the} \ENG{current} \ENG{activity} \ENG{without} \ENG{recording} \ENG{its} \ENG{status} \ENG{or} \ENG{triggering} \ENG{rollup}. \ENG{Similar} \ENG{to} \texttt{\ENG{exit}} \ENG{but} \ENG{discards} \ENG{current} \ENG{activity}'\ENG{s} \ENG{tracking} \ENG{data}. \ENG{Rarely} \ENG{used} \ENG{in} \ENG{practice}. \\
+\hline
+\texttt{\ENG{abandonAll}} & \ENG{Learner}, \ENG{SCO} & \ENG{Terminates} \ENG{the} \ENG{current} \ENG{activity} \ENG{and} \ENG{all} \ENG{ancestors} \ENG{without} \ENG{recording} \ENG{status}. \ENG{Causes} \ENG{course} \ENG{to} \ENG{exit} \ENG{without} \ENG{rollup}. \ENG{Extreme} \ENG{edge} \ENG{case}; \ENG{rarely} \ENG{supported} \ENG{fully}. \\
+\hline
+\texttt{\ENG{suspendAll}} & \ENG{Learner}, \ENG{SCO} & \ENG{Suspends} \ENG{the} \ENG{course}, \ENG{preserving} \ENG{all} \ENG{tracking} \ENG{data} \ENG{and} \ENG{current} \ENG{activity} \ENG{state}. \ENG{Next} \ENG{launch} \ENG{resumes} \ENG{from} \ENG{suspended} \ENG{state}. \ENG{Sets} \texttt{\ENG{cmi.exit}} \ENG{to} \texttt{"\ENG{suspend}"}. \\
+\hline
+\texttt{\_\ENG{none}\_} & \ENG{SCO} (\ENG{default}) & \ENG{Indicates} \ENG{no} \ENG{explicit} \ENG{navigation} \ENG{request}. \ENG{Sequencer} \ENG{applies} \ENG{post-condition} \ENG{rules} \ENG{to} \ENG{determine} \ENG{subsequent} \ENG{action} (\ENG{may} \ENG{result} \ENG{in} \ENG{continue}, \ENG{exit}, \ENG{or} \ENG{retry} \ENG{based} \ENG{on} \ENG{rules}). \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

@@ -1,0 +1,43 @@
+% FIGURE 2.2: Pre-Standardization Era Problems (Alternative Visualization)
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+  node distance=2.5cm,
+  every node/.style={font=\small},
+  system/.style={draw, rounded corners, minimum width=3.2cm, minimum height=1.3cm, align=center, fill=problemred!15},
+  content/.style={draw, rounded corners, minimum width=3cm, minimum height=1.2cm, align=center, fill=blue!15},
+  problem/.style={draw, dashed, rounded corners, minimum width=3cm, minimum height=1cm, align=center, fill=orange!20},
+  arrow/.style={->, thick}
+]
+
+% Content nodes
+\node[content] (course1) {Μάθημα A\\\ENG{CBT Content}};
+\node[content, below of=course1] (course2) {Μάθημα B\\\ENG{CBT Content}};
+\node[content, below of=course2] (course3) {Μάθημα C\\\ENG{CBT Content}};
+
+% LMS nodes
+\node[system, right=4cm of course1] (lms1) {\ENG{LMS} 1\\Ιδιόκτητο \ENG{API}};
+\node[system, right=4cm of course2] (lms2) {\ENG{LMS} 2\\Ιδιόκτητο \ENG{Format}};
+\node[system, right=4cm of course3] (lms3) {\ENG{LMS} 3\\Διαφορετικό \ENG{Tracking}};
+
+% Arrows
+\draw[arrow] (course1) -- (lms1);
+\draw[arrow] (course2) -- (lms2);
+\draw[arrow] (course3) -- (lms3);
+
+% Cross incompatibility
+\draw[arrow, dashed] (course1.east) to[bend left=20] (lms2.west);
+\draw[arrow, dashed] (course2.east) to[bend left=20] (lms3.west);
+\draw[arrow, dashed] (course3.east) to[bend left=20] (lms1.west);
+
+% Problems at bottom
+\node[problem, below=2.2cm of course3, xshift=2cm] (p1) {Υψηλό κόστος\\επαναανάπτυξης};
+\node[problem, right=2.5cm of p1] (p2) {Έλλειψη\\διαλειτουργικότητας};
+\node[problem, right=2.5cm of p2] (p3) {Εξάρτηση\\από προμηθευτή};
+
+% Title node
+\node[font=\footnotesize, align=center, above=1cm of lms1] {
+\textbf{Αποσπασματικό οικοσύστημα \ENG{CBT}/\ENG{LMS} πριν την τυποποίηση}
+};
+
+\end{tikzpicture}
+\end{chapterfigurebox}

@@ -1,0 +1,31 @@
+% Figure 3.15: LRS Internal Architecture
+\begin{figure}[htbp]
+\centering
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+  node distance=1.2cm,
+  box/.style={rectangle, draw, fill=blue!10, text width=2.8cm, text centered, minimum height=0.7cm, font=\footnotesize},
+  api/.style={rectangle, draw, fill=green!20, text width=2.5cm, text centered, minimum height=0.6cm, font=\footnotesize}
+]
+
+% APIs layer
+\node[api] (statement_api) at (0,0) {\ENG{Statement} \ENG{API}};
+\node[api, right=0.3cm of statement_api] (state_api) {\ENG{State} \ENG{API}};
+\node[api, right=0.3cm of state_api] (activity_api) {\ENG{Activity} \ENG{API}};
+\node[api, right=0.3cm of activity_api] (agent_api) {\ENG{Agent} \ENG{API}};
+
+% Authentication layer
+\node[box, below=0.8cm of statement_api, fill=yellow!20, text width=8.4cm] (auth) {\ENG{Authentication} \& \ENG{Authorization} (\ENG{OAuth} 2.0, \ENG{Basic} \ENG{Auth})};
+
+% Processing layer
+\node[box, below=0.8cm of auth, text width=3.9cm] (validation) {\ENG{Validation} \& \ENG{Processing}};
+\node[box, right=0.3cm of validation, text width=3.9cm] (indexing) {\ENG{Indexing} \& \ENG{Query}};
+
+% Storage layer
+\node[box, below=0.8cm of validation, fill=orange!20, text width=8.4cm] (storage) {\ENG{Statement} \ENG{Storage} (\ENG{NoSQL} / \ENG{SQL})};
+
+\end{tikzpicture}
+\end{chapterfigurebox}
+\caption{\ENG{LRS} \ENG{internal} \ENG{architecture} \ENG{showing} \ENG{the} \ENG{four} \ENG{RESTful} \ENG{APIs}, \ENG{authentication} \ENG{layer}, \ENG{processing} \ENG{components}, \ENG{and} \ENG{data} \ENG{storage} \ENG{subsystem}.}
+\label{fig:lrs_architecture}
+\end{figure}

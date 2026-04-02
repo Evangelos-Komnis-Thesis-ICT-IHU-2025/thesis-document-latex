@@ -1,0 +1,24 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{3.8cm}|p{2.5cm}|p{5.2cm}|p{3.2cm}|}
+\hline
+Επιφάνεια & Καταναλωτής & Λειτουργία & \ENG{Backend} εξάρτηση \\
+\hline
+\texttt{\ENG{GET /launch/:launchId}} & \ENG{Browser} / \ENG{LMS iframe} & Απόδοση \ENG{launch HTML}, έλεγχος \ENG{token}, έναρξη \ENG{session setup} & \texttt{\ENG{GET /api/v1/launches/\{launchId\}}} \\
+\hline
+\texttt{\ENG{GET /content/:launchId/*}} & \ENG{iframe} \ENG{SCO} & Σερβίρει τοπικά αποσυμπιεσμένα αρχεία του μαθήματος & Τοπικός \ENG{player cache} μόνο \\
+\hline
+\texttt{\ENG{POST /internal/launch/:launchId/commit}} & \ENG{Host page JavaScript} & Επικυρώνει \ENG{payload} και προωθεί \ENG{commit} στο \ENG{engine} & \texttt{\ENG{POST /api/v1/runtime/launches/\{launchId\}/commit}} \\
+\hline
+\texttt{\ENG{POST /internal/launch/:launchId/terminate}} & \ENG{Host page JavaScript} & Τερματίζει τη συνεδρία και ενημερώνει το \ENG{engine} & \texttt{\ENG{POST /api/v1/launches/\{launchId\}/terminate}} \\
+\hline
+\texttt{\ENG{window.API}} / \texttt{\ENG{window.API\_1484\_11}} & \ENG{SCO} & Ελαφρά \ENG{SCORM API} γέφυρα για \ENG{Initialize/Get/Set/Commit/Terminate} & Έμμεση, μέσω \ENG{internal player routes} \\
+\hline
+\texttt{\ENG{SCORM\_PLAYER\_TERMINATED}} \ENG{postMessage} & Γονικό \ENG{LMS} παράθυρο & Σήμα λήξης συνεδρίας και μετάβαση στη σελίδα προόδου & Καμία άμεση· αφορά το \ENG{LMS UI} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

@@ -1,0 +1,32 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.8cm and 2.8cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.2cm, minimum height=1.08cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.5cm, minimum height=1.08cm, font=\footnotesize\bfseries},
+      store/.style={draw, cylinder, shape border rotate=90, aspect=0.28, minimum height=1.2cm, minimum width=3.2cm, align=center, fill=gray!5},
+      arrow/.style={-Latex, thick}
+    ]
+    \node[box] (browser) {Κατάσταση μνήμης\\στον \ENG{browser}};
+    \node[emph, right=of browser] (engine) {Πυρήνας εκτέλεσης\\\ENG{engine}};
+    \node[store, right=of engine] (minio) {\ENG{MinIO}\\συμπιεσμένο περιεχόμενο};
+
+    \node[store, below=1.9cm of engine] (redis) {\ENG{Redis}\\ενεργή κατάσταση \ENG{launch}};
+    \node[emph, below=1.9cm of minio] (playercache) {\ENG{Player cache}\\αποσυμπιεσμένα αρχεία};
+    \node[store, below=1.8cm of redis] (postgres) {\ENG{Postgres}\\τελικές εγγραφές προσπαθειών};
+
+    \draw[arrow] (browser) -- (engine);
+    \draw[arrow] (engine) -- (redis);
+    \draw[arrow] (redis) -- (postgres);
+    \draw[arrow] (minio) -- (playercache);
+
+    \node[font=\footnotesize, align=center, below=0.18cm of redis] {προσωρινή έγκυρη κατάσταση};
+    \node[font=\footnotesize, align=center, below=0.18cm of postgres] {μόνιμο ιστορικό};
+    \node[font=\footnotesize, align=center, below=0.18cm of playercache] {μόνο για διανομή};
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Κατανομή της κατάστασης ανάμεσα σε \ENG{browser}, \ENG{player cache}, \ENG{Redis}, \ENG{Postgres} και \ENG{MinIO}, με σαφή διάκριση του έγκυρου σημείου αναφοράς.}
+  \label{fig:stateless_state}
+\end{figure}
