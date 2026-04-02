@@ -1,0 +1,28 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{3.1cm}|p{4.0cm}|p{4.4cm}|p{3.6cm}|}
+\hline
+\ENG{Artifact or mechanism} & Τεκμηριωμένη βάση & Τι παρέχει & Τι δεν τεκμηριώνει \\
+\hline
+\ENG{springdoc dependency} στο \texttt{\ENG{scorm-engine}} & \texttt{\ENG{pom.xml}} & \ENG{Runtime-generated OpenAPI/Swagger support} & Δεν αποδεικνύει στατικά \ENG{schema files} ή \ENG{generator pipeline} \\
+\hline
+\texttt{\ENG{OpenApiConfig.java}} & \ENG{Bean declaration} με τίτλο και έκδοση \ENG{API} & Βασική ταυτότητα της τεκμηρίωσης διεπαφών & Δεν παρέχει αναλυτικές \ENG{endpoint annotations} \\
+\hline
+\texttt{\ENG{application.yml}} και \texttt{\ENG{SecurityConfig}} & \texttt{\ENG{/swagger-ui}} path και \texttt{\ENG{/v3/api-docs/**}} \ENG{permitAll} & Προσβάσιμη \ENG{documentation surface} στον τρέχοντα \ENG{engine} & Δεν δηλώνει \ENG{external publication pipeline} της προδιαγραφής \\
+\hline
+\ENG{Controllers} και \ENG{DTOs} του \ENG{engine} & \ENG{Spring MVC API surface} & Υλικό από το οποίο παράγεται η \ENG{OpenAPI} περιγραφή & Δεν αποτελούν από μόνα τους αναλυτικό \ENG{human-authored API manual} \\
+\hline
+\texttt{\ENG{scorm-engine-php-sdk}} \ENG{API wrappers} & \texttt{\ENG{CoursesApi}}, \texttt{\ENG{LaunchesApi}}, \texttt{\ENG{AttemptsApi}} κ.ά. & Χειρόγραφο, τυποποιημένο \ENG{contract consumption layer} & Δεν είναι παραγόμενο \ENG{client SDK} από \ENG{OpenAPI generator} \\
+\hline
+\ENG{Auth strategies} του \ENG{SDK} & \texttt{\ENG{BearerTokenAuthStrategy}}, \texttt{\ENG{LaunchTokenAuthStrategy}} & Ρητή μοντελοποίηση διαφορετικών \ENG{token scopes} στην κατανάλωση του \ENG{API} & Δεν συνιστούν πλήρες \ENG{identity federation framework} \\
+\hline
+\ENG{Retry/logging middleware} του \ENG{SDK} & \texttt{\ENG{RetryTransport}}, \texttt{\ENG{LoggingTransport}} & Σταθεροποίηση και ορατότητα των κλήσεων προς το \ENG{engine} & Δεν αποτελούν τεκμήριο \ENG{service mesh} ή \ENG{distributed tracing} \\
+\hline
+Απουσία \ENG{checked-in OpenAPI schema artifacts} & \ENG{Δεν βρέθηκαν} \texttt{\ENG{openapi.yaml/json}} & --- & Δεν επιτρέπει περιγραφή \ENG{contract-first} διαδικασίας \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

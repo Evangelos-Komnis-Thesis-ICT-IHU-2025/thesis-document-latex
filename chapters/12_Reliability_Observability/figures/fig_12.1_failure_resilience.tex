@@ -1,0 +1,32 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.8cm and 2.5cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.3cm, minimum height=1.05cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.6cm, minimum height=1.05cm, font=\footnotesize\bfseries},
+      store/.style={draw, cylinder, shape border rotate=90, aspect=0.28, minimum height=1.2cm, minimum width=3.2cm, align=center, fill=gray!5},
+      arrow/.style={-Latex, thick}
+    ]
+    \node[box] (browser) {\ENG{Browser / player}};
+    \node[emph, right=of browser] (engine) {\ENG{Engine runtime}};
+    \node[store, right=of engine] (redis) {\ENG{Redis}\\ενεργή κατάσταση};
+
+    \node[box, below=1.9cm of browser] (scheduler) {\texttt{\ENG{RuntimeFlushScheduler}}};
+    \node[emph, below=1.9cm of engine] (flush) {\texttt{\ENG{RuntimeFlushService}}};
+    \node[store, below=1.9cm of redis] (postgres) {\ENG{Postgres}\\\ENG{attempts} + στιγμιότυπα};
+
+    \node[box, below=1.9cm of flush] (checks) {\texttt{\ENG{validate-env.sh}}\\+\texttt{\ENG{smoke-check.sh}}};
+
+    \draw[arrow] (browser) -- node[above, align=center]{περιοδικά \ENG{commits}\\ή \ENG{terminate}} (engine);
+    \draw[arrow] (engine) -- (redis);
+    \draw[arrow] (scheduler) -- node[above, align=center]{παρωχημένα\\\ENG{launches}} (flush);
+    \draw[arrow] (engine) -- (flush);
+    \draw[arrow] (flush) -- (postgres);
+    \draw[arrow] (checks) -- (engine);
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Υλοποιημένοι μηχανισμοί περιορισμού απώλειας κατάστασης και λειτουργικού ελέγχου γύρω από \ENG{commit}, συγχρονισμό προς μόνιμη αποθήκευση και ελέγχους ετοιμότητας.}
+  \label{fig:failure_resilience}
+\end{figure}

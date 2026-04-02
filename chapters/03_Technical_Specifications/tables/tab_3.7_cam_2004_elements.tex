@@ -1,0 +1,57 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{center,max width=\textwidth,max totalheight=0.86\textheight}
+\begin{tabular}{|p{5.5cm}|p{8.5cm}|}
+\hline
+\ENG{Manifest} \ENG{Element} & \ENG{Description} \ENG{and} \ENG{Purpose} \\
+\hline
+\hline
+\texttt{<\ENG{manifest}>} & \ENG{Root} \ENG{element}; \ENG{defines} \ENG{namespace} \ENG{declarations} (\texttt{\ENG{xmlns}}, \texttt{\ENG{xmlns:adlcp}}, \texttt{\ENG{xmlns:adlseq}}, \texttt{\ENG{xmlns:adlnav}}, \texttt{\ENG{xmlns:imsss}}) \\
+\hline
+\texttt{<\ENG{metadata}>} & \ENG{Package-level} \ENG{LOM} \ENG{metadata}; \ENG{includes} \ENG{schema} \ENG{name}, \ENG{schema} \ENG{version}, \ENG{and} \ENG{location} \\
+\hline
+\texttt{<\ENG{organizations}>} & \ENG{Container} \ENG{for} \ENG{one} \ENG{or} \ENG{more} \ENG{organization} \ENG{elements}; \ENG{defines} \ENG{activity} \ENG{trees} \\
+\hline
+\texttt{<\ENG{organization}>} & \ENG{Represents} \ENG{a} \ENG{complete} \ENG{learning} \ENG{sequence}; \ENG{corresponds} \ENG{to} \ENG{sequencing} \ENG{activity} \ENG{tree} \ENG{root} \\
+\hline
+\texttt{<\ENG{item}>} & \ENG{Activity} \ENG{within} \ENG{an} \ENG{organization}; \ENG{can} \ENG{be} \ENG{nested} \ENG{hierarchically}; \ENG{corresponds} \ENG{to} \ENG{sequencing} \ENG{activity} \\
+\hline
+\texttt{<\ENG{item} \ENG{identifier}>} & \ENG{Unique} \ENG{identifier} \ENG{for} \ENG{the} \ENG{item/activity} \ENG{within} \ENG{the} \ENG{manifest} \\
+\hline
+\texttt{<\ENG{item} \ENG{identifierref}>} & \ENG{References} \ENG{a} \texttt{<\ENG{resource}>} \ENG{element} \ENG{by} \ENG{identifier}; \ENG{empty} \ENG{for} \ENG{clusters} \\
+\hline
+\texttt{<\ENG{item} \ENG{isvisible}>} & \ENG{Boolean} \ENG{indicating} \ENG{whether} \ENG{item} \ENG{should} \ENG{appear} \ENG{in} \ENG{LMS} \ENG{TOC} \\
+\hline
+\texttt{<\ENG{imsss:sequencing}>} & \ENG{IMS} \ENG{Simple} \ENG{Sequencing} \ENG{rules} \ENG{embedded} \ENG{within} \texttt{<\ENG{item}>}; \ENG{defines} \ENG{sequencing} \ENG{behavior} \ENG{for} \ENG{the} \ENG{activity} \\
+\hline
+\texttt{<\ENG{imsss:controlMode}>} & \ENG{Sequencing} \ENG{control} \ENG{modes} (\ENG{choice}, \ENG{flow}, \ENG{forwardOnly}, \ENG{choiceExit}) \\
+\hline
+\texttt{<\ENG{imsss:sequencingRules}>} & \ENG{Container} \ENG{for} \ENG{precondition}, \ENG{postcondition}, \ENG{and} \ENG{exit} \ENG{rules} \\
+\hline
+\texttt{<\ENG{imsss:limitConditions}>} & \ENG{Attempt} \ENG{limits} \ENG{and} \ENG{duration} \ENG{limits} \ENG{for} \ENG{the} \ENG{activity} \\
+\hline
+\texttt{<\ENG{imsss:rollupRules}>} & \ENG{Defines} \ENG{rollup} \ENG{behavior} \ENG{for} \ENG{cluster} \ENG{activities} \\
+\hline
+\texttt{<\ENG{imsss:objectives}>} & \ENG{Local} \ENG{and} \ENG{global} \ENG{objectives} \ENG{associated} \ENG{with} \ENG{the} \ENG{activity} \\
+\hline
+\texttt{<\ENG{imsss:randomizationControls}>} & \ENG{Specifies} \ENG{randomization} \ENG{timing} \ENG{and} \ENG{whether} \ENG{to} \ENG{randomize} \ENG{children} \\
+\hline
+\texttt{<\ENG{imsss:deliveryControls}>} & \ENG{Tracked} \ENG{status}, \ENG{completion/objective} \ENG{set} \ENG{by} \ENG{content} \ENG{flags} \\
+\hline
+\texttt{<\ENG{adlnav:presentation}>} & \ENG{ADL} \ENG{navigation} \ENG{presentation} \ENG{settings}; \ENG{hide} \ENG{LMS} \ENG{UI} \ENG{controls} \\
+\hline
+\texttt{<\ENG{resources}>} & \ENG{Container} \ENG{for} \ENG{all} \ENG{resource} \ENG{definitions} (\ENG{SCOs}, \ENG{assets}) \\
+\hline
+\texttt{<\ENG{resource}>} & \ENG{Defines} \ENG{a} \ENG{SCO} \ENG{or} \ENG{asset}; \ENG{includes} \ENG{type} (\texttt{\ENG{webcontent}}), \texttt{\ENG{scormType}} (\texttt{\ENG{sco}}, \texttt{\ENG{asset}}), \ENG{and} \texttt{\ENG{href}} (\ENG{entry} \ENG{point}) \\
+\hline
+\texttt{<\ENG{resource} \ENG{adlcp:scormType}>} & \ENG{ADL} \ENG{extension} \ENG{indicating} \ENG{resource} \ENG{type}: \texttt{\ENG{sco}} (\ENG{communicative}) \ENG{or} \texttt{\ENG{asset}} (\ENG{non-communicative}) \\
+\hline
+\texttt{<\ENG{file}>} & \ENG{Declares} \ENG{files} \ENG{included} \ENG{in} \ENG{the} \ENG{content} \ENG{package} \ENG{for} \ENG{a} \ENG{resource} \\
+\hline
+\texttt{<\ENG{dependency}>} & \ENG{References} \ENG{shared} \ENG{resources} \ENG{used} \ENG{by} \ENG{this} \ENG{resource} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

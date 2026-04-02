@@ -1,0 +1,81 @@
+% \ENG{Table} 3.1: \ENG{SCORM} 1.2 \ENG{Manifest} \ENG{Elements}
+\begingroup
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{0pt}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.16}
+\footnotesize
+\begin{longtable}{>{\ttfamily\raggedright\arraybackslash}p{3.7cm} >{\raggedright\arraybackslash}p{3.8cm} >{\raggedright\arraybackslash}p{5.6cm}}
+\caption{Βασικά Στοιχεία του \ENG{imsmanifest.xml} στο \ENG{SCORM} 1.2}
+\label{tab:scorm12_manifest_elements}\\
+\toprule
+\normalfont\ENG{Element} & Υποχρεωτικότητα & Περιγραφή \\
+\midrule
+\endfirsthead
+
+\caption[]{Βασικά Στοιχεία του \ENG{imsmanifest.xml} στο \ENG{SCORM} 1.2 (συνέχεια)}\\
+\toprule
+\normalfont\ENG{Element} & Υποχρεωτικότητα & Περιγραφή \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{3}{r}{\footnotesize Συνεχίζεται στην επόμενη σελίδα}\\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+<\ENG{manifest}> & \ENG{Required} & \ENG{Root} \ENG{element} του \ENG{manifest}. Περιέχει όλη τη δομή του \ENG{package}. \\
+\rowcolor{gray!10}
+@\ENG{identifier} & \ENG{Required} & Μοναδικό \ENG{identifier} για το \ENG{manifest}. \\
+@\ENG{version} & \ENG{Optional} & Έκδοση του \ENG{manifest} (π.χ. "1.0"). \\
+\rowcolor{gray!10}
+@\ENG{xml:base} & \ENG{Optional} & \ENG{Base} \ENG{URL} για \ENG{relative} \ENG{paths}. \\
+\midrule
+<\ENG{metadata}> & \ENG{Optional} & \ENG{Metadata} που περιγράφουν ολόκληρο το \ENG{package}. \\
+\rowcolor{gray!10}
+<\ENG{schema}> & \ENG{Required} (\ENG{in} \ENG{metadata}) & "\ENG{ADL} \ENG{SCORM}" για \ENG{SCORM} \ENG{packages}. \\
+<\ENG{schemaversion}> & \ENG{Required} (\ENG{in} \ENG{metadata}) & "1.2" για \ENG{SCORM} 1.2 \ENG{packages}. \\
+\rowcolor{gray!10}
+<\ENG{lom}> & \ENG{Optional} & \ENG{IEEE} \ENG{LOM} \ENG{metadata} \ENG{elements}. \\
+<\ENG{adlcp:location}> & \ENG{Optional} & \ENG{URL} εξωτερικού \ENG{metadata} \ENG{file}. \\
+\midrule
+\rowcolor{gray!10}
+<\ENG{organizations}> & \ENG{Required} & \ENG{Container} για μία ή περισσότερες οργανώσεις περιεχομένου. \\
+@\ENG{default} & \ENG{Required} & \ENG{Identifier} της \ENG{default} \ENG{organization}. \\
+\rowcolor{gray!10}
+<\ENG{organization}> & \ENG{Required} (\(\geq 1\)) & Ορίζει μία οργάνωση (δομή) του περιεχομένου. \\
+@\ENG{identifier} & \ENG{Required} & \ENG{Unique} \ENG{ID} της \ENG{organization}. \\
+\rowcolor{gray!10}
+<\ENG{title}> & \ENG{Required} (\ENG{in} \ENG{org}) & Τίτλος της \ENG{organization} (εμφανίζεται στον χρήστη). \\
+<\ENG{item}> & \ENG{Required} (\(\geq 1\)) & Στοιχείο στη δομή του περιεχομένου. \\
+\rowcolor{gray!10}
+@\ENG{identifier} & \ENG{Required} (\ENG{in} \ENG{item}) & \ENG{Unique} \ENG{ID} του \ENG{item}. \\
+@\ENG{identifierref} & \ENG{Optional} (\ENG{in} \ENG{item}) & Αναφορά σε \ENG{resource} (για \ENG{launchable} \ENG{items}). \\
+\rowcolor{gray!10}
+<\ENG{title}> & \ENG{Required} (\ENG{in} \ENG{item}) & Τίτλος του \ENG{item} (εμφανίζεται στον χρήστη). \\
+@\ENG{adlcp:masterscore} & \ENG{Optional} & \ENG{Mastery} \ENG{score} (0-100) για το \ENG{item}. \\
+\rowcolor{gray!10}
+@\ENG{adlcp:prerequisites} & \ENG{Optional} & Έκφραση προαπαιτούμενων (π.χ. "\ENG{ITEM}\_1\&\ENG{ITEM}\_2"). \\
+\midrule
+<\ENG{resources}> & \ENG{Required} & \ENG{Container} για όλα τα \ENG{resources} του \ENG{package}. \\
+\rowcolor{gray!10}
+@\ENG{xml:base} & \ENG{Optional} & \ENG{Base} \ENG{URL} για \ENG{resources}. \\
+<\ENG{resource}> & \ENG{Optional} (\(\geq 0\)) & Περιγράφει ένα \ENG{resource} (\ENG{SCO} ή \ENG{asset}). \\
+\rowcolor{gray!10}
+@\ENG{identifier} & \ENG{Required} (\ENG{in} \ENG{resource}) & \ENG{Unique} \ENG{ID} του \ENG{resource}. \\
+@\ENG{type} & \ENG{Required} (\ENG{in} \ENG{resource}) & Συνήθως "\ENG{webcontent}". \\
+\rowcolor{gray!10}
+@\ENG{href} & \ENG{Optional} (\ENG{in} \ENG{resource}) & \ENG{URL} του \ENG{launch} \ENG{file} (υποχρεωτικό για \ENG{SCOs}). \\
+@\ENG{adlcp:scormtype} & \ENG{Required} (\ENG{in} \ENG{resource}) & "\ENG{sco}" ή "\ENG{asset}". \\
+\rowcolor{gray!10}
+<\ENG{metadata}> & \ENG{Optional} (\ENG{in} \ENG{resource}) & \ENG{Metadata} για το \ENG{resource}. \\
+<\ENG{file}> & \ENG{Optional} (\(\geq 0\)) & \ENG{Physical} \ENG{file} που περιέχεται στο \ENG{package}. \\
+\rowcolor{gray!10}
+@\ENG{href} & \ENG{Required} (\ENG{in} \ENG{file}) & \ENG{Relative} \ENG{path} του \ENG{file}. \\
+<\ENG{dependency}> & \ENG{Optional} (\(\geq 0\)) & Αναφορά σε άλλο \ENG{resource} (για \ENG{shared} \ENG{files}). \\
+\rowcolor{gray!10}
+@\ENG{identifierref} & \ENG{Required} (\ENG{in} \ENG{dependency}) & \ENG{ID} του \ENG{resource} \ENG{dependency}. \\
+\end{longtable}
+\endgroup

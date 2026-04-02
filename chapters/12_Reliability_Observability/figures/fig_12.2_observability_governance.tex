@@ -1,0 +1,33 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.6cm and 2.2cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.1cm, minimum height=1.05cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.4cm, minimum height=1.05cm, font=\footnotesize\bfseries},
+      arrow/.style={-Latex, thick}
+    ]
+    \node[box] (enginelogs) {\ENG{Engine JSON logs}};
+    \node[box, below=0.8cm of enginelogs] (playerlogs) {\ENG{Player pino logs}};
+    \node[box, below=0.8cm of playerlogs] (containerlogs) {\ENG{Container logs}\\\ENG{via gelf}};
+
+    \node[emph, right=2.3cm of playerlogs] (logstash) {\ENG{Logstash}};
+    \node[emph, right=2.3cm of logstash] (elastic) {\ENG{Elasticsearch}};
+    \node[emph, right=2.3cm of elastic] (kibana) {\ENG{Kibana}};
+
+    \node[box, above=0.9cm of logstash] (corr) {\texttt{\ENG{CorrelationIdFilter}}};
+    \node[box, below=1.0cm of elastic] (metrics) {\texttt{\ENG{ObservedRuntimeStateStore}}\\+\ENG{Micrometer}};
+
+    \draw[arrow] (enginelogs) -- (logstash);
+    \draw[arrow] (playerlogs) -- (logstash);
+    \draw[arrow] (containerlogs) -- (logstash);
+    \draw[arrow] (logstash) -- (elastic);
+    \draw[arrow] (elastic) -- (kibana);
+    \draw[arrow] (corr) -- (enginelogs);
+    \draw[arrow] (metrics) -- (elastic);
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Υλοποιημένα κανάλια παρατηρησιμότητας της πλατφόρμας: \ENG{structured logs}, συσχέτιση αιτήσεων και βασική μετρική κάλυψη της κατάστασης εκτέλεσης.}
+  \label{fig:observability_governance}
+\end{figure}

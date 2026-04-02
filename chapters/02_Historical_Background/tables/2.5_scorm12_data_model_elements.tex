@@ -1,0 +1,40 @@
+﻿\begin{table}[H]
+\centering
+\caption{Βασικά στοιχεία του \ENG{SCORM} 1.2 \ENG{data} \ENG{model}}
+\label{tab:scorm12_data_model}
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{chaptertablebox}
+\begin{tabular}{|p{5cm}|p{8.5cm}|}
+\hline
+\textbf{Στοιχείο} & \textbf{Περιγραφή} \\
+\hline
+\hline
+\texttt{\ENG{cmi.core.student}\_\ENG{id}} & Το μοναδικό αναγνωριστικό του εκπαιδευόμενου. \\
+\hline
+\texttt{\ENG{cmi.core.student}\_\ENG{name}} & Το ονοματεπώνυμο του εκπαιδευόμενου. \\
+\hline
+\texttt{\ENG{cmi.core.lesson}\_\ENG{location}} & Η τελευταία θέση στο \ENG{SCO} (για \ENG{bookmarking}). \\
+\hline
+\texttt{\ENG{cmi.core.lesson}\_\ENG{status}} & Η κατάσταση του μαθήματος (π.χ. \texttt{\ENG{incomplete}}, \texttt{\ENG{completed}}, \texttt{\ENG{passed}}, \texttt{\ENG{failed}}). \\
+\hline
+\texttt{\ENG{cmi.core.score.raw}} & Η ακατέργαστη βαθμολογία (αριθμός). \\
+\hline
+\texttt{\ENG{cmi.core.score.min}/\ENG{max}} & Οι ελάχιστες και μέγιστες δυνατές βαθμολογίες. \\
+\hline
+\texttt{\ENG{cmi.core.session}\_\ENG{time}} & Ο χρόνος που πέρασε ο εκπαιδευόμενος στο τρέχον \ENG{session.} \\
+\hline
+\texttt{\ENG{cmi.core.total}\_\ENG{time}} & Ο συνολικός χρόνος σε όλα τα \ENG{sessions.} \\
+\hline
+\texttt{\ENG{cmi.suspend}\_\ENG{data}} & \ENG{String} για αποθήκευση προσαρμοσμένων δεδομένων (έως 4096 χαρακτήρες). \\
+\hline
+\texttt{\ENG{cmi.launch}\_\ENG{data}} & Δεδομένα που το \ENG{LMS} περνά στο \ENG{SCO} κατά την εκκίνηση. \\
+\hline
+\texttt{\ENG{cmi.interactions}.*} & Καταγραφή αλληλεπιδράσεων (ερωτήσεις, απαντήσεις). \\
+\hline
+\texttt{\ENG{cmi.objectives}.*} & Παρακολούθηση μαθησιακών στόχων. \\
+\hline
+\end{tabular}
+\end{chaptertablebox}
+\end{table}

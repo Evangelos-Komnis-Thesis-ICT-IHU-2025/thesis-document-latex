@@ -1,0 +1,24 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{2.8cm}|p{2.8cm}|p{5.2cm}|p{4.0cm}|}
+\hline
+Αποθετήριο / τεχνούργημα & Ρόλος ως προς την έγκυρη μορφή αναφοράς & Τι διατηρεί & Κύριος μηχανισμός ενημέρωσης \\
+\hline
+\ENG{Redis} \texttt{\ENG{LaunchRuntimeState}} & Προσωρινό έγκυρο αποθετήριο εκτέλεσης & Ενεργή κατάσταση συνεδρίας, τελευταία ακολουθία, κανονικοποιημένη πρόοδος, ακατέργαστη κατάσταση & \texttt{\ENG{CreateLaunchCommandHandler}}, \texttt{\ENG{RuntimeOrchestrator}} \\
+\hline
+\ENG{Postgres} \texttt{\ENG{attempts}} & Κύριο αποθετήριο προσπαθειών & Τελική πρόοδος, βαθμολογία, χρόνος, θέση, κατάσταση προσπάθειας & \texttt{\ENG{RuntimeFlushService}}, υπηρεσίες καταχώρισης \\
+\hline
+\ENG{Postgres} \texttt{\ENG{attempt\_runtime\_snapshots}} & Κύριο ιστορικό κατάστασης εκτέλεσης & Ακατέργαστο \ENG{runtime JSON}, κανονικοποιημένη πρόοδος, λόγος καταγραφής & \texttt{\ENG{RuntimeFlushService}} \\
+\hline
+\ENG{MinIO} \ENG{ZIP objects} & Κύριο αποθετήριο πακέτων περιεχομένου & Αρχικό συμπιεσμένο πακέτο του μαθήματος & \texttt{\ENG{ImportCourseCommandHandler}} \\
+\hline
+\ENG{Player cache} & Υποστηρικτική προσωρινή μνήμη, όχι κύριο αποθετήριο & Αποσυμπιεσμένα αρχεία για σερβίρισμα \ENG{SCO} & \texttt{\ENG{ContentCacheService.ensureExtracted()}} \\
+\hline
+\ENG{Browser in-memory state} & Εφήμερη κατάσταση πελάτη & Μεταβολές \ENG{SetValue} πριν από το επόμενο \ENG{commit} & \ENG{JavaScript} της σελίδας φιλοξενίας και \ENG{browser adapter} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

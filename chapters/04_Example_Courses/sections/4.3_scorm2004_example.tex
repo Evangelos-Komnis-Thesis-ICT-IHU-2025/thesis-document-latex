@@ -1,0 +1,82 @@
+\section{Παράδειγμα Μαθήματος \ENG{SCORM} 2004}
+\label{sec:scorm2004_example}
+
+Για το \ENG{SCORM} 2004 επιλέγονται δύο παραδείγματα με διαφορετικό ρόλο. Το \ENG{\path{RuntimeMinimumCalls_SCORM20043rdEdition.zip}} αποτυπώνει την ελάχιστη προσαρμογή του \ENG{run-time} μοντέλου από το \ENG{SCORM} 1.2 προς το αντικείμενο \ENG{\texttt{API\_1484\_11}} και τις μεθόδους \ENG{\texttt{Initialize()}} / \ENG{\texttt{Terminate()}}. Το \ENG{\path{SequencingForcedSequential_SCORM20043rdEdition.zip}}, αντίθετα, δείχνει πώς η βασική αυτή λογική επεκτείνεται με \ENG{bookmarking}, διακριτή παρακολούθηση ολοκλήρωσης και επιτυχίας, καθολικά \ENG{objectives} και δηλωτικούς κανόνες \ENG{sequencing}.
+
+\subsection{\ENG{Run-Time} συμπεριφορά και εμπλουτισμένο μοντέλο δεδομένων}
+\label{subsec:scorm2004_runtime_example}
+
+Η πιο χαρακτηριστική διαφορά του \ENG{SCORM} 2004 στο επίπεδο της πραγματικής εκτέλεσης δεν είναι μόνο η μετονομασία του \ENG{API}, αλλά η πιο ρητή χρήση του μοντέλου δεδομένων. Στο \ENG{\path{shared/launchpage.html}} του παραδείγματος \ENG{\path{SequencingForcedSequential_SCORM20043rdEdition.zip}}, η λογική εκκίνησης και πλοήγησης γράφεται απευθείας πάνω σε στοιχεία όπως \ENG{\texttt{cmi.completion\_status}}, \ENG{\texttt{cmi.location}} και \ENG{\texttt{cmi.success\_status}}.
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{lstlisting}[language=JavaScript, caption={Παράδειγμα \ENG{SCORM} 2004 \ENG{runtime} παρακολούθησης}, label={lst:ch4_scorm2004_runtime}]
+var completionStatus = ScormProcessGetValue("cmi.completion_status", true);
+if (completionStatus == "unknown"){
+    ScormProcessSetValue("cmi.completion_status", "incomplete");
+}
+
+var bookmark = ScormProcessGetValue("cmi.location", false);
+
+ScormProcessSetValue("cmi.location", currentPage);
+
+if (currentPage == (pageArray.length - 1)){
+    reachedEnd = true;
+    ScormProcessSetValue("cmi.completion_status", "completed");
+
+    if (hasAssessment == false){
+        ScormProcessSetValue("cmi.success_status", "passed");
+    }
+
+    ScormProcessCommit();
+}
+\end{lstlisting}
+}
+
+Το απόσπασμα αυτό συνδέεται άμεσα με την ανάλυση της Ενότητας~\ref{subsec:scorm2004_rte}. Ο διαχωρισμός ανάμεσα σε \ENG{\texttt{cmi.completion\_status}} και \ENG{\texttt{cmi.success\_status}} γίνεται πραγματικός μηχανισμός ελέγχου της μαθησιακής κατάστασης. Παράλληλα, το \ENG{\texttt{cmi.location}} αξιοποιείται ως σημείο συνέχισης, ενώ η ρητή κλήση \ENG{\texttt{Commit()}} υποδηλώνει ότι η κατάσταση του \ENG{runtime} πρέπει να καθίσταται διαθέσιμη εγκαίρως και προς το υποσύστημα \ENG{sequencing}.
+
+Το ίδιο παράδειγμα δείχνει και την πιο στενή σύνδεση ανάμεσα στο \ENG{runtime} και στην πλοήγηση. Κατά την έξοδο, ο κώδικας γράφει \ENG{\texttt{cmi.exit="suspend"}} και θέτει \ENG{\texttt{adl.nav.request="suspendAll"}} ή \ENG{\texttt{adl.nav.request="exitAll"}}, ανάλογα με το αν ο χρήστης θέλει να συνεχίσει αργότερα ή να ολοκληρώσει οριστικά την εκτέλεση. Έτσι, η πλοήγηση παύει να είναι μόνο ζήτημα διεπαφής \ENG{LMS} και μετατρέπεται σε τυπικό μέρος της συμβατικής επικοινωνίας που ορίζει το \ENG{SCORM} 2004.
+
+\subsection{\ENG{Sequencing} και καθολικά \ENG{objectives} στο \ENG{\texttt{manifest}}}
+\label{subsec:scorm2004_sequencing}
+
+Η ουσιαστική υπεροχή του \ENG{SCORM} 2004 γίνεται ορατή στο \ENG{\texttt{imsmanifest.xml}} του \ENG{\path{SequencingForcedSequential_SCORM20043rdEdition.zip}}. Εκεί η λογική προώθησης του εκπαιδευόμενου δηλώνεται ρητά μέσω \ENG{sequencing rules} και χαρτογράφησης στόχων.
+
+{\selectlanguage{english}\fontencoding{T1}\selectfont
+\begin{lstlisting}[language=XML, caption={Κανόνας \ENG{forced sequential} στο \ENG{SCORM} 2004 \ENG{manifest}}, label={lst:ch4_scorm2004_sequencing}]
+<item identifier="etiquette_item" identifierref="etiquette_resource">
+  <title>Etiquette</title>
+  <imsss:sequencing IDRef="common_seq_rules">
+    <imsss:sequencingRules>
+      <imsss:preConditionRule>
+        <imsss:ruleConditions conditionCombination="any">
+          <imsss:ruleCondition
+            referencedObjective="previous_sco_satisfied"
+            operator="not" condition="satisfied"/>
+          <imsss:ruleCondition
+            referencedObjective="previous_sco_satisfied"
+            operator="not" condition="objectiveStatusKnown"/>
+        </imsss:ruleConditions>
+        <imsss:ruleAction action="disabled"/>
+      </imsss:preConditionRule>
+    </imsss:sequencingRules>
+    <imsss:objectives>
+      <imsss:objective objectiveID="previous_sco_satisfied">
+        <imsss:mapInfo
+          targetObjectiveID="...playing_satisfied"
+          readSatisfiedStatus="true"
+          writeSatisfiedStatus="false"/>
+      </imsss:objective>
+    </imsss:objectives>
+  </imsss:sequencing>
+</item>
+\end{lstlisting}
+}
+
+Το παραπάνω τμήμα είναι ουσιαστικά η πρακτική μορφή των εννοιών που αναλύθηκαν στην Ενότητα~\ref{subsec:scorm2004_sn}. Ο κόμβος \ENG{Etiquette} παραμένει ορατός στο δέντρο του μαθήματος, αλλά καθίσταται \ENG{disabled} όσο δεν έχει ικανοποιηθεί ή ακόμη και αναγνωριστεί ο στόχος του προηγούμενου \ENG{SCO}. Η πληροφορία αυτή προκύπτει από ρητή δήλωση \ENG{preConditionRule} πάνω σε \ENG{objective} που διαβάζεται μέσω \ENG{mapInfo} από άλλο τμήμα του \ENG{activity tree}.
+
+Το παράδειγμα αναδεικνύει επίσης την αξία των καθολικών \ENG{objectives}. Η ικανοποίηση του προηγούμενου \ENG{SCO} αποθηκεύεται σε κοινό στόχο, τον οποίο μπορεί να διαβάσει ο επόμενος κόμβος για να αποφασίσει αν θα ενεργοποιηθεί. Με αυτόν τον τρόπο, η κατάσταση παύει να είναι τοπική ιδιότητα ενός μόνο \ENG{SCO} και μετατρέπεται σε δεδομένο που τροφοδοτεί τη συνολική ροή του μαθήματος.
+
+\subsection{Σύντομη αποτίμηση}
+\label{subsec:scorm2004_example_summary}
+
+Τα παραδείγματα του \ENG{SCORM} 2004 επιβεβαιώνουν ότι το πρότυπο αξιοποιεί λεπτομερέστερα στοιχεία κατάστασης, η πλοήγηση συνδέεται τυπικά με το \ENG{adl.nav} \ENG{namespace} και το \ENG{\texttt{manifest}} αποκτά ενεργό ρόλο στη ρύθμιση της μαθησιακής ακολουθίας. Έτσι, η αυξημένη εκφραστικότητα που περιγράφηκε θεωρητικά στο Κεφάλαιο 3 εμφανίζεται εδώ ως πραγματική, εκτελέσιμη λογική πάνω σε συγκεκριμένα αρχεία και συγκεκριμένες κλήσεις \ENG{API}.

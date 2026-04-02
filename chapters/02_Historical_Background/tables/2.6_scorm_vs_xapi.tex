@@ -1,0 +1,33 @@
+\begin{table}[H]
+\centering
+\caption{Σύγκριση \ENG{SCORM} και \ENG{xAPI}}
+\label{tab:scorm_vs_xapi}
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{chaptertablebox}
+\begin{tabular}{|p{4cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{Χαρακτηριστικό} & \textbf{\ENG{SCORM}} & \textbf{\ENG{xAPI}} \\
+\hline
+Περιβάλλον εκτέλεσης & \ENG{Web} \ENG{browser} μέσα σε \ENG{LMS} & Οποιοδήποτε (\ENG{mobile}, \ENG{desktop}, \ENG{web}, \ENG{offline}) \\
+\hline
+Δομή δεδομένων & Προκαθορισμένο \ENG{data} \ENG{model} (\ENG{cmi.}*) & Ευέλικτα \ENG{statements} (\ENG{actor-verb-object}) \\
+\hline
+Αποθήκευση & \ENG{LMS} \ENG{database} & \ENG{Learning} \ENG{Record} \ENG{Store} (\ENG{LRS}) \\
+\hline
+Επικοινωνία & \ENG{JavaScript} \ENG{API} (\ENG{synchronous}) & \ENG{RESTful} \ENG{HTTP} \ENG{API} (\ENG{asynchronous}) \\
+\hline
+\ENG{Offline} \ENG{tracking} & Όχι (απαιτεί σύνδεση με \ENG{LMS}) & Ναι (\ENG{statements} μπορούν να αποθηκευτούν τοπικά και να συγχρονιστούν αργότερα) \\
+\hline
+Ευελιξία & Περιορισμένη & Υψηλή (\ENG{custom} \ENG{verbs}, \ENG{activities}, \ENG{extensions}) \\
+\hline
+Καταγραφή εμπειριών & Μόνο εντός \ENG{LMS} & Οπουδήποτε (\ENG{social} \ENG{learning}, \ENG{simulations}, \ENG{real-world} \ENG{activities}) \\
+\hline
+Πολυπλοκότητα & Μέτρια & Υψηλή (απαιτεί \ENG{LRS} \ENG{setup}, \ENG{verb/activity} \ENG{design}) \\
+\hline
+Υιοθέτηση & Ευρεία (\ENG{legacy} \ENG{content}) & Αυξανόμενη (νέες υλοποιήσεις) \\
+\hline
+\end{tabular}
+\end{chaptertablebox}
+\end{table}

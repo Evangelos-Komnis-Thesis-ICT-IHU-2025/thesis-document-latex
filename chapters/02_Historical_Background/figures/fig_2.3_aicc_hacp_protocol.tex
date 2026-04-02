@@ -1,0 +1,95 @@
+% FIGURE 2.3: AICC HACP Protocol (HTTP-based AICC Communication)
+% Sequence diagram showing LMS-Content communication
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+  scale=0.9,
+  every node/.style={font=\small},
+  entity/.style={rectangle, draw, thick, minimum width=3cm, minimum height=1.2cm, align=center, fill=white},
+  message/.style={-latex, thick},
+  return/.style={-latex, thick, dashed}
+]
+
+% Entities
+\node[entity, fill=aiccblue!20] at (0, 8) (lms) {\textbf{\ENG{LMS}}\\(\ENG{Learning} \ENG{Management} \ENG{System})};
+\node[entity, fill=aiccblue!40] at (8, 8) (content) {\textbf{\ENG{AICC} \ENG{Content}}\\(\ENG{AU} - \ENG{Assignable} \ENG{Unit})};
+
+% Lifelines
+\draw[thick, dashed] (lms.south) -- (0, -1);
+\draw[thick, dashed] (content.south) -- (8, -1);
+
+% Step 1: Launch
+\draw[message, aiccblue] (0, 6.5) -- (8, 6.5) node[midway, above, font=\footnotesize] {1. \ENG{Launch} \ENG{AU} \ENG{with} \ENG{parameters}};
+\node[right, font=\tiny, align=left, text width=4cm] at (8.5, 6.5) {
+  \texttt{\ENG{AICC}\_\ENG{URL}=\ENG{http}://...}\\
+  \texttt{\ENG{AICC}\_\ENG{SID}=\ENG{session123}}
+};
+
+% Step 2: GetParam request
+\draw[message, xapiorange] (8, 5.5) -- (0, 5.5) node[midway, above, font=\footnotesize] {2. \ENG{HACP}\_\ENG{GetParam}()};
+\node[left, font=\tiny, align=left] at (-0.5, 5.5) {
+  \ENG{HTTP} \ENG{GET}:\\
+  \texttt{?\ENG{command}=\ENG{GetParam}}
+};
+
+% Step 3: GetParam response
+\draw[return, xapiorange] (0, 4.5) -- (8, 4.5) node[midway, above, font=\footnotesize] {3. \ENG{Return} \ENG{learner} \ENG{data}};
+\node[right, font=\tiny, align=left, text width=4.5cm] at (8.5, 4.5) {
+  \texttt{[\ENG{Core}]}\\
+  \texttt{\ENG{Student}\_\ENG{ID}=\ENG{john123}}\\
+  \texttt{\ENG{Student}\_\ENG{Name}=\ENG{John} \ENG{Doe}}\\
+  \texttt{\ENG{Lesson}\_\ENG{Status}=\ENG{incomplete}}
+};
+
+% Step 4: Learner interaction (internal)
+\draw[->, thick, gray] (8, 3.8) -- (8, 3.2);
+\node[right, font=\footnotesize, gray] at (8.5, 3.5) {\ENG{Learner} \ENG{interacts} \ENG{with} \ENG{content}};
+
+% Step 5: PutParam request
+\draw[message, scormgreen] (8, 2.5) -- (0, 2.5) node[midway, above, font=\footnotesize] {4. \ENG{HACP}\_\ENG{PutParam}()};
+\node[left, font=\tiny, align=left, text width=4cm] at (-0.5, 2.5) {
+  \ENG{HTTP} \ENG{POST}:\\
+  \texttt{?\ENG{command}=\ENG{PutParam}}\\
+  \texttt{\&\ENG{lesson}\_\ENG{status}=\ENG{completed}}\\
+  \texttt{\&\ENG{score}=85}
+};
+
+% Step 6: PutParam acknowledgment
+\draw[return, scormgreen] (0, 1.5) -- (8, 1.5) node[midway, above, font=\footnotesize] {5. \ENG{ACK} (\ENG{error}=0)};
+
+% Step 7: More interactions (optional)
+\draw[->, thick, gray, dashed] (8, 1.0) -- (8, 0.5);
+\node[right, font=\footnotesize, gray] at (8.5, 0.75) {\ENG{Additional} \ENG{PutParam} \ENG{calls...}};
+
+% Step 8: ExitAU
+\draw[message, problemred] (8, 0) -- (0, 0) node[midway, above, font=\footnotesize] {6. \ENG{HACP}\_\ENG{ExitAU}()};
+\node[left, font=\tiny, align=left] at (-0.5, 0) {
+  \ENG{HTTP} \ENG{GET}:\\
+  \texttt{?\ENG{command}=\ENG{ExitAU}}
+};
+
+% Legend
+\node[below, font=\tiny, align=left] at (4, -1.5) {
+  \textbf{\ENG{HACP} \ENG{Commands}:}\\
+  \textcolor{xapiorange}{\textbullet} \textbf{\ENG{GetParam}:} \ENG{Retrieve} \ENG{initial} \ENG{learner/course} \ENG{data} \ENG{from} \ENG{LMS}\\
+  \textcolor{scormgreen}{\textbullet} \textbf{\ENG{PutParam}:} \ENG{Send} \ENG{tracking} \ENG{data} (\ENG{score}, \ENG{status}, \ENG{time}) \ENG{to} \ENG{LMS}\\
+  \textcolor{problemred}{\textbullet} \textbf{\ENG{ExitAU}:} \ENG{Notify} \ENG{LMS} \ENG{of} \ENG{content} \ENG{completion/exit}
+};
+
+% AICC data model note
+\node[below, font=\scriptsize, align=center, text width=10cm] at (4, -3.2) {
+  \textbf{\ENG{AICC} \ENG{Data} \ENG{Model}:} \ENG{Core}, \ENG{Core}\_\ENG{Lesson}, \ENG{Core}\_\ENG{Student}, \ENG{Core}\_\ENG{Vendor}, \ENG{Evaluation}, \ENG{Student}\_\ENG{Demographics}\\
+  \textbf{\ENG{Transport}:} \ENG{HTTP} (\ENG{HACP} = \ENG{HTTP-based} \ENG{AICC} \ENG{Communication} \ENG{Protocol})\\
+  \textbf{\ENG{Format}:} \ENG{Key-value} \ENG{pairs} (\ENG{INI-style}), \textbf{\ENG{NOT}} \ENG{XML}
+};
+
+% Advantages box
+\node[rectangle, draw, thick, fill=solutiongreen!10, align=left, font=\scriptsize, text width=5cm] at (-3, 3.5) {
+  \textbf{\ENG{AICC} \ENG{Advantages} (1988):}\\
+  \textbullet~\ENG{First} \ENG{industry} \ENG{standard}\\
+  \textbullet~\ENG{HTTP-based} (\ENG{portable})\\
+  \textbullet~\ENG{Offline} \ENG{support} (\ENG{AICC}\_\ENG{URL})\\
+  \textbullet~\ENG{Simple} \ENG{key-value} \ENG{format}
+};
+
+\end{tikzpicture}
+\end{chapterfigurebox}

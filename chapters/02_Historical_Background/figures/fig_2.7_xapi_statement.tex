@@ -1,0 +1,101 @@
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+  >=Latex,
+  every node/.style={font=\small},
+  corebox/.style={
+    rectangle,
+    draw,
+    thick,
+    rounded corners,
+    minimum width=4cm,
+    minimum height=2.8cm,
+    text width=3.8cm,
+    align=left,
+    inner sep=7pt,
+    font=\ttfamily\small
+  },
+  metabox/.style={
+    rectangle,
+    draw,
+    thick,
+    rounded corners,
+    minimum width=13cm,
+    minimum height=2.8cm,
+    text width=12.5cm,
+    align=left,
+    inner sep=7pt,
+    font=\ttfamily\small
+  },
+  boxlabel/.style={font=\bfseries\small, align=center},
+  arrowlabel/.style={font=\footnotesize, fill=white, inner sep=1pt},
+  note/.style={font=\small, align=center, text width=12.6cm}
+]
+
+% Title
+\node[font=\large\bfseries, text=xapiorange] (title) at (0,4.5)
+  {\ENG{xAPI} \ENG{Statement} \ENG{Structure}};
+
+% Actor
+\node[corebox, fill=blue!12] (actor) at (-6,1.5) {%
+"\ENG{actor}": \{\\
+\quad "\ENG{type}": "\ENG{Agent}",\\
+\quad "\ENG{name}": "\ENG{John Doe}",\\
+\quad "\ENG{mbox}": "\ENG{mailto:john@example.com}"\\
+\}
+};
+\node[boxlabel, text=blue!70!black] at ($(actor.north)+(0,0.45)$)
+  {\ENG{ACTOR} (Ποιος)};
+
+% Verb
+\node[corebox, fill=xapiorange!20] (verb) at (0,1.5) {%
+"\ENG{verb}": \{\\
+\quad "\ENG{id}": "\ENG{adlnet.gov/.../completed}",\\
+\quad "\ENG{display}": \{"\ENG{en-US}": "\ENG{completed}"\}\\
+\}
+};
+\node[boxlabel, text=xapiorange!80!black] at ($(verb.north)+(0,0.45)$)
+  {\ENG{VERB} (Τι έκανε)};
+
+% Object
+\node[corebox, fill=green!12] (object) at (6,1.5) {%
+"\ENG{object}": \{\\
+\quad "\ENG{type}": "\ENG{Activity}",\\
+\quad "\ENG{id}": "\ENG{example.com/course-101}",\\
+\quad "\ENG{name}": "\ENG{Course 101}"\\
+\}
+};
+\node[boxlabel, text=green!50!black] at ($(object.north)+(0,0.45)$)
+  {\ENG{OBJECT} (Σε τι)};
+
+% Arrows
+\draw[->, thick, gray!70] (actor.east) -- node[arrowlabel, above] {\ENG{does}} (verb.west);
+\draw[->, thick, gray!70] (verb.east) -- node[arrowlabel, above] {\ENG{to}} (object.west);
+
+% Optional/automatic fields
+\node[metabox, fill=gray!10] (meta) at (0,-2.8) {%
+"\ENG{result}": \{"\ENG{score}": 0.85, "\ENG{success}": \ENG{true}, "\ENG{completion}": \ENG{true}\}\\
+"\ENG{context}": \{"\ENG{platform}": "\ENG{Example LMS}", "\ENG{instructor}": "...", "\ENG{registration}": "\ENG{uuid}"\}\\
+"\ENG{timestamp}": "\ENG{2024-01-15T10:30:00Z}",\ "\ENG{stored}": "\ENG{2024-01-15T10:30:05Z}",\ "\ENG{authority}": "\ENG{LRS/client}"
+};
+\node[boxlabel, text=black!70] at ($(meta.north)+(0,0.45)$)
+  {\ENG{OPTIONAL / AUTOMATIC FIELDS}};
+
+% Footnote
+\node[note] (footnote) at (0,-5.3) {%
+Το ελάχιστο υποχρεωτικό \ENG{xAPI} \ENG{statement} αποτελείται από \ENG{Actor}, \ENG{Verb} και \ENG{Object}, ενώ τα πεδία \ENG{Result}, \ENG{Context}, \ENG{Timestamp}, \ENG{Stored} και \ENG{Authority} προσθέτουν επιπλέον πληροφορία καταγραφής.
+};
+
+% Background box
+\begin{pgfonlayer}{background}
+  \node[
+    draw=xapiorange,
+    very thick,
+    rounded corners,
+    fill=xapiorange!4,
+    fit=(title)(actor)(verb)(object)(meta)(footnote),
+    inner sep=12pt
+  ] {};
+\end{pgfonlayer}
+
+\end{tikzpicture}
+\end{chapterfigurebox}

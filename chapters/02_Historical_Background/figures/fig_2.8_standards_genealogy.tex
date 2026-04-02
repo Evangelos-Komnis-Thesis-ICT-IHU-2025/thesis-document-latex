@@ -1,0 +1,167 @@
+% FIGURE 2.8: Standards Genealogy Tree (Evolution & Relationships)
+% Directed graph showing standards evolution from 1980 to 2026
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+  scale=0.85,
+  every node/.style={font=\small},
+  standard/.style={rectangle, rounded corners, draw, thick, minimum width=2.2cm, minimum height=1cm, align=center, fill=white, drop shadow},
+  influence/.style={-latex, thick, dashed},
+  evolution/.style={-latex, very thick},
+  year/.style={font=\tiny, gray}
+]
+
+% Root: CBT (1980s)
+\node[standard, fill=problemred!20] at (0, 8) (cbt) {
+  \textbf{\ENG{CBT}}\\
+  \tiny \ENG{Computer-Based}\\
+  \tiny \ENG{Training}
+};
+\node[year, above] at (cbt.north) {1980\ENG{s}};
+
+% First generation split: AICC & IMS
+\node[standard, fill=aiccblue!30] at (-4, 6) (aicc) {
+  \textbf{\ENG{AICC}}\\
+  \tiny \ENG{Aviation} \ENG{Industry}\\
+  \tiny \ENG{CBT} \ENG{Committee}
+};
+\node[year, left] at (aicc.west) {1988};
+
+\node[standard, fill=imslightblue!30] at (4, 6) (ims) {
+  \textbf{\ENG{IMS}}\\
+  \tiny \ENG{Global} \ENG{Learning}\\
+  \tiny \ENG{Consortium}
+};
+\node[year, right] at (ims.east) {1997};
+
+% Evolution arrows from CBT
+\draw[evolution, problemred] (cbt) -- (aicc);
+\draw[evolution, problemred] (cbt) -- (ims);
+
+% Metadata branch (parallel development)
+\node[standard, fill=metadatagray!30, text width=2.5cm] at (0, 5.5) (metadata) {
+  \textbf{\ENG{Dublin} \ENG{Core}}\\
+  \textbf{\ENG{IEEE} \ENG{LOM}}\\
+  \tiny \ENG{Metadata} \ENG{Standards}
+};
+\node[year, above right] at (metadata.north east) {1995-2002};
+\draw[influence, gray] (cbt) -- (metadata);
+
+% SCORM (convergence of AICC + ADL + IMS)
+\node[standard, fill=scormgreen!40, text width=2.3cm] at (-2, 3.5) (scorm1) {
+  \textbf{\ENG{SCORM} 1.0-1.2}\\
+  \tiny \ENG{ADL} \ENG{Initiative}
+};
+\node[year, left] at (scorm1.west) {2000-2001};
+
+\draw[evolution, aiccblue] (aicc) -- (scorm1);
+\draw[influence, gray] (metadata) -- (scorm1);
+\draw[influence, imslightblue] (ims) -- (scorm1);
+
+% SCORM maturity
+\node[standard, fill=scormgreen!60] at (-2, 1.5) (scorm2004) {
+  \textbf{\ENG{SCORM} 2004}\\
+  \tiny 4\ENG{th} \ENG{Edition}
+};
+\node[year, left] at (scorm2004.west) {2004-2009};
+
+\draw[evolution, scormgreen] (scorm1) -- (scorm2004);
+
+% IMS branches: QTI, CC, LTI
+\node[standard, fill=imslightblue!40, text width=2cm] at (5, 4) (qti) {
+  \textbf{\ENG{IMS} \ENG{QTI}}\\
+  \tiny \ENG{Question} \&\\
+  \tiny \ENG{Test}
+};
+\node[year, above] at (qti.north) {2000};
+
+\node[standard, fill=imslightblue!50, text width=2cm] at (5, 2.5) (cc) {
+  \textbf{\ENG{IMS} \ENG{CC}}\\
+  \tiny \ENG{Common}\\
+  \tiny \ENG{Cartridge}
+};
+\node[year, above] at (cc.north) {2008};
+
+\node[standard, fill=imslightblue!60] at (5, 1) (lti) {
+  \textbf{\ENG{IMS} \ENG{LTI}}\\
+  \tiny \ENG{Learning} \ENG{Tools}\\
+  \tiny \ENG{Interoperability}
+};
+\node[year, above] at (lti.north) {2010};
+
+\draw[evolution, imslightblue] (ims) -- (qti);
+\draw[evolution, imslightblue] (qti) -- (cc);
+\draw[evolution, imslightblue] (cc) -- (lti);
+
+% xAPI Revolution (influenced by SCORM limitations)
+\node[standard, fill=xapiorange!50, text width=2.2cm] at (0, -0.5) (xapi) {
+  \textbf{\ENG{xAPI}}\\
+  \tiny (\ENG{Tin} \ENG{Can} \ENG{API})\\
+  \tiny \ENG{Experience} \ENG{API}
+};
+\node[year, left] at (xapi.west) {2011};
+
+\draw[influence, scormgreen, bend left=20] (scorm2004) to node[midway, above, font=\tiny, sloped] {\ENG{limitations}} (xapi);
+\draw[influence, aiccblue, bend right=30] (aicc) to (xapi);
+
+% cmi5 (AICC + xAPI convergence)
+\node[standard, fill=accentpurple!50, text width=2cm] at (-3, -2) (cmi5) {
+  \textbf{\ENG{cmi5}}\\
+  \tiny \ENG{AICC} + \ENG{xAPI}
+};
+\node[year, below] at (cmi5.south) {2016};
+
+\draw[evolution, xapiorange] (xapi) -- (cmi5);
+\draw[influence, aiccblue, bend left=45] (aicc) to node[midway, below, font=\tiny, sloped] {\ENG{legacy} \ENG{support}} (cmi5);
+
+% Contemporary convergence: Total Learning Architecture
+\node[standard, fill=blue!20, text width=3.5cm, minimum height=1.5cm] at (1.5, -3.5) (tla) {
+  \textbf{\ENG{Total} \ENG{Learning} \ENG{Architecture}}\\
+  \tiny \ENG{xAPI} 2.0, \ENG{LRS}, \ENG{Analytics},\\
+  \tiny \ENG{AI/ML}, \ENG{Open} \ENG{Badges} 3.0
+};
+\node[year, below] at (tla.south) {2020-2026};
+
+\draw[evolution, xapiorange] (xapi) -- (tla);
+\draw[evolution, accentpurple] (cmi5) -- (tla);
+\draw[influence, imslightblue, bend left=30] (lti) to (tla);
+\draw[influence, scormgreen, dashed] (scorm2004) to node[midway, right, font=\tiny] {\ENG{legacy}} (tla);
+
+% Key relationships legend
+\node[below, font=\tiny, align=left] at (0, -5.5) {
+  \textbf{\ENG{Legend}:} \\
+  \tikz \draw[evolution] (0,0) -- (0.5,0); \ENG{Direct} \ENG{evolution} \quad
+  \tikz \draw[influence] (0,0) -- (0.5,0); \ENG{Influence/inspiration} \quad
+  \textcolor{problemred}{\textbullet} \ENG{Pre-standard} \quad
+  \textcolor{aiccblue}{\textbullet} \ENG{AICC} \ENG{family} \quad
+  \textcolor{scormgreen}{\textbullet} \ENG{SCORM} \ENG{family} \quad
+  \textcolor{xapiorange}{\textbullet} \ENG{xAPI} \ENG{family} \quad
+  \textcolor{imslightblue}{\textbullet} \ENG{IMS} \ENG{family}
+};
+
+% \ENG{Timeline} annotations (side)
+\node[right, font=\scriptsize, align=left, text width=3cm] at (7.5, 5) {
+  \textbf{1980-1995:}\\
+  \tiny \ENG{Fragmentation}\\
+  \tiny \ENG{era}
+};
+
+\node[right, font=\scriptsize, align=left, text width=3cm] at (7.5, 2.5) {
+  \textbf{1997-2010:}\\
+  \tiny \ENG{Standardization}\\
+  \tiny \& \ENG{convergence}
+};
+
+\node[right, font=\scriptsize, align=left, text width=3cm] at (7.5, -1) {
+  \textbf{2011-2020:}\\
+  \tiny \ENG{Disruption}\\
+  \tiny (\ENG{xAPI})
+};
+
+\node[right, font=\scriptsize, align=left, text width=3cm] at (7.5, -3.5) {
+  \textbf{2020+:}\\
+  \tiny \ENG{Modern}\\
+  \tiny \ENG{integration}
+};
+
+\end{tikzpicture}
+\end{chapterfigurebox}

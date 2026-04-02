@@ -1,0 +1,21 @@
+\section{Τοπίο Αυτοματισμού σε Επίπεδο Αποθετηρίων}
+\label{sec:appendix_workflow_landscape}
+
+Στα \texttt{\ENG{scorm-engine}}, \texttt{\ENG{scorm-engine-php-sdk}},
+\texttt{\ENG{example-lms-client}} και \texttt{\ENG{player}} εμφανίζονται σταθερά τα flows των \ENG{tests}, \ENG{lint},
+\ENG{changelog}, \ENG{release} και \ENG{labeler}. Το γεγονός αυτό συνδέεται ισχυρά με την ύπαρξη του \texttt{\ENG{github-actions-template}},
+το οποίο παράγει ακριβώς τέτοιου τύπου αρχεία για νέα αποθετήρια. Η ομοιομορφία αυτή έχει σημασία αλλά 
+επίσης μας γλυτώνει από την ανάγκη να αναλύσουμε κάθε αποθετήριο ξεχωριστά, καθώς η βασική δομή των ροών είναι κοινή.
+
+Η ύπαρξη \ENG{workflow automation} στο \texttt{\ENG{thesis-document-latex}} δεν πρέπει να συγχέεται με τον αυτοματισμό της πλατφόρμας.
+Το αποθετήριο της διπλωματικής διαθέτει ξεχωριστά \ENG{LaTeX build}, \ENG{lint}, \ENG{spellcheck} και \ENG{release} workflows,
+τα οποία τεκμηριώνουν μεν αναπαραγώγιμη παραγωγή του κειμένου, αλλά δεν συμμετέχουν στη λειτουργία του \ENG{SCORM ecosystem}.
+
+\input{appendices/C_Automation_Verification/figures/fig_c1_cross_repo_workflow_map}
+
+\begin{table}[H]
+\centering
+\caption{Συγκριτική χαρτογράφηση των κύριων \ENG{GitHub Actions workflows} στα βασικά αποθετήρια}
+\label{tab:appendix_repo_workflow_matrix}
+\input{appendices/C_Automation_Verification/tables/tab_c1_repo_workflow_matrix}
+\end{table}

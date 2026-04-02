@@ -1,0 +1,27 @@
+\begin{table}[H]
+\centering
+\caption{Συγκριτική αποτύπωση αρχιτεκτονικής, μεταφοράς δεδομένων και σύζευξης}
+\label{tab:architecture_comparison}
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{chaptertablebox}
+\begin{tabularx}{\textwidth}{|p{1.8cm}|Y|Y|Y|Y|Y|}
+\hline
+\textbf{Πρότυπο} & \textbf{Μοντέλο εκτέλεσης} & \textbf{Μεταφορά δεδομένων} & \textbf{Κύριος αποθηκευτής} & \textbf{Ισχυρό σημείο} & \textbf{Βασικός περιορισμός} \\
+\hline
+\ENG{AICC} & \ENG{Server-linked external units} & \ENG{HACP} \ENG{request/response} & \ENG{LMS/AICC server} & Πρώιμη διαλειτουργικότητα μεταξύ ετερογενών συστημάτων & Παρωχημένο πρωτόκολλο και περιορισμένη ευελιξία μοντέλου \\
+\hline
+\ENG{SCORM} 1.2 & \ENG{Browser session} μέσα στο \ENG{LMS} & \ENG{JavaScript API} & \ENG{LMS runtime} & Απλή και ώριμη συμβατότητα περιεχομένου & Περιορισμένο \ENG{tracking} και αυστηρή εξάρτηση από \ENG{browser} \\
+\hline
+\ENG{SCORM} 2004 & \ENG{Browser session} με \ENG{sequencing engine} & \ENG{JavaScript API} + \ENG{sequencing rules} & \ENG{LMS runtime} & Προηγμένο \ENG{sequencing} και κανόνες πλοήγησης & Υψηλή πολυπλοκότητα συγγραφής, δοκιμών και αποσφαλμάτωσης \\
+\hline
+\ENG{xAPI} & Αποσυζευγμένοι πελάτες δραστηριοτήτων & \ENG{REST/JSON statements} & \ENG{LRS} & Πλούσια καταγραφή εμπειριών σε πολλαπλά περιβάλλοντα & Απαιτεί ισχυρότερο σχεδιασμό \ENG{verbs}, \ENG{activities} και \ENG{analytics} \\
+\hline
+\ENG{cmi5} & \ENG{Structured launch} πάνω σε \ENG{xAPI} & \ENG{Launch contract} + \ENG{xAPI statements} & \ENG{LRS} & Γεφυρώνει την πειθαρχία του \ENG{SCORM} με την ευελιξία του \ENG{xAPI} & Μικρότερο οικοσύστημα εργαλείων και χαμηλότερη διάχυση \\
+\hline
+\ENG{LTI} & \ENG{Tool launch} από το \ENG{LMS} & \ENG{OIDC/OAuth/JWT} & \ENG{LMS} + \ENG{external tool} & Ομαλή ενσωμάτωση τρίτων εργαλείων και \ENG{single sign-on} & Δεν αποτελεί πρότυπο περιεχομένου ή εγγενούς \ENG{tracking} \\
+\hline
+\end{tabularx}
+\end{chaptertablebox}
+\end{table}

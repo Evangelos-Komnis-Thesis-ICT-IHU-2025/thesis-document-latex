@@ -1,0 +1,26 @@
+\section{Έλεγχοι, Κάλυψη Κώδικα και Όρια της Επαλήθευσης}
+\label{sec:appendix_testing_coverage}
+
+
+Η χρήση του \ENG{Codecov} γίνεται για την παρακολούθηση της κάλυψης των υφιστάμενων \ENG{tests}, καθώς και για την επισήμανση νέων αλλαγών
+που δεν συνοδεύονται από αντίστοιχα σενάρια ελέγχου. Η εικόνα της κάλυψης συμπληρώνεται από τα αρχεία \texttt{\ENG{codecov.yml}}. Στα βασικά αποθετήρια,
+τα \ENG{Codecov status checks} έχουν κυρίως ενημερωτικό χαρακτήρα,
+ενώ και τα σχόλια στα \ENG{PR} είναι ρυθμισμένα ώστε να μην εμποδίζουν τη ροή ενσωμάτωσης αλλαγών.
+
+Στο \texttt{\ENG{scorm-engine}}, η σουίτα του \ENG{Maven} συνδυάζεται με παραγωγή αναφορών μέσω \ENG{JaCoCo}
+και εξαγωγή του \texttt{\ENG{target/site/jacoco/jacoco.xml}} ως \ENG{artifact} και, υπό προϋποθέσεις, προς το \ENG{Codecov}.
+Στο \texttt{\ENG{scorm-engine-php-sdk}}, το \ENG{PHPUnit} παράγει το \texttt{\ENG{clover.xml}}, ενώ στον \texttt{\ENG{player}}
+η διαδικασία δοκιμών βασίζεται στα \texttt{\ENG{tsx --test}} και \ENG{c8}, με παραγωγή του \texttt{\ENG{lcov.info}}.
+Παράλληλα, και στα τρία αποθετήρια εντοπίζονται τοπικά \ENG{test files} που αντιστοιχούν στα σχετικά \ENG{workflows},
+στοιχείο που υποδηλώνει τεκμηριωμένη, αν και όχι εξαντλητική, κάλυψη επιμέρους τμημάτων κώδικα.
+
+Ως προς τις εκδόσεις, το μεγαλύτερο μέρος χρησιμοποιεί \ENG{semantic-release}, με συμβατική ανάλυση \ENG{commits},
+παραγωγή \ENG{release notes} και ενημέρωση του \ENG{CHANGELOG}. Η υποδομή ακολουθεί διαφορετικό μοτίβο, όπου το \ENG{workflow}
+υπολογίζει το επόμενο \ENG{tag}, το δημοσιεύει και δημιουργεί \ENG{GitHub release}.
+
+\begin{table}[H]
+\centering
+\caption{Τρέχουσα εικόνα δοκιμών, κάλυψης κώδικα και \ENG{release support} στα βασικά αποθετήρια}
+\label{tab:appendix_test_coverage_matrix}
+\input{appendices/C_Automation_Verification/tables/tab_c2_test_coverage_matrix}
+\end{table}

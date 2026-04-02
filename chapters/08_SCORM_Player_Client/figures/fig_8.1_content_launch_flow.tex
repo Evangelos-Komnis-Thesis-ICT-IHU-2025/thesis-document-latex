@@ -1,0 +1,29 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.9cm and 2.8cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.3cm, minimum height=1.1cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.5cm, minimum height=1.1cm, font=\footnotesize\bfseries},
+      store/.style={draw, cylinder, shape border rotate=90, aspect=0.28, minimum height=1.2cm, minimum width=3.3cm, align=center, fill=gray!5},
+      arrow/.style={-Latex, thick}
+    ]
+    \node[box] (lms) {\ENG{LMS learner page}};
+    \node[emph, right=of lms] (engine) {\ENG{SCORM Engine}};
+    \node[box, below=of lms] (browser) {\ENG{Browser host page}\\+\ENG{iframe}};
+    \node[emph, below=of engine] (player) {\ENG{SCORM Player}};
+    \node[store, below=1.8cm of player] (minio) {\ENG{MinIO}\\\ENG{ZIP package}};
+
+    \draw[arrow] (lms) -- node[above, align=center]{\ENG{create}\\\ENG{launch}} (engine);
+    \draw[arrow] (engine.north west) to[bend left=18] node[above, align=center]{\ENG{launch URL}\\+\ENG{token}} (lms.north east);
+    \draw[arrow] (lms) -- node[left, align=center]{\ENG{open}\\\texttt{\ENG{/launch}}} (browser);
+    \draw[arrow] (browser) -- node[below, align=center]{\ENG{request}\\\ENG{page}} (player);
+    \draw[arrow] (player.north) to[bend left=16] node[right, align=center]{\ENG{get launch}\\\ENG{context}} (engine.south);
+    \draw[arrow] (player) -- node[right, align=center]{\ENG{download}\\\ENG{ZIP}} (minio);
+    \draw[arrow] (player.west) to[bend right=18] node[left, align=center, text width=2.8cm]{\ENG{HTML} +\\\texttt{\ENG{/content/*}}} (browser.east);
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Ροή εκκίνησης περιεχομένου από το \ENG{LMS} προς τον \ENG{player}, με ανάκτηση \ENG{launch context} και τοπική εξαγωγή του πακέτου.}
+  \label{fig:content_launch_flow}
+\end{figure}

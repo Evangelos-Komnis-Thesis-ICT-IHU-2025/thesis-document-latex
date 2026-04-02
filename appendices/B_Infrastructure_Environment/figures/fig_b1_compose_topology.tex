@@ -1,0 +1,45 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.7cm and 2.1cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.0cm, minimum height=1.05cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.3cm, minimum height=1.05cm, font=\footnotesize\bfseries},
+      store/.style={draw, cylinder, shape border rotate=90, aspect=0.28, minimum height=1.15cm, minimum width=3.0cm, align=center, fill=gray!5},
+      boundary/.style={draw, dashed, rounded corners, inner sep=11pt},
+      arrow/.style={-Latex, thick}
+    ]
+    \node[emph] (lms) {\ENG{LMS}\\\texttt{\ENG{8000}}};
+    \node[emph, right=of lms] (player) {\ENG{Player}\\\texttt{\ENG{3000}}};
+    \node[emph, right=of player] (engine) {\ENG{Engine}\\\texttt{\ENG{8080}}};
+
+    \node[store, below=1.8cm of lms] (postgres) {\ENG{Postgres}\\\texttt{\ENG{5432}}};
+    \node[store, below=1.8cm of player] (redis) {\ENG{Redis}\\\texttt{\ENG{6379}}};
+    \node[store, below=1.8cm of engine] (minio) {\ENG{MinIO}\\\texttt{\ENG{9000/9001}}};
+
+    \node[box, below=1.8cm of minio] (minioinit) {\ENG{minio-init}};
+    \node[box, right=2.4cm of engine] (logstash) {\ENG{Logstash}\\\texttt{\ENG{12201/udp}}};
+    \node[box, below=0.9cm of logstash] (elastic) {\ENG{Elasticsearch}\\\texttt{\ENG{9200}}};
+    \node[box, below=0.9cm of elastic] (kibana) {\ENG{Kibana}\\\texttt{\ENG{5601}}};
+
+    \draw[arrow] (lms) -- (engine);
+    \draw[arrow] (player) -- (engine);
+    \draw[arrow] (engine) -- (postgres);
+    \draw[arrow] (engine) -- (redis);
+    \draw[arrow] (engine) -- (minio);
+    \draw[arrow] (player) -- (minio);
+    \draw[arrow] (minioinit) -- (minio);
+    \draw[arrow] (engine) -- (logstash);
+    \draw[arrow] (player) -- (logstash);
+    \draw[arrow] (lms) -- (logstash);
+    \draw[arrow] (logstash) -- (elastic);
+    \draw[arrow] (elastic) -- (kibana);
+
+    \node[boundary, fit=(lms)(player)(engine)(postgres)(redis)(minio)(minioinit)(logstash)(elastic)(kibana)] (compose) {};
+    \node[font=\footnotesize, align=center, text width=6.4cm, above=0.16cm of compose] {\ENG{docker-compose stack on scorm-network}};
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Η δηλωμένη σύνθεση υπηρεσιών της υποδομής ανάπτυξης, όπως προκύπτει από το \texttt{\ENG{docker-compose.yml}}.}
+  \label{fig:appendix_compose_topology}
+\end{figure}

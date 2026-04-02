@@ -1,0 +1,24 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\small,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=10.8cm, minimum height=1.05cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=10.8cm, minimum height=1.05cm, font=\small\bfseries},
+      arrow/.style={-Latex, thick}
+    ]
+    \node[box] (api) at (0,0) {\ENG{API layer: controllers, request validation, token payload extraction}};
+    \node[emph] (orch) at (0,-1.6) {\ENG{Orchestration layer: command handlers, launch/runtime flow control, sequencing of services}};
+    \node[box] (domain) at (0,-3.2) {\ENG{Domain / interpretation layer: \texttt{\ENG{ManifestParser}}, \ENG{standard adapters}, \ENG{normalized progress logic}}};
+    \node[box] (persist) at (0,-4.8) {\ENG{Persistence services: \ENG{read/persist services for courses, users, enrollments, attempts and launches}}};
+    \node[box] (stores) at (0,-6.4) {\ENG{Storage layer: \ENG{Postgres}, \ENG{Redis}, \ENG{MinIO} and supporting infrastructure}};
+
+    \draw[arrow] (api) -- (orch);
+    \draw[arrow] (orch) -- (domain);
+    \draw[arrow] (domain) -- (persist);
+    \draw[arrow] (persist) -- (stores);
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Εσωτερική \ENG{layered} οργάνωση του \ENG{engine} με διαδοχικά επίπεδα ευθύνης και κατεύθυνση εξαρτήσεων προς τα κατώτερα στρώματα.}
+  \label{fig:layered_runtime_core}
+\end{figure}

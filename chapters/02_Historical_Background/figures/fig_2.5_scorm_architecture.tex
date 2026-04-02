@@ -1,0 +1,130 @@
+% FIGURE 2.5: SCORM Architecture (3-Tier Model)
+% Content Aggregation Model (CAM) + Run-Time Environment (RTE)
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+  scale=0.9,
+  every node/.style={font=\small},
+  layer/.style={rectangle, draw, thick, minimum width=12cm, minimum height=1.8cm, align=center, fill=white},
+  component/.style={rectangle, rounded corners, draw, fill=white, minimum width=2.5cm, minimum height=1cm, align=center, font=\footnotesize},
+  arrow/.style={-latex, thick}
+]
+
+% Layer 1: Content Aggregation Model (CAM) - Top
+\node[layer, fill=scormgreen!10] at (0, 6) (cam) {
+  \textbf{\large \ENG{Content} \ENG{Aggregation} \ENG{Model} (\ENG{CAM})}\\[0.2cm]
+  \small Δομή και \ENG{Packaging} Περιεχομένου
+};
+
+% CAM Components
+\node[component, fill=scormgreen!30] at (-4, 4) (assets) {
+  \textbf{\ENG{Assets}}\\
+  \tiny \ENG{Media} \ENG{files}\\
+  \tiny (\ENG{HTML}, \ENG{images}, \ENG{PDF})
+};
+\node[component, fill=scormgreen!40] at (-1, 4) (sco) {
+  \textbf{\ENG{SCOs}}\\
+  \tiny \ENG{Shareable} \ENG{Content}\\
+  \tiny \ENG{Objects}
+};
+\node[component, fill=scormgreen!50] at (2, 4) (activities) {
+  \textbf{\ENG{Activities}}\\
+  \tiny \ENG{Learning}\\
+  \tiny \ENG{Activities}
+};
+\node[component, fill=scormgreen!60] at (5, 4) (org) {
+  \textbf{\ENG{Organizations}}\\
+  \tiny \ENG{Content}\\
+  \tiny \ENG{Structure}
+};
+
+% Arrows between CAM components
+\draw[arrow, scormgreen] (assets) -- (sco);
+\draw[arrow, scormgreen] (sco) -- (activities);
+\draw[arrow, scormgreen] (activities) -- (org);
+
+% Layer 2: Run-Time Environment (RTE) - Middle
+\node[layer, fill=blue!10] at (0, 1.5) (rte) {
+  \textbf{\large \ENG{Run-Time} \ENG{Environment} (\ENG{RTE})}\\[0.2cm]
+  \small Επικοινωνία \ENG{LMS} \ensuremath{\leftrightarrow} \ENG{Content}
+};
+
+% RTE Components
+\node[component, fill=blue!30] at (-4, -0.3) (launch) {
+  \textbf{\ENG{Launch}}\\
+  \tiny Εκκίνηση \ENG{SCO}
+};
+\node[component, fill=blue!40] at (-1, -0.3) (api) {
+  \textbf{\ENG{API} \ENG{Adapter}}\\
+  \tiny \texttt{\ENG{Initialize}()}\\
+  \tiny \texttt{\ENG{Terminate}()}
+};
+\node[component, fill=blue!50] at (2, -0.3) (datamodel) {
+  \textbf{\ENG{Data} \ENG{Model}}\\
+  \tiny \ENG{CMI} \ENG{Elements}
+};
+\node[component, fill=blue!60] at (5, -0.3) (tracking) {
+  \textbf{\ENG{Tracking}}\\
+  \tiny \ENG{GetValue}()\\
+  \tiny \ENG{SetValue}()
+};
+
+% Arrows between RTE components
+\draw[arrow, blue!80] (launch) -- (api);
+\draw[arrow, blue!80] (api) -- (datamodel);
+\draw[arrow, blue!80] (datamodel) -- (tracking);
+
+% Layer 3: Sequencing & Navigation (S&N) - Bottom
+\node[layer, fill=accentpurple!10] at (0, -3) (sn) {
+  \textbf{\large \ENG{Sequencing} \& \ENG{Navigation} (\ENG{S}\&\ENG{N})}\\[0.2cm]
+  \small Έλεγχος Ροής και Προϋποθέσεων
+};
+
+% S&N Components
+\node[component, fill=accentpurple!30] at (-3.5, -4.8) (seq) {
+  \textbf{\ENG{Sequencing}}\\
+  \tiny \ENG{Rules}, \ENG{Pre/Post-}\\
+  \tiny \ENG{conditions}
+};
+\node[component, fill=accentpurple!40] at (0, -4.8) (nav) {
+  \textbf{\ENG{Navigation}}\\
+  \tiny \ENG{Continue}, \ENG{Previous},\\
+  \tiny \ENG{Choice}
+};
+\node[component, fill=accentpurple!50] at (3.5, -4.8) (rollup) {
+  \textbf{\ENG{Rollup}}\\
+  \tiny \ENG{Score} \ENG{aggregation}\\
+  \tiny \ENG{Completion} \ENG{status}
+};
+
+% Arrows between S&N components
+\draw[arrow, accentpurple] (seq) -- (nav);
+\draw[arrow, accentpurple] (nav) -- (rollup);
+
+% Vertical connections between layers
+\draw[arrow, thick, gray, dashed] (cam.south) -- (rte.north) node[midway, right, font=\tiny] {\ENG{Manifest} (\ENG{imsmanifest.xml})};
+\draw[arrow, thick, gray, dashed] (rte.south) -- (sn.north) node[midway, right, font=\tiny] {\ENG{Sequencing} \ENG{rules}};
+
+% Side annotations
+\node[right, font=\scriptsize, align=left, text width=3cm] at (7, 4) {
+  \textbf{\ENG{SCORM} 1.2:}\\
+  \tiny \ENG{Assets} + \ENG{SCOs}\\
+  \tiny Βασικό \ENG{RTE}\\
+  \tiny Όχι \ENG{S}\&\ENG{N}
+};
+
+\node[right, font=\scriptsize, align=left, text width=3cm] at (7, 1.5) {
+  \textbf{\ENG{SCORM} 2004:}\\
+  \tiny + \ENG{Sequencing}\\
+  \tiny + \ENG{Rollup} \ENG{Rules}\\
+  \tiny + \ENG{Advanced} \ENG{Nav}
+};
+
+% Legend
+\node[below, font=\tiny, align=center] at (0, -6.5) {
+  \textcolor{scormgreen}{\textbullet} \ENG{CAM}: \ENG{Packaging} \& \ENG{Structure} \quad
+  \textcolor{blue}{\textbullet} \ENG{RTE}: \ENG{API} \ENG{Communication} \quad
+  \textcolor{accentpurple}{\textbullet} \ENG{S}\&\ENG{N}: \ENG{Flow} \ENG{Control} (\ENG{SCORM} 2004 \ENG{only})
+};
+
+\end{tikzpicture}
+\end{chapterfigurebox}

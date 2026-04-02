@@ -1,0 +1,35 @@
+% \ENG{Table} 3.13: \ENG{LRS} \ENG{Architectural} \ENG{Components}
+\begin{table}[htbp]
+\centering
+\caption{\ENG{LRS} \ENG{Core} \ENG{Architectural} \ENG{Components} \ENG{and} \ENG{Responsibilities}}
+\label{tab:lrs_components}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{3.7cm}|>{\raggedright\arraybackslash}p{8.3cm}|}
+\hline
+\ENG{Component} & \ENG{Responsibilities} \\
+\hline
+\hline
+\ENG{Statement} \ENG{API} & \ENG{Store} \ENG{and} \ENG{retrieve} \ENG{Statements}. \ENG{Supports} \ENG{POST} (\ENG{batch}), \ENG{PUT} (\ENG{single} \ENG{with} \ENG{ID}), \ENG{GET} (\ENG{query} \ENG{with} \ENG{filtering}: \ENG{agent}, \ENG{verb}, \ENG{activity}, \ENG{registration}, \ENG{temporal}). \ENG{Generates} \ENG{continuation} \ENG{tokens} \ENG{for} \ENG{pagination}. \\
+\hline
+\ENG{State} \ENG{API} & \ENG{Key-value} \ENG{store} \ENG{for} \ENG{activity-specific} \ENG{learner} \ENG{progress}. \ENG{Enables} \ENG{resume} \ENG{across} \ENG{sessions} \ENG{and} \ENG{devices}. \ENG{Parameters}: \ENG{activityId}, \ENG{agent}, \ENG{stateId}, \ENG{registration} (\ENG{optional}). \\
+\hline
+\ENG{Activity} \ENG{Profile} \ENG{API} & \ENG{Global} \ENG{metadata} \ENG{about} \ENG{Activities} \ENG{independent} \ENG{of} \ENG{learners}. \ENG{Use} \ENG{cases}: \ENG{leaderboards}, \ENG{configuration} \ENG{data}, \ENG{aggregated} \ENG{statistics}. \ENG{Parameters}: \ENG{activityId}, \ENG{profileId}. \\
+\hline
+\ENG{Agent} \ENG{Profile} \ENG{API} & \ENG{Metadata} \ENG{about} \ENG{individual} \ENG{agents}. \ENG{Enables} \ENG{identity} \ENG{consolidation} (\ENG{linking} \ENG{multiple} \ENG{IDs}) \ENG{and} \ENG{profile} \ENG{enrichment} (\ENG{avatars}, \ENG{preferences}). \ENG{Parameters}: \ENG{agent} (\ENG{JSON}), \ENG{profileId}. \\
+\hline
+\ENG{Authentication} \ENG{Layer} & \ENG{HTTP} \ENG{Basic} \ENG{Auth} \ENG{and} \ENG{OAuth} 1.0\ENG{a/2.0} \ENG{support}. \ENG{Derives} \ENG{Statement} \ENG{authority} \ENG{from} \ENG{credentials}. \ENG{Implements} \ENG{granular} \ENG{scopes} (\ENG{statements/write}, \ENG{statements/read}, \ENG{state}, \ENG{profile}, \ENG{all}). \\
+\hline
+\ENG{Validation} \ENG{Engine} & \ENG{Syntax} \ENG{validation}: \ENG{required} \ENG{properties}, \ENG{data} \ENG{types}, \ENG{URI} \ENG{formats}, \ENG{ISO} 8601 \ENG{timestamps}, \ENG{RFC} 5646 \ENG{language} \ENG{tags}. \ENG{Voiding} \ENG{management}: \ENG{filters} \ENG{voided} \ENG{Statements} \ENG{from} \ENG{queries}. \\
+\hline
+\ENG{Indexing} \ENG{Subsystem} & \ENG{Efficient} \ENG{indexes} \ENG{on} \ENG{commonly} \ENG{queried} \ENG{fields} (\ENG{agent}, \ENG{verb}, \ENG{activity}, \ENG{timestamp}). \ENG{Handles} \ENG{Statement} \ENG{Reference} \ENG{resolution} \ENG{and} \ENG{contextActivity} \ENG{traversal}. \\
+\hline
+\ENG{Storage} \ENG{Backend} & \ENG{Persistent} \ENG{Statement} \ENG{storage} (\ENG{NoSQL} \ENG{or} \ENG{SQL}). \ENG{Implements} \ENG{concurrency} \ENG{control}, \ENG{optimistic} \ENG{locking}, \ENG{timestamp-based} \ENG{conflict} \ENG{detection}. \ENG{Maintains} \ENG{audit} \ENG{trails}. \\
+\hline
+\ENG{Versioning} \ENG{Manager} & \ENG{X-Experience-API-Version} \ENG{header} \ENG{negotiation}. \ENG{Legacy} \ENG{support} (0.9, 0.95 \ENG{up-conversion}). /\ENG{about} \ENG{endpoint} \ENG{with} \ENG{supported} \ENG{versions} \ENG{and} \ENG{extensions}. \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}

@@ -1,0 +1,19 @@
+\section{\ENG{SCORM Content Launch Flow}}
+\label{sec:scorm_content_launch_flow}
+
+Στην παρούσα υλοποίηση προηγείται μια ακολουθία βημάτων που ξεκινά από το \ENG{LMS}, περνά από το \ENG{engine} και ολοκληρώνεται στον \ENG{player}. Το \ENG{LMS} ζητά από το \ENG{engine} τη δημιουργία \ENG{launch}, λαμβάνει το \texttt{\ENG{launchUrl}} και στη συνέχεια ενσωματώνει τη διεύθυνση αυτή σε \ENG{iframe} ή σε ξεχωριστή σελίδα προβολής. Από το σημείο αυτό η \ENG{run-time} εμπειρία μεταφέρεται στον \ENG{player}.
+
+Ο \ENG{route} \texttt{\ENG{/launch/:launchId}} του \ENG{player} αποτελεί το πρώτο πραγματικό σημείο εισόδου της εκτελεστικής ροής. Η \texttt{\ENG{buildLaunchRoute()}} απαιτεί υποχρεωτικά το \ENG{query parameter} \texttt{\ENG{token}} και στη συνέχεια αναθέτει τη διαδικασία στον \texttt{\ENG{LaunchService}}. Ο \texttt{\ENG{RenderLaunchCommandHandler}} ανακτά το \ENG{launch context} από το \ENG{engine}, το μετασχηματίζει με τον \texttt{\ENG{launchContextMapper}}, εξασφαλίζει ότι το πακέτο έχει αποσυμπιεστεί τοπικά μέσω του \texttt{\ENG{ContentCacheService}}, και καταχωρίζει μεταδεδομένα συνεδρίας στον \texttt{\ENG{LaunchSessionService}}. Μόνο αφού ολοκληρωθούν αυτά τα βήματα παράγεται το τελικό \ENG{HTML} της σελίδας εκκίνησης.
+
+Το παραγόμενο \ENG{launch HTML} περιλαμβάνει \ENG{header}, \ENG{iframe} προς το \texttt{\ENG{/content/:launchId/...}} και ενσωματωμένο \ENG{JavaScript} που δημιουργεί τον κατάλληλο \ENG{SCORM API bridge}. Η διαδρομή \texttt{\ENG{/content/:launchId/*}} επιλύει σχετικές διαδρομές μέσα στον αποσυμπιεσμένο κατάλογο του συγκεκριμένου \ENG{launch}. Συνεπώς, το \ENG{engine} διατηρεί τον έλεγχο της συνεδρίας και των δικαιωμάτων, ενώ ο \ENG{player} αναλαμβάνει αποκλειστικά την τεχνική παράδοση του περιεχομένου και τη διαμεσολάβηση με τον \ENG{browser}.
+
+Το Σχήμα~\ref{fig:content_launch_flow} συνοψίζει την ακολουθία αυτών των βημάτων, ενώ ο Πίνακας~\ref{tab:player_routes_and_browser_contracts} οργανώνει τις κύριες επιφάνειες του \ENG{player} και τα αντίστοιχα συμβόλαια που εκθέτει στον \ENG{browser} και προς τα ανώτερα υποσυστήματα.
+
+\input{chapters/08_SCORM_Player_Client/figures/fig_8.1_content_launch_flow}
+
+\begin{table}[H]
+\centering
+\caption{Κύριες διαδρομές του \ENG{player} και συμβόλαια αλληλεπίδρασης με τον \ENG{browser} και το \ENG{engine}}
+\label{tab:player_routes_and_browser_contracts}
+\input{chapters/08_SCORM_Player_Client/tables/tab_8.1_player_routes_and_browser_contracts}
+\end{table}

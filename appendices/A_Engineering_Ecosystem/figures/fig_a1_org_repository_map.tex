@@ -1,0 +1,50 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.7cm and 2.3cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.5cm, minimum height=1.05cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.6cm, minimum height=1.05cm, font=\footnotesize\bfseries},
+      boundary/.style={draw, dashed, rounded corners, inner sep=11pt},
+      arrow/.style={-Latex, thick},
+      support/.style={-Latex, thick, dashed}
+    ]
+    \node[box] (template) {\texttt{\ENG{github-actions-template}}\\\ENG{workflow generation}};
+    \node[box, below=0.9cm of template] (ai) {\texttt{\ENG{ai-agents-instructions}}\\\ENG{AI support prompts}};
+    \node[box, below=0.9cm of ai] (examples) {\texttt{\ENG{example-scorm-files}}\\\ENG{course corpus}};
+
+    \node[emph, right=3.0cm of template] (engine) {\texttt{\ENG{scorm-engine}}};
+    \node[emph, below=0.9cm of engine] (player) {\texttt{\ENG{player}}};
+    \node[emph, right=of engine] (sdk) {\texttt{\ENG{scorm-engine-php-sdk}}};
+    \node[emph, below=0.9cm of sdk] (lms) {\texttt{\ENG{example-lms-client}}};
+    \node[emph, right=of player] (infra) {\texttt{\ENG{central-docker-infrastructure}}};
+
+    \node[box, below=2.0cm of player] (thesis) {\texttt{\ENG{thesis-document-latex}}\\\ENG{research writing}};
+    \node[box, below=2.0cm of infra] (orgmeta) {\texttt{\ENG{.github}}\\\ENG{organization metadata}};
+
+    \draw[arrow] (lms) -- (sdk);
+    \draw[arrow] (sdk) -- (engine);
+    \draw[arrow] (player) -- (engine);
+    \draw[arrow] (infra) -- (engine);
+    \draw[arrow] (infra) -- (player);
+    \draw[arrow] (infra) -- (lms);
+
+    \draw[support] (template) -- (sdk);
+    \draw[support] (template) -- (lms);
+    \draw[support] (template) -- (engine);
+    \draw[support] (template) -- (player);
+    \draw[support] (ai) -- (thesis);
+    \draw[support] (ai) -- (engine);
+    \draw[support] (examples) -- (thesis);
+
+    \node[boundary, fit=(engine)(player)(sdk)(lms)(infra)] (core) {};
+    \node[font=\footnotesize, align=center, text width=5.6cm, above=0.16cm of core] {\ENG{core runtime and integration perimeter}};
+
+    \node[boundary, fit=(template)(ai)(examples)(orgmeta)] (supporting) {};
+    \node[font=\footnotesize, align=center, text width=6.2cm, above=0.16cm of supporting] {\ENG{supporting repositories and organizational assets}};
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Οργανωσιακός χάρτης του τεχνικού οικοσυστήματος της διατριβής, με διάκριση ανάμεσα στον πυρήνα εκτέλεσης και στα υποστηρικτικά αποθετήρια.}
+  \label{fig:appendix_org_repository_map}
+\end{figure}

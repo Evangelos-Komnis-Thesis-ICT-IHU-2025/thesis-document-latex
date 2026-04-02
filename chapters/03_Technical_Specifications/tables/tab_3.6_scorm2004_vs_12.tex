@@ -1,0 +1,59 @@
+\begingroup
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{4cm}|p{5cm}|p{5cm}|}
+\hline
+\ENG{Feature} & \ENG{SCORM} 1.2 & \ENG{SCORM} 2004 \\
+\hline
+\hline
+\ENG{API} \ENG{Signature} & \texttt{\ENG{LMSInitialize}()}, \texttt{\ENG{LMSFinish}()}, \texttt{\ENG{LMSGetValue}()}, \texttt{\ENG{LMSSetValue}()}, \texttt{\ENG{LMSCommit}()} & \texttt{\ENG{Initialize}()}, \texttt{\ENG{Terminate}()}, \texttt{\ENG{GetValue}()}, \texttt{\ENG{SetValue}()}, \texttt{\ENG{Commit}()} \\
+\hline
+\ENG{API} \ENG{Object} \ENG{Name} & \texttt{\ENG{API}} & \texttt{\ENG{API}\_1484\_11} \\
+\hline
+\ENG{Sequencing} & \ENG{Limited}; \ENG{user-choice} \ENG{only}; \ENG{no} \ENG{formal} \ENG{sequencing} \ENG{model} & \ENG{Advanced} \ENG{IMS} \ENG{SS-based} \ENG{sequencing} \ENG{with} \ENG{rules}, \ENG{rollup}, \ENG{objectives} \\
+\hline
+\ENG{Navigation} & \ENG{Basic}; \ENG{no} \ENG{formal} \ENG{navigation} \ENG{model} \ENG{or} \ENG{events} & \ENG{Comprehensive} \ENG{navigation} \ENG{model} \ENG{with} \ENG{events}, \ENG{control} \ENG{modes}, \ENG{request} \ENG{validation} \\
+\hline
+\ENG{Data} \ENG{Model} \ENG{Root} & \texttt{\ENG{cmi.core}.*} (\ENG{lesson}\_\ENG{status}, \ENG{lesson}\_\ENG{location}, \ENG{etc}.) & \texttt{\ENG{cmi}.*} (\ENG{flat} \ENG{hierarchy}; \ENG{completion}\_\ENG{status}, \ENG{location}, \ENG{etc}.) \\
+\hline
+\ENG{Completion} \ENG{Tracking} & \ENG{Single} \texttt{\ENG{cmi.core.lesson}\_\ENG{status}}: \ENG{completed}, \ENG{incomplete}, \ENG{passed}, \ENG{failed}, \ENG{browsed}, \ENG{not} \ENG{attempted} & \ENG{Separate} \texttt{\ENG{cmi.completion}\_\ENG{status}} (\ENG{completed}, \ENG{incomplete}, \ENG{not} \ENG{attempted}, \ENG{unknown}) \ENG{and} \texttt{\ENG{cmi.success}\_\ENG{status}} (\ENG{passed}, \ENG{failed}, \ENG{unknown}) \\
+\hline
+\ENG{Progress} \ENG{Measure} & \ENG{Not} \ENG{supported} & \texttt{\ENG{cmi.progress}\_\ENG{measure}} (\ENG{real} [0..1]); \texttt{\ENG{cmi.completion}\_\ENG{threshold}} \ENG{for} \ENG{automatic} \ENG{completion} \\
+\hline
+\ENG{Scoring} & \texttt{\ENG{cmi.core.score.raw}}, \texttt{\ENG{min}}, \texttt{\ENG{max}} \ENG{only} & \texttt{\ENG{cmi.score.scaled}} (\ENG{normalized} [-1..1]), \ENG{plus} \ENG{raw}, \ENG{min}, \ENG{max}; \texttt{\ENG{cmi.scaled}\_\ENG{passing}\_\ENG{score}} \\
+\hline
+\ENG{Suspend} \ENG{Data} & 4096 \ENG{characters} & 4000 \ENG{characters} (2\ENG{nd} \ENG{Ed}.); 64000 \ENG{characters} (3\ENG{rd/4th} \ENG{Ed}.) \\
+\hline
+\ENG{Comments} & \ENG{Single} \texttt{\ENG{cmi.comments}} \ENG{field} (4096 \ENG{chars}) & \ENG{Structured} \texttt{\ENG{cmi.comments}\_\ENG{from}\_\ENG{learner}} \ENG{and} \texttt{\ENG{cmi.comments}\_\ENG{from}\_\ENG{lms}} \ENG{with} \ENG{location}, \ENG{timestamp}, \ENG{and} \ENG{multiple} \ENG{entries} \\
+\hline
+\ENG{Objectives} & \texttt{\ENG{cmi.objectives.n.id}}, \texttt{\ENG{score}}, \texttt{\ENG{status}} \ENG{only} & \texttt{\ENG{cmi.objectives.n.id}}, \texttt{\ENG{score}}, \texttt{\ENG{success}\_\ENG{status}}, \texttt{\ENG{completion}\_\ENG{status}}, \texttt{\ENG{progress}\_\ENG{measure}}, \texttt{\ENG{description}} \\
+\hline
+\ENG{Global} \ENG{Objectives} & \ENG{Not} \ENG{supported} & \ENG{Supported} \ENG{via} \ENG{objective} \ENG{mapping} \ENG{in} \ENG{manifest} \ENG{sequencing} \ENG{definitions} \\
+\hline
+\ENG{Interactions} & \ENG{Limited} \ENG{types}; \ENG{basic} \ENG{tracking} & \ENG{Expanded} \ENG{types} (\ENG{long-fill-in}, \ENG{other}); \ENG{rich} \ENG{descriptions}, \ENG{timestamps}, \ENG{multiple} \ENG{correct} \ENG{responses} \\
+\hline
+\ENG{Rollup} & \ENG{LMS-determined} (\ENG{implicit}); \ENG{no} \ENG{content} \ENG{control} & \ENG{Content-determined} \ENG{via} \ENG{rollup} \ENG{rules} \ENG{in} \ENG{manifest}; \ENG{customizable} \ENG{rollup} \ENG{logic} \\
+\hline
+\ENG{Prerequisites} & \ENG{Basic} \texttt{\ENG{prerequisites}} \ENG{attribute} \ENG{in} \ENG{manifest} (\ENG{boolean}, \ENG{simple} \ENG{string}) & \ENG{Sophisticated} \ENG{precondition} \ENG{rules} \ENG{based} \ENG{on} \ENG{objective} \ENG{satisfaction}, \ENG{completion}, \ENG{measures} \\
+\hline
+\ENG{Randomization} & \ENG{Not} \ENG{supported} & \ENG{Supported} \ENG{via} \ENG{selection} \ENG{and} \ENG{randomization} \ENG{controls} \ENG{in} \ENG{sequencing} \ENG{definitions} \\
+\hline
+\ENG{Activity} \ENG{Tree} & \ENG{Flat} \ENG{or} \ENG{simple} \ENG{hierarchy}; \ENG{no} \ENG{formal} \ENG{activity} \ENG{model} & \ENG{Formal} \ENG{activity} \ENG{tree} \ENG{with} \ENG{leaf} \ENG{and} \ENG{cluster} \ENG{activities}; \ENG{sequencing} \ENG{tracking} \ENG{model} \ENG{per} \ENG{activity} \\
+\hline
+\ENG{Time} \ENG{Tracking} & \texttt{\ENG{cmi.core.session}\_\ENG{time}}, \texttt{\ENG{total}\_\ENG{time}} (\ENG{CMITimespan} \ENG{format}) & \texttt{\ENG{cmi.session}\_\ENG{time}}, \texttt{\ENG{total}\_\ENG{time}} (\ENG{ISO} 8601 \ENG{timeinterval} \ENG{format}) \\
+\hline
+\ENG{Navigation} \ENG{Requests} & \ENG{Not} \ENG{supported} & \texttt{\ENG{adl.nav.request}} \ENG{with} \ENG{values}: \ENG{continue}, \ENG{previous}, \ENG{choice}, \ENG{exit}, \ENG{exitAll}, \ENG{abandon}, \ENG{abandonAll}, \ENG{suspendAll} \\
+\hline
+\ENG{Error} \ENG{Codes} & 0, 101, 201-203, 301, 401-405 & 0, 101-104, 111-113, 122-123, 132-133, 142-143, 201, 301, 351, 391, 401-408 (\ENG{more} \ENG{granular}) \\
+\hline
+\ENG{Learner} \ENG{Preferences} & \texttt{\ENG{cmi.student}\_\ENG{preference}.*} (\ENG{audio}, \ENG{language}, \ENG{speed}, \ENG{text}) & \texttt{\ENG{cmi.learner}\_\ENG{preference}.*} (\ENG{audio}\_\ENG{level}, \ENG{language}, \ENG{delivery}\_\ENG{speed}, \ENG{audio}\_\ENG{captioning}); \ENG{vocabulary} \ENG{changes} \\
+\hline
+\ENG{Metadata} \ENG{Integration} & \ENG{Basic} \ENG{IEEE} \ENG{LOM} \ENG{support} & \ENG{Enhanced} \ENG{LOM} \ENG{support} \ENG{with} \ENG{SCORM} \ENG{application} \ENG{profiles} \\
+\hline
+\ENG{Manifest} \ENG{Namespaces} & \texttt{\ENG{xmlns}}, \texttt{\ENG{xmlns:adlcp}} & \texttt{\ENG{xmlns}}, \texttt{\ENG{xmlns:adlcp}}, \texttt{\ENG{xmlns:imsss}}, \texttt{\ENG{xmlns:adlseq}}, \texttt{\ENG{xmlns:adlnav}} (\ENG{IMS} \ENG{SS} \ENG{and} \ENG{ADL} \ENG{extensions}) \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

@@ -1,0 +1,103 @@
+% FIGURE 2.4: IEEE LOM (Learning Object Metadata) Structure
+% Hierarchical tree showing 9 categories
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+  scale=0.85,
+  every node/.style={font=\small},
+  level 1/.style={sibling distance=3.5cm, level distance=3cm},
+  level 2/.style={sibling distance=2cm, level distance=2.5cm},
+  root/.style={rectangle, rounded corners, draw, very thick, minimum width=4cm, minimum height=1.2cm, align=center, fill=metadatagray!30, font=\bfseries\large},
+  category/.style={rectangle, rounded corners, draw, thick, minimum width=2.8cm, minimum height=1cm, align=center, fill=white, font=\small\bfseries},
+  element/.style={rectangle, draw, minimum width=2.2cm, minimum height=0.6cm, align=center, font=\footnotesize}
+]
+
+% Root node
+\node[root] at (0, 8) (lom) {\ENG{IEEE} \ENG{LOM}\\(\ENG{Learning} \ENG{Object} \ENG{Metadata})};
+\node[above, font=\scriptsize] at (lom.north) {\ENG{IEEE} 1484.12.1-2002};
+
+% Category 1: General
+\node[category, fill=blue!20] at (-8, 5) (general) {1. \ENG{General}};
+\node[element, fill=blue!10, below=0.3cm of general] {\ENG{Title}, \ENG{Language}, \ENG{Description}};
+
+% Category 2: Lifecycle
+\node[category, fill=green!20] at (-5, 5) (lifecycle) {2. \ENG{Lifecycle}};
+\node[element, fill=green!10, below=0.3cm of lifecycle, text width=2.5cm] {\ENG{Version}, \ENG{Status}, \ENG{Contributors}};
+
+% Category 3: Meta-Metadata
+\node[category, fill=purple!20, text width=2.5cm] at (-2, 5) (metameta) {3. \ENG{Meta-}\\\ENG{Metadata}};
+\node[element, fill=purple!10, below=0.3cm of metameta, text width=2.5cm] {\ENG{Catalog}, \ENG{Entry}, \ENG{Schema}};
+
+% Category 4: Technical
+\node[category, fill=orange!20] at (2, 5) (technical) {4. \ENG{Technical}};
+\node[element, fill=orange!10, below=0.3cm of technical, text width=2.5cm] {\ENG{Format}, \ENG{Size}, \ENG{Location}};
+
+% Category 5: Educational
+\node[category, fill=red!20] at (5, 5) (educational) {5. \ENG{Educational}};
+\node[element, fill=red!10, below=0.3cm of educational, text width=2.5cm] {\ENG{LearningResourceType}, \ENG{InteractivityLevel}};
+
+% Category 6: Rights
+\node[category, fill=brown!20] at (8, 5) (rights) {6. \ENG{Rights}};
+\node[element, fill=brown!10, below=0.3cm of rights, text width=2.5cm] {\ENG{Cost}, \ENG{Copyright}, \ENG{Terms}};
+
+% Category 7: Relation
+\node[category, fill=cyan!20] at (-6, 1.5) (relation) {7. \ENG{Relation}};
+\node[element, fill=cyan!10, below=0.3cm of relation, text width=2.5cm] {\ENG{Kind}, \ENG{Resource} (\ENG{other} \ENG{LOs})};
+
+% Category 8: Annotation
+\node[category, fill=yellow!40] at (-1, 1.5) (annotation) {8. \ENG{Annotation}};
+\node[element, fill=yellow!20, below=0.3cm of annotation, text width=2.5cm] {\ENG{Person}, \ENG{Date}, \ENG{Description}};
+
+% Category 9: Classification
+\node[category, fill=violet!20] at (4, 1.5) (classification) {9. \ENG{Classification}};
+\node[element, fill=violet!10, below=0.3cm of classification, text width=2.5cm] {\ENG{Purpose}, \ENG{TaxonPath}, \ENG{Keyword}};
+
+% Connections from root to categories
+\draw[thick, metadatagray] (lom) -- (general);
+\draw[thick, metadatagray] (lom) -- (lifecycle);
+\draw[thick, metadatagray] (lom) -- (metameta);
+\draw[thick, metadatagray] (lom) -- (technical);
+\draw[thick, metadatagray] (lom) -- (educational);
+\draw[thick, metadatagray] (lom) -- (rights);
+\draw[thick, metadatagray] (lom) -- (relation);
+\draw[thick, metadatagray] (lom) -- (annotation);
+\draw[thick, metadatagray] (lom) -- (classification);
+
+% XML example box
+\node[rectangle, draw, thick, fill=gray!10, align=left, font=\ttfamily\tiny, text width=6cm] at (-9, -1.5) (xml) {
+\textbf{\ENG{XML} \ENG{Example} (\ENG{snippet}):}\\
+<\ENG{lom} \ENG{xmlns}="...">\\
+\quad <\ENG{general}>\\
+\qquad <\ENG{title}>\ENG{Course} 101</\ENG{title}>\\
+\qquad <\ENG{language}>\ENG{en}</\ENG{language}>\\
+\quad </\ENG{general}>\\
+\quad <\ENG{technical}>\\
+\qquad <\ENG{format}>\ENG{text/html}</\ENG{format}>\\
+\qquad <\ENG{size}>1048576</\ENG{size}>\\
+\quad </\ENG{technical}>\\
+</\ENG{lom}>
+};
+
+% Key statistics box
+\node[rectangle, draw, thick, fill=solutiongreen!10, align=left, font=\scriptsize, text width=5cm] at (4, -1.5) {
+  \textbf{\ENG{IEEE} \ENG{LOM} \ENG{Statistics}:}\\
+  \textbullet~\textbf{76 \ENG{data} \ENG{elements}} \ENG{total}\\
+  \textbullet~\textbf{9 \ENG{categories}} (\ENG{hierarchical})\\
+  \textbullet~\ENG{XML} \ENG{Schema-based}\\
+  \textbullet~\ENG{Multilingual} \ENG{support}\\
+  \textbullet~\ENG{Extensible} \ENG{vocabulary}
+};
+
+% Legend
+\node[below, font=\tiny, align=center] at (0, -3.5) {
+  \textbf{Σημείωση:} \ENG{IEEE} \ENG{LOM} χρησιμοποιείται από \ENG{SCORM} 1.2/2004, \ENG{IMS} \ENG{CC}, και άλλα \ENG{standards}\\
+  \textbf{Εναλλακτικά:} \ENG{Dublin} \ENG{Core} (15 \ENG{elements}, \ENG{simpler}), \ENG{Schema.org} (\ENG{web-focused})
+};
+
+% Adoption note
+\node[below, font=\scriptsize, align=center, text width=12cm] at (0, -4.5) {
+  \textbf{\ENG{Adoption}:} Υιοθετήθηκε από \ENG{ADL} (\ENG{SCORM}), \ENG{IMS}, \ENG{European} \ENG{Schoolnet}, \ENG{IEEE} \ENG{LTSC}\\
+  \textbf{Κληρονομιά:} Αν και πολύπλοκο, το \ENG{LOM} θεμελίωσε βασικές έννοιες \ENG{metadata} για \ENG{learning} \ENG{objects}
+};
+
+\end{tikzpicture}
+\end{chapterfigurebox}

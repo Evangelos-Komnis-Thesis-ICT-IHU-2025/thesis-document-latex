@@ -1,0 +1,29 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.9cm and 2.6cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.2cm, minimum height=1.05cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.5cm, minimum height=1.05cm, font=\footnotesize\bfseries},
+      note/.style={draw, rounded corners, fill=gray!8, align=center, text width=3.8cm, minimum height=0.95cm, font=\footnotesize},
+      arrow/.style={-Latex, thick}
+    ]
+    \node[box] (lms) {\ENG{LMS admin flow}};
+    \node[emph, right=of lms] (engine) {\ENG{SCORM Engine}};
+    \node[note, right=of engine] (devtoken) {\texttt{\ENG{/api/v1/auth/}}\\\texttt{\ENG{dev-token}}\\\ENG{local development only}};
+
+    \node[box, below=2.0cm of lms] (browser) {\ENG{Learner}\\\ENG{Browser}};
+    \node[emph, below=2.0cm of engine] (player) {\ENG{SCORM Player}};
+
+    \draw[arrow] (lms) -- node[above]{\ENG{engine token}} (engine);
+    \draw[arrow] (engine.north west) to[bend left=18] node[above, align=center]{\ENG{launch URL +}\\\ENG{launch token}} (lms.north east);
+    \draw[arrow] (lms) -- node[left, align=center]{\ENG{open}\\\ENG{player URL}} (browser);
+    \draw[arrow] (browser) -- node[below, align=center]{\ENG{launch token}\\\ENG{in query}} (player);
+    \draw[arrow] (player.north) to[bend left=12] node[right, align=center]{\ENG{Bearer}\\\ENG{launch token}} (engine.south);
+    \draw[arrow] (engine) -- (devtoken);
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Διάκριση ανάμεσα σε \ENG{engine-token} διοικητική πρόσβαση και \ENG{launch-token} εκτελεστική πρόσβαση ανά συγκεκριμένη συνεδρία.}
+  \label{fig:auth_flow}
+\end{figure}

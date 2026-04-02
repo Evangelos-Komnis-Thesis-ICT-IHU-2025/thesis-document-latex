@@ -1,0 +1,34 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{3.2cm}|p{4.3cm}|p{5.0cm}|}
+\hline
+\ENG{Artifact} & Τεκμηριωμένος ρόλος & \ENG{Appendix} ερμηνεία \\
+\hline
+\texttt{\ENG{.env.example}} & Δήλωση ελάχιστων μεταβλητών περιβάλλοντος για \ENG{database}, \ENG{MinIO}, \ENG{JWT}, \ENG{player} και \ENG{LMS} & Λειτουργεί ως αναπαραγώγιμο πρότυπο \ENG{configuration baseline} \\
+\hline
+\texttt{\ENG{validate-env.sh}} & Έλεγχος ύπαρξης, μορφής και υποχρεωτικών κλειδιών \ENG{.env} & Μετατρέπει το \ENG{configuration setup} σε ελέγξιμη διαδικασία \\
+\hline
+\texttt{\ENG{postgres-data}} & Σχεσιακή κατάσταση πλατφόρμας & Τεκμηριώνει ότι η \ENG{compose} σύνθεση δεν είναι πλήρως εφήμερη \\
+\hline
+\texttt{\ENG{redis-data}} & Αποθήκευση του \ENG{Redis instance} & Υποστηρίζει την επανάληψη δοκιμών και την επιθεώρηση κατάστασης \\
+\hline
+\texttt{\ENG{minio-data}} & Αποθήκευση \ENG{package objects} & Επιτρέπει σταθερή ύπαρξη \ENG{uploaded content artifacts} \\
+\hline
+\texttt{\ENG{es-data}} & Βάση για \ENG{indexed logs} & Υποστηρίζει λειτουργική ανάλυση μετά από επανεκκινήσεις \\
+\hline
+\texttt{\ENG{player-cache}} & Τοπική αποσυμπίεση και εξυπηρέτηση αρχείων μαθημάτων & Τεκμηριώνει ότι ο \ENG{player} χρησιμοποιεί λειτουργικό \ENG{cache layer} \\
+\hline
+\texttt{\ENG{LMS\_ENGINE\_ADMIN\_TOKEN}} & Διοικητικό \ENG{token} του \ENG{LMS} προς τον \ENG{engine} & Στο \ENG{local mode} μπορεί να παραχθεί αυτόματα μέσω \ENG{dev-token flow} \\
+\hline
+\texttt{\ENG{PLAYER\_COMMIT\_INTERVAL\_MS}} & Ρύθμιση περιοδικού \ENG{commit} στον \ENG{player} & Συνδέει το \ENG{compose configuration} με πραγματική \ENG{runtime behavior} \\
+\hline
+\texttt{\ENG{ENGINE\_JWT\_SECRET}} και \texttt{\ENG{LAUNCH\_JWT\_SECRET}} & Μυστικά έκδοσης \ENG{engine} και \ENG{launch tokens} & Δηλώνουν ότι το περιβάλλον ανάπτυξης είναι πλήρες ως προς την τοπική αυθεντικοποίηση \\
+\hline
+\texttt{\ENG{nginx.conf}} & Επικυρωμένο αρχείο \ENG{reverse-proxy configuration} & Παραμένει βοηθητικό \ENG{artifact} και όχι ενεργός \ENG{compose service} στην παρούσα έκδοση \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

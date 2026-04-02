@@ -1,0 +1,21 @@
+\section{\ENG{Top-Level Runtime Architecture}}
+\label{sec:top_level_runtime_architecture}
+
+Στο υψηλότερο επίπεδο αφαίρεσης, ο \ENG{runtime core} του \ENG{engine} οργανώνεται γύρω από τρεις βασικές μεταβάσεις: δημιουργία \ENG{launch}, ανάκτηση \ENG{launch context} και λήψη \ENG{runtime commits}. Η πρώτη μεταβαίνει από το \ENG{LMS} στη συνεδρία παρακολούθησης. Η δεύτερη τροφοδοτεί τον \ENG{player} με τα δεδομένα που απαιτούνται για να συνθέσει το \ENG{launch shell}. Η τρίτη επιτρέπει την προοδευτική ενημέρωση της κατάστασης εκτέλεσης μέχρι τον τελικό τερματισμό της προσπάθειας.
+
+Η δημιουργία \ENG{launch} υλοποιείται από τον \texttt{\ENG{CreateLaunchCommandHandler}}. Εκεί ελέγχεται η ύπαρξη ενεργής εγγραφής του χρήστη στο μάθημα, εντοπίζεται πιθανή ήδη ενεργή προσπάθεια και, ανάλογα με την παράμετρο \texttt{\ENG{forceNewAttempt}}, είτε απορρίπτεται η νέα αίτηση είτε κλείνεται η παλαιά προσπάθεια και δημιουργείται νέα. Στη συνέχεια δημιουργούνται τόσο η εγγραφή \ENG{attempt} όσο και η εγγραφή \ENG{launch}, εκδίδεται \ENG{launch token} μέσω του \texttt{\ENG{JwtTokenService}} και αρχικοποιείται η \ENG{LaunchRuntimeState} στο \texttt{\ENG{RuntimeStateStore}}. Με τον τρόπο αυτό, το \ENG{launch} είναι πλήρως ορισμένο \ENG{domain} γεγονός που συνδέει \ENG{user}, \ENG{course}, \ENG{attempt} και κατάσταση εκτέλεσης.
+
+Η ανάκτηση του \ENG{launch context} υλοποιείται από τον \texttt{\ENG{LaunchOrchestrator}}. Η μέθοδος \texttt{\ENG{getLaunchContext()}} επαληθεύει ότι το \ENG{launch} είναι ακόμη ενεργό, ότι το \ENG{launch token} ταιριάζει με το ζητούμενο \ENG{launchId} και ότι δεν έχει λήξει χρονικά. Κατόπιν συνθέτει το \texttt{\ENG{LaunchContextDto}} με στοιχεία χρήστη, μαθήματος, \ENG{player} ρύθμισης, \ENG{presigned ZIP URL} από το \ENG{object storage} και την τρέχουσα κανονικοποιημένη κατάσταση της συνεδρίας. Η ύπαρξη του \texttt{\ENG{RuntimeView(initialNormalizedState)}} στο \ENG{DTO} είναι σημαντική, διότι δείχνει ότι ο \ENG{engine} είναι ικανός να εκθέσει την ήδη γνωστή πρόοδο, ακόμη κι αν ο \ENG{player} δεν την ζητά ακόμη στο \ENG{browser-side API state}.
+
+Η λήψη \ENG{commit requests} υλοποιείται από τον \texttt{\ENG{RuntimeOrchestrator}}. Σε αυτή τη φάση ο πυρήνας επαληθεύει την κατάσταση του \ENG{launch}, ελέγχει το \ENG{launch-token scope}, εφαρμόζει \ENG{rate limiting}, ανακτά ή αρχικοποιεί \ENG{LaunchRuntimeState}, απορρίπτει παρωχημένες ακολουθίες \ENG{sequence numbers} όταν το επιβάλλει η ρύθμιση \texttt{\ENG{strictCommitSequence}}, και μόνο τότε εκχωρεί την ερμηνεία του \ENG{payload} σε \ENG{adapter} που αντιστοιχεί στο συγκεκριμένο πρότυπο. Η ροή αυτή καθιστά σαφές ότι ο \ENG{engine} μετασχηματίζει τα δεδομένα πρώτα σε εσωτερική κατάσταση συνεδρίας.
+
+Το Σχήμα~\ref{fig:top_level_runtime} συνοψίζει το τοπολογικό αυτό μοτίβο. Ο Πίνακας~\ref{tab:engine_endpoint_responsibility} συσχετίζει τις βασικές \ENG{REST} επιφάνειες με τους αντίστοιχους \ENG{orchestrators} και τα όρια μόνιμης αποθήκευσης, ώστε να γίνει σαφές σε ποιο σημείο του συστήματος λαμβάνεται κάθε κρίσιμη απόφαση.
+
+\input{chapters/07_SCORM_Runtime_Core/figures/fig_7.1_top_level_runtime}
+
+\begin{table}[H]
+\centering
+\caption{Κύριες \ENG{engine} διεπαφές και αντιστοίχισή τους με τους εσωτερικούς μηχανισμούς επεξεργασίας}
+\label{tab:engine_endpoint_responsibility}
+\input{chapters/07_SCORM_Runtime_Core/tables/tab_7.1_engine_endpoint_responsibility}
+\end{table}

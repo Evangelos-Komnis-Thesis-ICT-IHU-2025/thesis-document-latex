@@ -1,0 +1,18 @@
+\section{\ENG{Authentication \& Authorization Flow}}
+\label{sec:authn_authz_flow}
+
+Το μοντέλο πρόσβασης του \ENG{engine} βασίζεται σε δύο διακριτές κατηγορίες \ENG{JWT}: τα \ENG{engine tokens}, που χρησιμοποιούνται για διαχειρστικές και εκπαιδευτικές λειτουργίες, και τα \ENG{launch tokens}, τα οποία συνδέονται με συγκεκριμένο \ENG{launch} και χρησιμοποιούνται αποκλειστικά στις \ENG{run-time} ροές. Η διάκριση αυτή αποτυπώνεται στον \texttt{\ENG{JwtTokenService}}, στον \texttt{\ENG{BearerTokenAuthenticationFilter}} και στους κανόνες του \texttt{\ENG{SecurityConfig}}. Ο \texttt{\ENG{SecurityConfig}} επιβάλλει \ENG{stateless} επεξεργασία και ορίζει διακριτά επίπεδα πρόσβασης ανά \ENG{endpoint}
+
+Ο \texttt{\ENG{BearerTokenAuthenticationFilter}} υλοποιεί πρακτικά αυτή τη διάκριση, ερμηνεύοντας το \ENG{bearer token} πρώτα ως \ENG{launch token} και, αν αυτό αποτύχει, ως \ENG{engine token}. Στην πρώτη περίπτωση αποδίδονται οι ρόλοι \ENG{LAUNCH} και \ENG{LEARNER}, ενώ στη δεύτερη χρησιμοποιούνται οι ρόλοι που περιέχονται στο ίδιο το \ENG{token}.
+
+Ιδιαίτερη περίπτωση αποτελεί το \ENG{endpoint} \texttt{\ENG{/api/v1/auth/dev-token}}, το οποίο λειτουργεί ως βοήθημα τοπικής ανάπτυξης για αυτόματη έκδοση διοικητικού \ENG{token}. Επομένως, δεν θα πρέπει να εκλαμβάνεται ως ένδειξη πλήρους παραγωγικής υποδομής ταυτοποίησης ή \ENG{SSO}.
+
+Στην \ENG{client-side} ροή, το \ENG{launch token} μεταφέρεται μέσω του \ENG{launch URL}, χρησιμοποιείται από τον \ENG{player} για την ανάκτηση του \ENG{launch context} και προωθείται στις εσωτερικές \ENG{commit}/\ENG{terminate} διαδρομές. Συμπληρωματικά, εφαρμόζονται έλεγχοι \ENG{origin} και \ENG{path normalization}. Συνολικά, το μοντέλο ασφάλειας στηρίζεται κυρίως στον συνδυασμό \ENG{token scope}, \ENG{route-level authorization} και σαφών \ENG{trust boundaries}.
+\input{chapters/10_Security_Access/figures/fig_10.1_auth_flow}
+
+\begin{table}[H]
+\centering
+\caption{Τύποι \ENG{tokens}, πεδίο ισχύος και επιφάνειες χρήσης στην παρούσα υλοποίηση}
+\label{tab:token_scope_and_surface}
+\input{chapters/10_Security_Access/tables/tab_10.1_token_scope_and_surface}
+\end{table}

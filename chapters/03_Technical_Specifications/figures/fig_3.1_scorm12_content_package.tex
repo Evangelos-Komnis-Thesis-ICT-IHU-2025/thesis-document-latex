@@ -1,0 +1,78 @@
+% Figure 3.1: SCORM 1.2 Content Package Structure
+\begin{figure}[htbp]
+\centering
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+    node distance=1.8cm and 2.5cm,
+    every node/.style={font=\small},
+    package/.style={rectangle, draw=scormgreen!80!black, fill=scormgreen!20, thick, minimum width=3.2cm, minimum height=1cm, rounded corners=2pt, align=center},
+    file/.style={rectangle, draw=blue!60!black, fill=blue!10, thick, minimum width=2.8cm, minimum height=0.9cm, align=center},
+    folder/.style={rectangle, draw=orange!70!black, fill=orange!15, thick, minimum width=2.8cm, minimum height=0.9cm, rounded corners=2pt, align=center},
+    manifest/.style={rectangle, draw=red!70!black, fill=red!15, thick, minimum width=3.2cm, minimum height=1cm, font=\small\bfseries, align=center},
+    arrow/.style={->, >=latex, thick}
+]
+
+% Top: Package
+\node[package] (package) at (0,0) {\ENG{SCORM} 1.2 \ENG{Package}\\\texttt{\ENG{course.zip}}};
+
+% Second level
+\node[manifest, below=2cm of package] (manifest) {\texttt{\ENG{imsmanifest.xml}}};
+\node[folder, below left=2cm and 2.7cm of package] (content) {\ENG{Content} \ENG{Files}};
+\node[folder, below right=2cm and 2.7cm of package] (schemas) {\ENG{Schema} \ENG{Files} (\ENG{XSD})};
+
+% Arrows
+\draw[arrow] (package) -- (manifest);
+\draw[arrow] (package) -- (content);
+\draw[arrow] (package) -- (schemas);
+
+% Manifest sections
+\node[file, below left=1.5cm and 1.8cm of manifest] (metadata) {\texttt{<\ENG{metadata}>}};
+\node[file, below=1.6cm of manifest] (orgs) {\texttt{<\ENG{organizations}>}};
+\node[file, below right=1.5cm and 1.8cm of manifest] (resources) {\texttt{<\ENG{resources}>}};
+
+\draw[arrow] (manifest) -- (metadata);
+\draw[arrow] (manifest) -- (orgs);
+\draw[arrow] (manifest) -- (resources);
+
+% Organizations branch
+\node[file, below=1.2cm of orgs, fill=green!10, draw=green!60!black] (org1) {\texttt{<\ENG{organization}>}};
+\node[file, below=0.8cm of org1, fill=green!10, draw=green!60!black] (items) {\texttt{<\ENG{item}>} \ENG{tree}};
+
+\draw[arrow] (orgs) -- (org1);
+\draw[arrow] (org1) -- (items);
+
+% Resources branch
+\node[file, below=1.2cm of resources, fill=cyan!10, draw=cyan!60!black] (res1) {\texttt{<\ENG{resource}>} (\ENG{SCO})};
+\node[file, below=0.8cm of res1, fill=cyan!10, draw=cyan!60!black] (res2) {\texttt{<\ENG{resource}>} (\ENG{Asset})};
+
+\draw[arrow] (resources) -- (res1);
+\draw[arrow] (resources) -- (res2);
+
+% Content branch
+\node[file, below=1.2cm of content] (html) {\ENG{HTML/JS} \ENG{files}};
+\node[file, below=0.8cm of html] (media) {\ENG{Media} \ENG{files}};
+
+\draw[arrow] (content) -- (html);
+\draw[arrow] (content) -- (media);
+
+% Reference arrow
+\draw[arrow, dashed, blue!60] 
+(res1.south) to[out=-90,in=90] node[right, font=\tiny] {\ENG{references}} (html.north);
+
+% Legend
+\node[draw=black!50, fill=gray!5, thick, rounded corners=3pt, align=left, font=\tiny] 
+at (6.3,-3.2) {
+\ENG{Legend}:\\
+\tikz{\node[package, minimum width=1.4cm, minimum height=0.4cm] {};} \ENG{Package}\\
+\tikz{\node[manifest, minimum width=1.4cm, minimum height=0.4cm] {};} \ENG{Manifest}\\
+\tikz{\node[folder, minimum width=1.4cm, minimum height=0.4cm] {};} \ENG{Directory}\\
+\tikz{\node[file, minimum width=1.4cm, minimum height=0.4cm] {};} \ENG{File/Element}\\
+\tikz{\draw[arrow] (0,0) -- (0.6,0);} \ENG{Contains}\\
+\tikz{\draw[arrow, dashed] (0,0) -- (0.6,0);} \ENG{References}
+};
+
+\end{tikzpicture}
+\end{chapterfigurebox}
+\caption{Δομή \ENG{SCORM} 1.2 \ENG{Content} \ENG{Package}. Το \ENG{Package} \ENG{Interchange} \ENG{File} (\ENG{PIF}) περιέχει το \ENG{imsmanifest.xml}, τα \ENG{content} \ENG{files} και τα \ENG{XSD} \ENG{schemas}.}
+\label{fig:scorm12_content_package}
+\end{figure}

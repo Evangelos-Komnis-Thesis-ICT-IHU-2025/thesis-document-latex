@@ -1,0 +1,28 @@
+\section{\ENG{Git}, \ENG{GitHub} και Πρακτική Ελέγχου Εκδόσεων}
+\label{sec:appendix_versioning_governance}
+
+Το οικοσύστημα δεν υποστηρίζεται μόνο από διάσπαση σε διαφορετικά \ENG{modules}, αλλά και από μια σαφή,
+αν και όχι πλήρως ομοιόμορφη, πρακτική ελέγχου εκδόσεων. Τα \ENG{tags} των αποθετηρίων τεκμηριώνουν πραγματική λογική έκδοσης
+και όχι απλή αποθήκευση πρόχειρου κώδικα.
+Τη στιγμή που γράφονται αυτές οι γραμμές, το \texttt{\ENG{scorm-engine}}, το \texttt{\ENG{scorm-engine-php-sdk}}
+και το \texttt{\ENG{example-lms-client}} φέρουν \ENG{tag} \texttt{\ENG{v1.0.0}}, ο \texttt{\ENG{player}} έχει ήδη προχωρήσει
+έως το \texttt{\ENG{v1.0.1}} και το \texttt{\ENG{central-docker-infrastructure}} έως το \texttt{\ENG{v1.0.2}}.
+Η ύπαρξη αυτών των \ENG{snapshots} συνδέεται ευθέως με αυτοματοποιημένες ροές δημιουργίας έκδοσης (κυκλοφορίας) και δημιουργίας \ENG{changelogs},
+οι οποίες αναλύονται λεπτομερέστερα στο επόμενο παράρτημα.
+
+Η \ENG{GitHub}-side διαχείριση είναι ελαφρά, αλλά παρούσα. Τα αρχεία \texttt{\ENG{CODEOWNERS}} στα περισσότερα βασικά αποθετήρια δηλώνουν
+βασική ιδιοκτησία του κώδικα περιορίζοντας τη δυνατότητα αλλαγών από μη εξουσιοδοτημένους χρήστες,
+ενώ τα \texttt{\ENG{labels.json}}, \texttt{\ENG{labeler-config.yml}} και τα αντίστοιχα \ENG{workflows} υπάρχουν για να βοηθήσουν 
+στην αυτοματοποίηση ορισμένων διαδικασιών. Η πρακτική αυτή δεν συνιστά πλήρες \ENG{repository governance framework},
+αλλά είναι αρκετή ώστε να τεκμηριώσει ότι ο οργανισμός δεν λειτουργεί ως άναρχη συλλογή φακέλων.
+
+Για λόγους ομοιομορίας και αυτοματοποίησης κοινών διαδικασιών, το \texttt{\ENG{github-actions-template}} 
+περιέχει τοπικό \ENG{wizard} που μπορεί να δημιουργήσει αυτά τα \ENG{GitHub Actions} με ομοιόμορφο τρόπο.
+
+
+\begin{table}[H]
+\centering
+\caption{Ενδείξεις ελέγχου εκδόσεων, \ENG{release} πρακτικής και ελαφράς διακυβέρνησης στα βασικά αποθετήρια}
+\label{tab:appendix_versioning_workflow_conventions}
+\input{appendices/A_Engineering_Ecosystem/tables/tab_a2_versioning_and_workflow_conventions}
+\end{table}

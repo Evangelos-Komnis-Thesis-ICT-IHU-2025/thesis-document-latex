@@ -1,0 +1,40 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.9cm and 2.5cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.3cm, minimum height=1.1cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.6cm, minimum height=1.1cm, font=\footnotesize\bfseries},
+      store/.style={draw, cylinder, shape border rotate=90, aspect=0.28, minimum height=1.2cm, minimum width=3.2cm, align=center, fill=gray!5},
+      arrow/.style={-Latex, thick},
+      boundary/.style={draw, dashed, rounded corners, inner sep=11pt}
+    ]
+    \node[box] (admin) {\ENG{Admin / Instructor}\\\ENG{in LMS}};
+    \node[box, below=of admin] (lms) {\ENG{Laravel LMS}};
+    \node[box, right=of lms] (sdk) {\ENG{PHP SDK}};
+    \node[emph, right=of sdk] (engine) {\ENG{SCORM Engine}};
+
+    \node[box, below=2.0cm of lms] (browser) {\ENG{Learner}\\\ENG{Browser}};
+    \node[emph, below=2.0cm of engine] (player) {\ENG{SCORM Player}};
+    \node[store, below=1.9cm of player] (minio) {\ENG{MinIO}\\\ENG{course package}};
+
+    \draw[arrow] (admin) -- node[left]{\ENG{admin actions}} (lms);
+    \draw[arrow] (lms) -- node[above, align=center]{\ENG{typed API}\\\ENG{calls}} (sdk);
+    \draw[arrow] (sdk) -- node[above, align=center]{\ENG{import / users}\\\ENG{/ enrollments / launches}} (engine);
+    \draw[arrow] (lms) -- node[left, align=center]{\ENG{launch}\\\ENG{URL}} (browser);
+    \draw[arrow] (browser) -- node[below]{\ENG{open} \texttt{\ENG{/launch}}} (player);
+    \draw[arrow] (player.north) to[bend left=14] node[right, align=center]{\ENG{launch}\\\ENG{context}} (engine.south);
+    \draw[arrow] (player) -- node[right, align=center]{\ENG{download}\\\ENG{ZIP}} (minio);
+    \draw[arrow] (player.north west) to[bend right=18] node[left, align=center]{\ENG{commit}\\\ENG{/ terminate}} (engine.south west);
+
+    \node[boundary, fit=(admin)(lms)(browser)] (clientboundary) {};
+    \node[font=\footnotesize, above=0.12cm of clientboundary] {\ENG{LMS-owned experience}};
+
+    \node[boundary, fit=(engine)(player)(minio)] (runtimeboundary) {};
+    \node[font=\footnotesize, above=0.12cm of runtimeboundary] {\ENG{Runtime and content delivery perimeter}};
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Αρχιτεκτονική ολοκλήρωσης της πλατφόρμας με διάκριση διοικητικής και \ENG{learner-facing} ροής.}
+  \label{fig:lms_scorm_integration}
+\end{figure}

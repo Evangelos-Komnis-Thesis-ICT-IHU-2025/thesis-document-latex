@@ -1,0 +1,47 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\small,
+      repo/.style={draw, rounded corners, fill=gray!5, align=center, text width=2.9cm, minimum height=1.05cm},
+      wf/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.4cm, minimum height=1.05cm, font=\small\bfseries},
+      arrow/.style={-Latex, thick}
+    ]
+    \node[repo] (engine) at (0,4.0) {\texttt{\ENG{scorm-engine}}};
+    \node[repo] (sdk) at (0,2.4) {\texttt{\ENG{scorm-engine-php-sdk}}};
+    \node[repo] (lms) at (0,0.8) {\texttt{\ENG{example-lms-client}}};
+    \node[repo] (player) at (0,-0.8) {\texttt{\ENG{player}}};
+    \node[repo] (infra) at (0,-2.4) {\texttt{\ENG{central-docker-infrastructure}}};
+
+    \node[wf] (tests) at (5.6,3.2) {\ENG{tests + coverage}};
+    \node[wf] (lint) at (5.6,1.2) {\ENG{lint / config validation}};
+    \node[wf] (release) at (5.6,-0.8) {\ENG{changelog + release}};
+    \node[wf] (integration) at (5.6,-2.8) {\ENG{compose integration}\\+\ENG{smoke checks}};
+
+    \node[repo] (artifacts) at (11.0,2.2) {\ENG{coverage artifacts}\\\ENG{and Codecov}};
+    \node[repo] (tags) at (11.0,0.2) {\ENG{CHANGELOGs, tags}\\\ENG{and releases}};
+    \node[repo] (stack) at (11.0,-2.4) {\ENG{validated running stack}};
+
+    \draw[arrow] (engine) -- (tests);
+    \draw[arrow] (sdk) -- (tests);
+    \draw[arrow] (lms) -- (tests);
+    \draw[arrow] (player) -- (tests);
+    \draw[arrow] (engine) -- (lint);
+    \draw[arrow] (sdk) -- (lint);
+    \draw[arrow] (lms) -- (lint);
+    \draw[arrow] (player) -- (lint);
+    \draw[arrow] (infra) -- (lint);
+    \draw[arrow] (engine) -- (release);
+    \draw[arrow] (sdk) -- (release);
+    \draw[arrow] (lms) -- (release);
+    \draw[arrow] (player) -- (release);
+    \draw[arrow] (infra) -- (release);
+    \draw[arrow] (infra) -- (integration);
+    \draw[arrow] (tests) -- (artifacts);
+    \draw[arrow] (release) -- (tags);
+    \draw[arrow] (integration) -- (stack);
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Συνοπτικός χάρτης των βασικών \ENG{workflow families} και των κύριων εξόδων τους σε επίπεδο οργανισμού.}
+  \label{fig:appendix_cross_repo_workflow_map}
+\end{figure}

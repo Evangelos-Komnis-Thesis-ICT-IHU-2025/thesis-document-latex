@@ -1,0 +1,35 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      node distance=1.8cm and 2.2cm,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=3.3cm, minimum height=1.05cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=3.6cm, minimum height=1.05cm, font=\footnotesize\bfseries},
+      arrow/.style={-Latex, thick},
+      boundary/.style={draw, dashed, rounded corners, inner sep=11pt}
+    ]
+    \node[emph] (runtimeo) {\texttt{\ENG{RuntimeOrchestrator}}};
+    \node[box, below=1.8cm of runtimeo] (registry) {\texttt{\ENG{StandardAdapterRegistry}}};
+
+    \node[box, below left=1.9cm and 2.3cm of registry] (s12) {\texttt{\ENG{Scorm12Adapter}}};
+    \node[box, below=1.9cm of registry] (s2004) {\texttt{\ENG{Scorm2004Adapter}}};
+    \node[box, below right=1.9cm and 2.3cm of registry] (future) {\ENG{Future}\\\texttt{\ENG{StandardAdapter}}};
+
+    \node[emph, below=2.0cm of s2004] (norm) {\texttt{\ENG{NormalizedProgress}}};
+
+    \draw[arrow] (runtimeo) -- (registry);
+    \draw[arrow] (registry) -- (s12);
+    \draw[arrow] (registry) -- (s2004);
+    \draw[arrow, dashed] (registry) -- (future);
+    \draw[arrow] (s12) -- (norm);
+    \draw[arrow] (s2004) -- (norm);
+    \draw[arrow, dashed] (future) -- (norm);
+
+    \node[boundary, fit=(s12)(s2004)(future)] (adapterboundary) {};
+    \node[font=\footnotesize, align=center, text width=5.6cm, above=0.14cm of adapterboundary] {\ENG{Pluggable standard interpretation layer}};
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Επεκτασιμότητα του \ENG{runtime} μέσω \ENG{registry} και \ENG{standard-specific adapters} που τροφοδοτούν κοινό μοντέλο κανονικοποιημένης προόδου.}
+  \label{fig:adapter_architecture}
+\end{figure}

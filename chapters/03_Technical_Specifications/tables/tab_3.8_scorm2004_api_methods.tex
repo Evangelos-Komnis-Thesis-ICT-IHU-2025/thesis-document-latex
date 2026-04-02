@@ -1,0 +1,29 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{3.5cm}|p{2.5cm}|p{8cm}|}
+\hline
+\ENG{Method} & \ENG{Parameters} & Περιγραφή \\
+\hline
+\hline
+\texttt{\ENG{Initialize}()} & \texttt{""} (\ENG{empty} \ENG{string}) & Ξεκινά μια \ENG{communication} \ENG{session} με το \ENG{LMS}. Πρέπει να καλείται πριν από οποιαδήποτε κλήση \texttt{\ENG{GetValue}()} ή \texttt{\ENG{SetValue}()}. Επιστρέφει \texttt{"\ENG{true}"} σε περίπτωση επιτυχίας και \texttt{"\ENG{false}"} σε περίπτωση αποτυχίας. \\
+\hline
+\texttt{\ENG{Terminate}()} & \texttt{""} (\ENG{empty} \ENG{string}) & Τερματίζει την \ENG{communication} \ENG{session} με το \ENG{LMS}. Πρέπει να καλείται όταν το \ENG{SCO} ολοκληρώσει την εκτέλεσή του. Επιστρέφει \texttt{"\ENG{true}"} σε περίπτωση επιτυχίας και \texttt{"\ENG{false}"} σε περίπτωση αποτυχίας. Αν έχει οριστεί το \texttt{\ENG{adl.nav.request}}, ενεργοποιεί τη διαδικασία \ENG{sequencing}. \\
+\hline
+\texttt{\ENG{GetValue}()} & \texttt{\ENG{element}} (\ENG{string}) & Ανακτά την τιμή ενός καθορισμένου στοιχείου του \ENG{data} \ENG{model} από το \ENG{LMS}. Επιστρέφει την τιμή ως \ENG{string}, ή κενό \ENG{string} σε περίπτωση \ENG{error}. Ελέγξτε το \texttt{\ENG{GetLastError}()} για τους αντίστοιχους \ENG{error} \ENG{codes}. \\
+\hline
+\texttt{\ENG{SetValue}()} & \texttt{\ENG{element}} (\ENG{string}), \texttt{\ENG{value}} (\ENG{string}) & Αποθηκεύει μια τιμή στο καθορισμένο στοιχείο του \ENG{data} \ENG{model} στο \ENG{LMS}. Επιστρέφει \texttt{"\ENG{true}"} σε περίπτωση επιτυχίας και \texttt{"\ENG{false}"} σε περίπτωση αποτυχίας. Ελέγξτε το \texttt{\ENG{GetLastError}()} για πιθανά \ENG{validation} \ENG{errors}. \\
+\hline
+\texttt{\ENG{Commit}()} & \texttt{""} (\ENG{empty} \ENG{string}) & Δίνει εντολή στο \ENG{LMS} να αποθηκεύσει μόνιμα όλα τα δεδομένα που ορίστηκαν μέσω της \texttt{\ENG{SetValue}()} από την τελευταία \texttt{\ENG{Initialize}()} ή \texttt{\ENG{Commit}()}. Είναι προαιρετική, αλλά συνιστάται για τη διασφάλιση της ακεραιότητας των δεδομένων. Επιστρέφει \texttt{"\ENG{true}"} σε περίπτωση επιτυχίας και \texttt{"\ENG{false}"} σε περίπτωση αποτυχίας. \\
+\hline
+\texttt{\ENG{GetLastError}()} & \ENG{None} & Επιστρέφει τον \ENG{error} \ENG{code} (ως \ENG{string}) που προέκυψε από την τελευταία κλήση του \ENG{API}. Ο \ENG{error} \ENG{code} \texttt{"0"} δηλώνει ότι δεν υπάρχει \ENG{error}. Ανατρέξτε στον πίνακα \ENG{SCORM} 2004 \ENG{error} \ENG{codes} για την ερμηνεία τους. \\
+\hline
+\texttt{\ENG{GetErrorString}()} & \texttt{\ENG{errorCode}} (\ENG{string}) & Επιστρέφει μια σύντομη κειμενική περιγραφή του καθορισμένου \ENG{error} \ENG{code}. Παρέχει τυποποιημένα \ENG{error} \ENG{messages} (π.χ. \texttt{"\ENG{Data} \ENG{Model} \ENG{Element} \ENG{Is} \ENG{Read} \ENG{Only}"}). \\
+\hline
+\texttt{\ENG{GetDiagnostic}()} & \texttt{\ENG{errorCode}} (\ENG{string}) & Επιστρέφει αναλυτικές, \ENG{LMS-specific} διαγνωστικές πληροφορίες για το καθορισμένο \ENG{error}. Είναι χρήσιμη για \ENG{debugging} κατά την ανάπτυξη περιεχομένου. Μπορεί να επιστρέψει κενό \ENG{string} αν δεν υπάρχουν διαθέσιμα \ENG{diagnostic} δεδομένα. \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

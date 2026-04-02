@@ -1,0 +1,26 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{3.8cm}|p{3.2cm}|p{4.1cm}|p{3.6cm}|}
+\hline
+\ENG{Endpoint group} & Κύριος \ENG{controller} & Κεντρικός \ENG{handler} / \ENG{orchestrator} & Κύριο όριο μόνιμης αποθήκευσης \\
+\hline
+\texttt{\ENG{/api/v1/courses/import}} & \texttt{\ENG{CourseController}} & \texttt{\ENG{ImportCourseCommandHandler}}, \texttt{\ENG{ManifestParser}} & \ENG{MinIO} για \ENG{ZIP}, \ENG{Postgres} για \texttt{\ENG{courses}} \\
+\hline
+\texttt{\ENG{/api/v1/users}}, \texttt{\ENG{/api/v1/enrollments}} & \texttt{\ENG{UserController}}, \texttt{\ENG{EnrollmentController}} & Υπηρεσίες ανάγνωσης/καταχώρισης των αντίστοιχων \ENG{domain objects} & \ENG{Postgres} \\
+\hline
+\texttt{\ENG{/api/v1/launches}} & \texttt{\ENG{LaunchController}} & \texttt{\ENG{CreateLaunchCommandHandler}} & \ENG{Postgres} για \texttt{\ENG{attempts}}/\texttt{\ENG{launches}}, \ENG{Redis} για αρχική κατάσταση \\
+\hline
+\texttt{\ENG{/api/v1/launches/\{id\}}} & \texttt{\ENG{LaunchController}} & \texttt{\ENG{LaunchOrchestrator}} & \ENG{Postgres} για αναγνώσεις επιχειρησιακών δεδομένων, \ENG{Redis} για τρέχουσα κατάσταση, \ENG{MinIO} \ENG{presigned URL} \\
+\hline
+\texttt{\ENG{/api/v1/runtime/launches/\{id\}/commit}} & \texttt{\ENG{RuntimeController}} & \texttt{\ENG{RuntimeOrchestrator}}, \texttt{\ENG{StandardAdapterRegistry}} & \ENG{Redis} για ενεργή κατάσταση, \texttt{\ENG{launches.lastSeenAt}} στο \ENG{Postgres} \\
+\hline
+\texttt{\ENG{/api/v1/launches/\{id\}/terminate}} & \texttt{\ENG{LaunchController}} & \texttt{\ENG{TerminateLaunchCommandHandler}}, \texttt{\ENG{RuntimeFlushService}} & \ENG{Postgres} για κλείσιμο προσπάθειας/στιγμιότυπο, διαγραφή από \ENG{Redis} \\
+\hline
+\texttt{\ENG{/api/v1/attempts/*}}, \texttt{\ENG{/api/v1/courses/*/stats}} & \texttt{\ENG{AttemptController}}, \texttt{\ENG{ReportingController}} & \ENG{Read/report services} & \ENG{Postgres} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

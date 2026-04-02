@@ -1,0 +1,52 @@
+% \ENG{Table} 3.4: \ENG{SCORM} 1.2 \ENG{Error} \ENG{Codes}
+\begin{table}[htbp]
+\centering
+\caption{\ENG{SCORM} 1.2 \ENG{API} \ENG{Error} \ENG{Codes}}
+\label{tab:scorm12_error_codes}
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{threeparttable}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{>{\ttfamily}c >{\raggedright\arraybackslash}p{4.5cm} >{\raggedright\arraybackslash}p{7cm}}
+\toprule
+\normalfont\ENG{Error} \ENG{Code} & \ENG{Error} \ENG{String} & Περιγραφή \\
+\midrule
+0 & \ENG{No} \ENG{error} & Καμία σφάλμα. Η \ENG{API} κλήση ολοκληρώθηκε επιτυχώς. \\
+\midrule
+\rowcolor{gray!10}
+101 & \ENG{General} \ENG{Exception} & Γενικό σφάλμα που δεν ανήκει σε συγκεκριμένη κατηγορία. \\
+\midrule
+201 & \ENG{Invalid} \ENG{argument} \ENG{error} & Ένα ή περισσότερα \ENG{arguments} της \ENG{API} κλήσης είναι άκυρα (π.χ. λάθος \ENG{data} \ENG{type}). \\
+\midrule
+\rowcolor{gray!10}
+202 & \ENG{Element} \ENG{cannot} \ENG{have} \ENG{children} & Προσπάθεια πρόσβασης σε \ENG{child} \ENG{element} που δεν υπάρχει ή δεν επιτρέπεται. \\
+\midrule
+203 & \ENG{Element} \ENG{not} \ENG{an} \ENG{array} & Χρήση \ENG{array} \ENG{notation} (π.χ. \ENG{cmi.objectives.0}) σε \ENG{element} που δεν είναι \ENG{array}. \\
+\midrule
+\rowcolor{gray!10}
+301 & \ENG{Not} \ENG{initialized} & \ENG{API} κλήση πριν από επιτυχή \texttt{\ENG{LMSInitialize}()} ή μετά από \texttt{\ENG{LMSFinish}()}. \\
+\midrule
+401 & \ENG{Not} \ENG{implemented} \ENG{error} & Η συγκεκριμένη λειτουργικότητα δεν είναι υλοποιημένη από το \ENG{LMS}. \\
+\midrule
+\rowcolor{gray!10}
+402 & \ENG{Invalid} \ENG{set} \ENG{value} & Προσπάθεια \texttt{\ENG{LMSSetValue}()} σε \ENG{read-only} \ENG{element} ή με άκυρη τιμή. \\
+\midrule
+403 & \ENG{Element} \ENG{is} \ENG{read} \ENG{only} & Προσπάθεια εγγραφής σε \ENG{read-only} \ENG{data} \ENG{model} \ENG{element}. \\
+\midrule
+\rowcolor{gray!10}
+404 & \ENG{Element} \ENG{is} \ENG{write} \ENG{only} & Προσπάθεια ανάγνωσης \ENG{write-only} \ENG{data} \ENG{model} \ENG{element} (π.χ. \ENG{cmi.core.exit}). \\
+\midrule
+405 & \ENG{Incorrect} \ENG{Data} \ENG{Type} & Η τιμή που δόθηκε στο \texttt{\ENG{LMSSetValue}()} δεν είναι του σωστού \ENG{data} \ENG{type}. \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Σημείωση 1: Τα \ENG{error} \ENG{codes} επιστρέφονται ως \ENG{strings} από το \texttt{\ENG{LMSGetLastError}()}.
+\item Σημείωση 2: Το \texttt{\ENG{LMSGetErrorString}(\ENG{errorCode})} επιστρέφει το \ENG{Error} \ENG{String}.
+\item Σημείωση 3: Το \texttt{\ENG{LMSGetDiagnostic}(\ENG{errorCode})} μπορεί να επιστρέψει πρόσθετες λεπτομέρειες (\ENG{implementation-specific}).
+\item \ENG{Best} \ENG{Practice}: Πάντα ελέγχετε το \ENG{return} \ENG{value} των \ENG{API} κλήσεων και καλείτε \texttt{\ENG{LMSGetLastError}()} αν είναι "\ENG{false}".
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

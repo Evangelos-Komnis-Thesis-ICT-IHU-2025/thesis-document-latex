@@ -1,0 +1,60 @@
+% Figure 3.9: SCORM 2004 Sequencing Model
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+    node distance=1.2cm and 2cm,
+    component/.style={rectangle, draw=blue!60, fill=blue!10, thick, minimum width=3.2cm, minimum height=1cm, align=center, rounded corners},
+    process/.style={rectangle, draw=green!60, fill=green!10, thick, minimum width=2.8cm, minimum height=0.9cm, align=center},
+    data/.style={cylinder, draw=orange!60, fill=orange!10, thick, minimum width=2.5cm, minimum height=1cm, align=center, shape border rotate=90},
+    decision/.style={diamond, draw=red!60, fill=red!10, thick, minimum width=2.2cm, minimum height=1.2cm, align=center, aspect=2},
+    arrow/.style={->, >=stealth, thick},
+    bidirectional/.style={<->, >=stealth, thick, dashed}
+]
+
+% Activity Tree
+\node[data] (activity_tree) {\ENG{Activity}\\\ENG{Tree}};
+
+% Navigation Request
+\node[component, below=of activity_tree] (nav_request) {\ENG{Navigation}\\\ENG{Request}};
+\draw[arrow] (nav_request) -- node[right, font=\scriptsize] {\ENG{Parse}} (activity_tree);
+
+% Sequencing Process
+\node[process, below=of nav_request] (end_current) {\ENG{End} \ENG{Current}\\\ENG{Activity}};
+\draw[arrow] (nav_request) -- (end_current);
+
+\node[process, below=of end_current] (rollup) {\ENG{Rollup}\\\ENG{Process}};
+\draw[arrow] (end_current) -- node[right, font=\scriptsize] {\ENG{Transfer} \ENG{data}} (rollup);
+
+\node[data, left=of rollup] (tracking_data) {\ENG{Activity}\\\ENG{Tracking}\\\ENG{Data}};
+\draw[bidirectional] (rollup) -- (tracking_data);
+\draw[bidirectional] (activity_tree.west) -| (tracking_data.north);
+
+% Activity Selection
+\node[process, below=of rollup] (select_activity) {\ENG{Select} \ENG{Next}\\\ENG{Activity}};
+\draw[arrow] (rollup) -- (select_activity);
+\draw[bidirectional] (select_activity.west) -- ++(-1,0) |- (activity_tree.west);
+
+% Check Sequencing Rules
+\node[decision, below=of select_activity] (check_rules) {\ENG{Rules}\\\ENG{Permit}?};
+\draw[arrow] (select_activity) -- (check_rules);
+
+\node[component, right=2.4cm of check_rules] (exit_course) {\ENG{Exit} \ENG{Course}};
+\draw[arrow] (check_rules) -- node[above, font=\scriptsize] {\ENG{No}} (exit_course);
+
+% Deliver Activity
+\node[component, below=of check_rules] (deliver) {\ENG{Deliver}\\\ENG{Activity}};
+\draw[arrow] (check_rules) -- node[left, font=\scriptsize] {\ENG{Yes}} (deliver);
+
+% SCO Execution
+\node[component, below=of deliver, fill=yellow!10, draw=yellow!60] (sco_exec) {\ENG{SCO} \ENG{Execution}\\(\ENG{RTE})};
+\draw[arrow] (deliver) -- (sco_exec);
+
+% Loop back
+\draw[arrow, blue!50, bend right=50] (sco_exec.east) to node[right, font=\scriptsize, align=left] {\ENG{Terminate} +\\\ENG{Nav} \ENG{Request}} (nav_request.east);
+
+% Sequencing Rules Box
+\node[component, right=1.5cm of select_activity, fill=purple!10, draw=purple!60, text width=2.8cm] (seq_rules) {\ENG{Sequencing} \ENG{Rules}:\\- \ENG{Preconditions}\\- \ENG{Post-conditions}\\- \ENG{Rollup}\\- \ENG{Limits}};
+\draw[bidirectional] (select_activity) -- (seq_rules);
+\draw[bidirectional] (rollup) -| (seq_rules);
+
+\end{tikzpicture}
+\end{chapterfigurebox}

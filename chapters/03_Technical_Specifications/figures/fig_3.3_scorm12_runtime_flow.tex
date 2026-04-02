@@ -1,0 +1,83 @@
+% Figure 3.3: SCORM 1.2 Runtime Communication Flow (Sequence Diagram)
+\begin{figure}[htbp]
+\centering
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+    every node/.style={font=\small},
+    actor/.style={rectangle, draw=black!80, fill=blue!20, thick, minimum width=2.5cm, minimum height=0.9cm},
+    component/.style={rectangle, draw=black!80, fill=green!20, thick, minimum width=2.8cm, minimum height=0.9cm},
+    message/.style={->, >=latex, thick},
+    return/.style={->, >=latex, dashed, thick},
+    note/.style={rectangle, draw=orange!70, fill=yellow!20, align=center, font=\scriptsize, text width=2.3cm},
+    msglabel/.style={above, font=\scriptsize, text width=2.6cm, align=center, fill=white, inner sep=1pt},
+    retlabel/.style={below, font=\scriptsize, text width=2.2cm, align=center, fill=white, inner sep=1pt}
+]
+
+% Actors/Components at top
+\node[actor] (lms) at (0,0) {\ENG{LMS}};
+\node[component] (api) at (5.6,0) {\ENG{API} \ENG{Adapter}};
+\node[actor] (sco) at (11.2,0) {\ENG{SCO}};
+
+% Lifelines
+\draw[thick, dashed] (lms.south) -- ++(0,-13.6);
+\draw[thick, dashed] (api.south) -- ++(0,-13.6);
+\draw[thick, dashed] (sco.south) -- ++(0,-13.6);
+
+% 1. Create API
+\draw[message] ($(lms.south)+(0,-1)$) -- node[msglabel] {1. \ENG{Create}\\\ENG{API} \ENG{Object}} ($(api.south)+(0,-1)$);
+
+% 2. Launch SCO
+\draw[message] ($(lms.south)+(0,-2)$) -- node[msglabel] {2. \ENG{Launch} \ENG{SCO}\\(\ENG{load} \ENG{URL})} ($(sco.south)+(0,-2)$);
+
+% 3. Find API
+\draw[message] ($(sco.south)+(0,-3)$) -- node[msglabel] {3. \ENG{FindAPI}()} ($(api.south)+(0,-3)$);
+\draw[return] ($(api.south)+(0,-3.35)$) -- node[retlabel] {\ENG{API} \ENG{reference}} ($(sco.south)+(0,-3.35)$);
+
+% 4. Initialize
+\draw[message, red!70!black] ($(sco.south)+(0,-4.1)$) -- node[msglabel] {\textcolor{red!70!black}{4. \ENG{LMSInitialize}("")}} ($(api.south)+(0,-4.1)$);
+\draw[return] ($(api.south)+(0,-4.45)$) -- node[retlabel] {"\ENG{true}"} ($(sco.south)+(0,-4.45)$);
+
+% Note: Session started
+\node[note] at (7.4,-5.15) {\ENG{Communication}\\\ENG{session} \ENG{started}};
+
+% 5. Get student ID
+\draw[message] ($(sco.south)+(0,-6.4)$) -- node[msglabel] {5. \ENG{LMSGetValue}\\("\ENG{cmi.core.student}\_\ENG{id}")} ($(api.south)+(0,-6.4)$);
+\draw[return] ($(api.south)+(0,-6.75)$) -- node[retlabel] {"12345"} ($(sco.south)+(0,-6.75)$);
+
+% 6. Set status
+\draw[message] ($(sco.south)+(0,-7.55)$) -- node[msglabel] {6. \ENG{LMSSetValue}\\("\ENG{cmi.core.lesson}\_\ENG{status}",\\ "\ENG{incomplete}")} ($(api.south)+(0,-7.55)$);
+\draw[return] ($(api.south)+(0,-7.95)$) -- node[retlabel] {"\ENG{true}"} ($(sco.south)+(0,-7.95)$);
+
+% 7. Set score
+\draw[message] ($(sco.south)+(0,-8.95)$) -- node[msglabel] {7. \ENG{LMSSetValue}\\("\ENG{cmi.core.score.raw}", "85")} ($(api.south)+(0,-8.95)$);
+\draw[return] ($(api.south)+(0,-9.30)$) -- node[retlabel] {"\ENG{true}"} ($(sco.south)+(0,-9.30)$);
+
+% 8. Commit
+\draw[message] ($(sco.south)+(0,-10.15)$) -- node[msglabel] {8. \ENG{LMSCommit}("")} ($(api.south)+(0,-10.15)$);
+\draw[return] ($(api.south)+(0,-10.50)$) -- node[retlabel] {"\ENG{true}"} ($(sco.south)+(0,-10.50)$);
+
+% Note: Data persisted
+\node[note] at (7.4,-11.15) {\ENG{Data} \ENG{persisted}\\\ENG{to} \ENG{LMS}};
+
+% 9. Persist to backend
+\draw[message, blue!70!black] ($(api.south)+(0,-12.1)$) -- node[msglabel] {9. \ENG{Save} \ENG{to}\\\ENG{database}} ($(lms.south)+(0,-12.1)$);
+
+% 10. Set session time
+\draw[message] ($(sco.south)+(0,-13.0)$) -- node[msglabel] {10. \ENG{LMSSetValue}\\("\ENG{cmi.core.session}\_\ENG{time}",\\ "00:15:30")} ($(api.south)+(0,-13.0)$);
+\draw[return] ($(api.south)+(0,-13.35)$) -- node[retlabel] {"\ENG{true}"} ($(sco.south)+(0,-13.35)$);
+
+% 11. Finish
+\draw[message, red!70!black] ($(sco.south)+(0,-14.2)$) -- node[msglabel] {\textcolor{red!70!black}{11. \ENG{LMSFinish}("")}} ($(api.south)+(0,-14.2)$);
+\draw[return] ($(api.south)+(0,-14.55)$) -- node[retlabel] {"\ENG{true}"} ($(sco.south)+(0,-14.55)$);
+
+% Title and phases
+\node[font=\small\bfseries, anchor=west] at (-1.35, 0.6) {\ENG{SCORM} 1.2 \ENG{Runtime} \ENG{Communication} \ENG{Flow}};
+\node[font=\scriptsize, fill=gray!10, draw=gray, anchor=west] at (-1.35, -1.55) {\ENG{Phase} 1: \ENG{Initialization}};
+\node[font=\scriptsize, fill=gray!10, draw=gray, anchor=west] at (-1.35, -7.15) {\ENG{Phase} 2: \ENG{Data} \ENG{Exchange}};
+\node[font=\scriptsize, fill=gray!10, draw=gray, anchor=west] at (-1.35, -13.95) {\ENG{Phase} 3: \ENG{Termination}};
+
+\end{tikzpicture}
+\end{chapterfigurebox}
+\caption{Ροή επικοινωνίας \ENG{SCORM} 1.2 \ENG{Runtime}. Το \ENG{SCO} αναζητά το \ENG{API}, εκκινεί επικοινωνία με \texttt{\ENG{LMSInitialize}()}, ανταλλάσσει δεδομένα μέσω \texttt{\ENG{LMSGetValue}()}/\texttt{\ENG{LMSSetValue}()}, και τερματίζει με \texttt{\ENG{LMSFinish}()}. Το \texttt{\ENG{LMSCommit}()} διασφαλίζει την αποθήκευση των δεδομένων.}
+\label{fig:scorm12_runtime_flow}
+\end{figure}

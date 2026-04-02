@@ -1,0 +1,50 @@
+% Figure 3.6: SCORM 2004 Architectural Overview
+\begin{chapterfigurebox}
+\begin{tikzpicture}[
+    node distance=1.1cm and 1.2cm,
+    component/.style={rectangle, draw=blue!60, fill=blue!10, thick, minimum width=3cm, minimum height=1cm, align=center, rounded corners},
+    subcomponent/.style={rectangle, draw=green!60, fill=green!10, thick, minimum width=2.5cm, minimum height=0.8cm, align=center},
+    dataflow/.style={->, >=stealth, thick, blue!70},
+    interaction/.style={<->, >=stealth, thick, red!70, dashed},
+    layer/.style={rectangle, draw=gray!50, fill=gray!5, thick, minimum width=11.8cm, minimum height=2.3cm, align=center, rounded corners}
+]
+
+% Layer 1: LMS Infrastructure
+\node[layer] (lms_layer) at (0,6) {\ENG{LMS} \ENG{Infrastructure} \ENG{Layer}};
+\node[component, below=0.3cm of lms_layer] (lms_core) {\ENG{LMS} \ENG{Core}};
+\node[component, left=of lms_core] (user_mgmt) {\ENG{User}\\\ENG{Management}};
+\node[component, right=of lms_core] (reporting) {\ENG{Reporting} \&\\\ENG{Analytics}};
+
+% Layer 2: SCORM 2004 Runtime Components
+\node[layer, below=3cm of lms_layer] (runtime_layer) {\ENG{SCORM} 2004 \ENG{Runtime} \ENG{Layer}};
+\node[component, below=0.3cm of runtime_layer] (rte_core) {\ENG{Run-Time}\\\ENG{Environment}\\(\ENG{RTE})};
+\node[component, left=of rte_core] (api_adapter) {\ENG{API} \ENG{Adapter}\\(\ENG{API}\_1484\_11)};
+\node[component, right=of rte_core] (sequencer) {\ENG{Sequencing}\\\ENG{Engine}};
+
+% Layer 3: Content Components
+\node[layer, below=3cm of runtime_layer] (content_layer) {\ENG{Content} \ENG{Layer}};
+\node[component, below=0.3cm of content_layer] (content_pkg) {\ENG{Content}\\\ENG{Package}\\(\ENG{CAM})};
+\node[subcomponent, left=of content_pkg, yshift=-0.5cm] (manifest) {\ENG{imsmanifest.xml}\\+ \ENG{Sequencing}};
+\node[subcomponent, right=of content_pkg, yshift=-0.5cm] (sco) {\ENG{SCOs}\\+ \ENG{Assets}};
+
+% Data flows
+\draw[dataflow] (content_pkg) -- node[right, font=\scriptsize] {\ENG{Launch} \ENG{SCO}} (rte_core);
+\draw[interaction] (sco) -- node[right, font=\scriptsize] {\ENG{API} \ENG{Calls}} (api_adapter);
+\draw[dataflow] (api_adapter) -- (rte_core);
+\draw[dataflow] (rte_core) -- node[right, font=\scriptsize] {\ENG{Tracking} \ENG{Data}} (lms_core);
+\draw[dataflow] (manifest) -- node[left, font=\scriptsize, align=left] {\ENG{Sequencing}\\\ENG{Rules}} (sequencer);
+\draw[dataflow] (sequencer) -- node[left, font=\scriptsize, align=left] {\ENG{Navigation}\\\ENG{Decisions}} (rte_core);
+\draw[dataflow] (lms_core) -- (reporting);
+\draw[dataflow] (user_mgmt) -- (lms_core);
+
+% Activity Tree representation
+\node[component, below=1.5cm of content_layer, xshift=-4cm, fill=yellow!10, draw=orange!60] (activity_tree) {\ENG{Activity} \ENG{Tree}\\(\ENG{Organizations})};
+\draw[dataflow] (manifest) -- (activity_tree);
+\draw[dataflow] (activity_tree) -- (sequencer);
+
+% Annotations
+\node[font=\scriptsize\itshape, text width=3cm, align=left, below=0.2cm of sco] {\ENG{Launch} \ENG{in}\\\ENG{browser} \ENG{window}};
+\node[font=\scriptsize\itshape, text width=3cm, align=right, below=0.2cm of manifest] {\ENG{XML} \ENG{with}\\\ENG{IMS} \ENG{SS} \ENG{extensions}};
+
+\end{tikzpicture}
+\end{chapterfigurebox}

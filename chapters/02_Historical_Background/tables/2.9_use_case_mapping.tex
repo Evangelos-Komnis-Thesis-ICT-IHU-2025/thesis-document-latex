@@ -1,0 +1,27 @@
+\begin{table}[H]
+\centering
+\caption{Αντιστοίχιση τυπικών σεναρίων χρήσης με τα καταλληλότερα πρότυπα}
+\label{tab:use_case_mapping}
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{chaptertablebox}
+\begin{tabularx}{\textwidth}{|p{3.4cm}|p{2.0cm}|p{2.0cm}|Y|}
+\hline
+\textbf{Σενάριο} & \textbf{Κύρια επιλογή} & \textbf{Εναλλακτική} & \textbf{Αιτιολόγηση} \\
+\hline
+\ENG{Compliance} εκπαίδευση με τυπικά \ENG{modules} & \ENG{SCORM} 1.2 & \ENG{cmi5} & Προτεραιότητα έχει η καθολική συμβατότητα με \ENG{LMS}, η χαμηλή πολυπλοκότητα και η ώριμη υποστήριξη από \ENG{authoring tools}. \\
+\hline
+Προσαρμοστικές μαθησιακές διαδρομές με σύνθετο \ENG{sequencing} & \ENG{SCORM} 2004 & \ENG{cmi5} & Όταν απαιτούνται \ENG{branching}, \ENG{rollup rules} και προαπαιτούμενα, το \ENG{SCORM} 2004 παραμένει το πιο πλήρες τυπικό μοντέλο. \\
+\hline
+\ENG{Cross-platform} και \ENG{offline tracking} & \ENG{xAPI} & \ENG{cmi5} & Η ανάγκη για καταγραφή σε \ENG{mobile}, \ENG{simulations} και φυσικά περιβάλλοντα ευνοεί το \ENG{LRS}-κεντρικό μοντέλο του \ENG{xAPI}. \\
+\hline
+Μετάβαση από υφιστάμενο \ENG{SCORM} χαρτοφυλάκιο & \ENG{cmi5} & \ENG{xAPI} & Το \ENG{cmi5} διατηρεί πειθαρχημένο \ENG{launch/completion contract} και άρα λειτουργεί ως ελεγχόμενη γέφυρα μετάβασης. \\
+\hline
+Ενσωμάτωση εξωτερικών εργαλείων στο \ENG{LMS} & \ENG{LTI} & -- & Το ζητούμενο εδώ δεν είναι η τυποποίηση περιεχομένου αλλά η ασφαλής εκκίνηση εργαλείων, η μεταφορά ρόλων και η επιστροφή βαθμολογίας. \\
+\hline
+Ενοποιημένο μαθησιακό ιστορικό από πολλαπλές πηγές & \ENG{xAPI} & \ENG{LTI} + \ENG{xAPI} & Όταν ο οργανισμός θέλει ενιαίο \ENG{learner record}, το \ENG{xAPI} υπερέχει ως κοινό σχήμα συμβάντων και το \ENG{LTI} λειτουργεί επικουρικά για το επίπεδο ενσωμάτωσης. \\
+\hline
+\end{tabularx}
+\end{chaptertablebox}
+\end{table}

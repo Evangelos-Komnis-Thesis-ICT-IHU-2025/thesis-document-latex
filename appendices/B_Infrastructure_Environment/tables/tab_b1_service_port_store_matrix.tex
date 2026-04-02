@@ -1,0 +1,32 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{|p{2.4cm}|p{2.0cm}|p{4.6cm}|p{4.5cm}|}
+\hline
+Υπηρεσία & \ENG{Host port} & Κύριος ρόλος & Μορφή αποθήκευσης ή ελέγχου \\
+\hline
+\texttt{\ENG{lms}} & \texttt{\ENG{8000}} & \ENG{Laravel} \ENG{UI} και διοικητικός/μαθησιακός πελάτης & \ENG{SQLite} τοπικά, \ENG{bootstrap} μέσω \texttt{\ENG{entrypoint.sh}} \\
+\hline
+\texttt{\ENG{player}} & \texttt{\ENG{3000}} & \ENG{Launch shell}, \ENG{content serving}, εσωτερικά \ENG{commit/terminate routes} & \ENG{player-cache volume}, \ENG{health endpoint} \\
+\hline
+\texttt{\ENG{engine}} & \texttt{\ENG{8080}} & \ENG{SCORM Engine REST API}, \ENG{launch/runtime} πυρήνας & \ENG{health endpoint}, εξάρτηση από \ENG{Postgres/Redis/MinIO} \\
+\hline
+\texttt{\ENG{postgres}} & \texttt{\ENG{5432}} & Κύριο σχεσιακό αποθετήριο μόνιμης αποθήκευσης & \texttt{\ENG{postgres-data}} volume και \ENG{pg\_isready} \ENG{healthcheck} \\
+\hline
+\texttt{\ENG{redis}} & \texttt{\ENG{6379}} & Ενεργή \ENG{runtime} κατάσταση \ENG{launches} & \texttt{\ENG{redis-data}} volume και \ENG{redis-cli ping} \\
+\hline
+\texttt{\ENG{minio}} & \texttt{\ENG{9000/9001}} & \ENG{Object storage} για \ENG{course packages} & \texttt{\ENG{minio-data}} volume, \ENG{live health probe}, \ENG{bucket init} \\
+\hline
+\texttt{\ENG{logstash}} & \texttt{\ENG{12201/udp}} & \ENG{GELF log ingestion} & \ENG{pipeline config} από \texttt{\ENG{logstash.conf}} \\
+\hline
+\texttt{\ENG{elasticsearch}} & \texttt{\ENG{9200}} & \ENG{Log indexing} και αναζήτηση & \texttt{\ENG{es-data}} volume και εσωτερική \ENG{HTTP probe} \\
+\hline
+\texttt{\ENG{kibana}} & \texttt{\ENG{5601}} & \ENG{Log inspection UI} & \ENG{status endpoint} και σύνδεση με \ENG{Elasticsearch} \\
+\hline
+\texttt{\ENG{minio-init}} & --- & Μεταβατική δημιουργία \ENG{buckets} κατά την εκκίνηση & Επιτρεπτός τερματισμός με \ENG{exit code 0} στην \ENG{CI} λογική \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

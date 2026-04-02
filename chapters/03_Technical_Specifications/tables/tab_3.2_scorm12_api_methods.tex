@@ -1,0 +1,44 @@
+% \ENG{Table} 3.2: \ENG{SCORM} 1.2 \ENG{API} \ENG{Methods}
+\begin{table}[htbp]
+\centering
+\caption{\ENG{SCORM} 1.2 \ENG{API} \ENG{Methods} και Λειτουργικότητα}
+\label{tab:scorm12_api_methods}
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{threeparttable}
+\begin{adjustbox}{center,max width=\textwidth}
+\begin{tabular}{>{\ttfamily}l >{\raggedright\arraybackslash}p{3.5cm} >{\raggedright\arraybackslash}p{2.2cm} >{\raggedright\arraybackslash}p{5cm}}
+\toprule
+\normalfont\ENG{Method} & \ENG{Parameters} & \ENG{Returns} & Περιγραφή \\
+\midrule
+\ENG{LMSInitialize}(\textit{\ENG{param}}) & \textit{\ENG{param}}: "" (\ENG{empty} \ENG{string}) & "\ENG{true}" ή "\ENG{false}" & Εκκινεί \ENG{communication} \ENG{session}. Πρέπει να καλείται πριν από οποιαδήποτε άλλη \ENG{API} κλήση. Επιστρέφει "\ENG{true}" αν επιτύχει. \\
+\midrule
+\rowcolor{gray!10}
+\ENG{LMSFinish}(\textit{\ENG{param}}) & \textit{\ENG{param}}: "" (\ENG{empty} \ENG{string}) & "\ENG{true}" ή "\ENG{false}" & Τερματίζει \ENG{communication} \ENG{session}. Πρέπει να καλείται όταν το \ENG{SCO} ολοκληρώνει. Μετά από επιτυχή κλήση, το \ENG{LMS} αγνοεί άλλες κλήσεις. \\
+\midrule
+\ENG{LMSGetValue}(\textit{\ENG{element}}) & \textit{\ENG{element}}: \ENG{data} \ENG{model} \ENG{element} \ENG{name} (\ENG{string}) & \ENG{Value} (\ENG{string}) ή "" (\ENG{error}) & Ανακτά την τιμή ενός \ENG{data} \ENG{model} \ENG{element} (π.χ. "\ENG{cmi.core.student}\_\ENG{id}"). Επιστρέφει "" αν υπάρχει σφάλμα. \\
+\midrule
+\rowcolor{gray!10}
+\ENG{LMSSetValue}(\textit{\ENG{element}}, \textit{\ENG{value}}) & \textit{\ENG{element}}: \ENG{element} \ENG{name} (\ENG{string}); \textit{\ENG{value}}: \ENG{value} (\ENG{string}) & "\ENG{true}" ή "\ENG{false}" & Ορίζει την τιμή ενός \ENG{data} \ENG{model} \ENG{element}. Επιστρέφει "\ENG{true}" αν επιτύχει. Το \ENG{LMS} μπορεί να \ENG{buffer} τα δεδομένα. \\
+\midrule
+\ENG{LMSCommit}(\textit{\ENG{param}}) & \textit{\ENG{param}}: "" (\ENG{empty} \ENG{string}) & "\ENG{true}" ή "\ENG{false}" & Αποθηκεύει όλα τα \ENG{buffered} δεδομένα στο \ENG{LMS} \ENG{backend}. Συνιστάται η κλήση μετά από σημαντικές \ENG{SetValue} \ENG{operations}. \\
+\midrule
+\rowcolor{gray!10}
+\ENG{LMSGetLastError}() & \ENG{None} & \ENG{Error} \ENG{code} (\ENG{string}) & Επιστρέφει τον \ENG{error} \ENG{code} της τελευταίας \ENG{API} κλήσης (π.χ. "0" = \ENG{no} \ENG{error}, "101" = \ENG{general} \ENG{exception}). \\
+\midrule
+\ENG{LMSGetErrorString}(\textit{\ENG{errorCode}}) & \textit{\ENG{errorCode}}: \ENG{error} \ENG{code} (\ENG{string}) & \ENG{Error} \ENG{description} (\ENG{string}) & Επιστρέφει \ENG{short} \ENG{textual} \ENG{description} του \ENG{error} \ENG{code} (π.χ. "\ENG{General} \ENG{Exception}"). \\
+\midrule
+\rowcolor{gray!10}
+\ENG{LMSGetDiagnostic}(\textit{\ENG{errorCode}}) & \textit{\ENG{errorCode}}: \ENG{error} \ENG{code} (\ENG{string}) & \ENG{Diagnostic} \ENG{info} (\ENG{string}) & Επιστρέφει λεπτομερή \ENG{diagnostic} \ENG{information} για το \ENG{error}. \ENG{Implementation-specific}. \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Σημείωση 1: Όλες οι μέθοδοι επιστρέφουν \ENG{string} \ENG{values}, όχι \ENG{boolean}.
+\item Σημείωση 2: Η σειρά κλήσης \texttt{\ENG{LMSInitialize}()} $\rightarrow$ \texttt{\ENG{LMSGetValue/LMSSetValue/LMSCommit}()} $\rightarrow$ \texttt{\ENG{LMSFinish}()} πρέπει να τηρείται.
+\item Σημείωση 3: Το \texttt{\ENG{LMSCommit}()} δεν εγγυάται \ENG{immediate} \ENG{persistence} - εξαρτάται από την υλοποίηση του \ENG{LMS}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

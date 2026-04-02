@@ -1,0 +1,26 @@
+\begin{figure}[H]
+  \centering
+\begin{chapterfigurebox}
+  \begin{tikzpicture}[
+      font=\small,
+      box/.style={draw, rounded corners, fill=gray!5, align=center, text width=7.2cm, minimum height=1.0cm},
+      emph/.style={draw, rounded corners, fill=gray!12, align=center, text width=7.4cm, minimum height=1.0cm, font=\small\bfseries},
+      arrow/.style={-Latex, thick}
+    ]
+    \node[emph] (start) at (0,0) {Ενεργό \ENG{launch} στο \ENG{Redis}};
+    \node[box] (trigger) at (0,-1.7) {Ενεργοποίηση: κανονικός τερματισμός ή λήξη χρονικού ορίου αδράνειας};
+    \node[emph] (flush) at (0,-3.4) {\texttt{\ENG{RuntimeFlushService}}};
+    \node[box] (apply) at (0,-5.1) {Εφαρμογή κανονικοποιημένης προόδου στο \texttt{\ENG{attempt}}};
+    \node[box] (snapshot) at (0,-6.8) {Αποθήκευση \texttt{\ENG{attempt\_runtime\_snapshot}} με αιτιολόγηση};
+    \node[box] (close) at (0,-8.5) {Κλείσιμο \texttt{\ENG{attempt}} και \texttt{\ENG{launch}}, διαγραφή κατάστασης από \ENG{Redis}};
+
+    \draw[arrow] (start) -- (trigger);
+    \draw[arrow] (trigger) -- (flush);
+    \draw[arrow] (flush) -- (apply);
+    \draw[arrow] (apply) -- (snapshot);
+    \draw[arrow] (snapshot) -- (close);
+  \end{tikzpicture}
+\end{chapterfigurebox}
+  \caption{Ακολουθία συγχρονισμού προς μόνιμη αποθήκευση από ενεργή κατάσταση εκτέλεσης σε τελική κατάσταση \ENG{attempt} και ιστορικό στιγμιότυπο.}
+  \label{fig:runtime_flush_sequence}
+\end{figure}

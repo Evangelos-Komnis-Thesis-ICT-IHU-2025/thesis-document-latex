@@ -1,0 +1,37 @@
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{center,max width=\textwidth,max totalheight=0.86\textheight}
+\begin{tabular}{|p{4.5cm}|p{9.5cm}|}
+\hline
+\ENG{Sequencing} \ENG{Category} & \ENG{Description} \ENG{and} \ENG{Key} \ENG{Elements} \\
+\hline
+\hline
+\ENG{Sequencing} \ENG{Control} \ENG{Modes} & \ENG{Determine} \ENG{navigation} \ENG{permissions} \ENG{for} \ENG{cluster} \ENG{children}. \texttt{\ENG{choice}} (\ENG{default}: \ENG{true}) \ENG{enables} \ENG{TOC} \ENG{navigation}; \texttt{\ENG{flow}} (\ENG{default}: \ENG{false}) \ENG{enables} \ENG{previous/next}; \texttt{\ENG{forwardOnly}} (\ENG{default}: \ENG{false}) \ENG{restricts} \ENG{to} \ENG{forward-only}; \texttt{\ENG{choiceExit}} (\ENG{default}: \ENG{true}) \ENG{allows} \ENG{exiting} \ENG{via} \ENG{TOC}. \\
+\hline
+\ENG{Constrain} \ENG{Choice} \ENG{Controls} & \ENG{Restrict} \ENG{TOC-based} \ENG{navigation}. \texttt{\ENG{constrainChoice}} \ENG{limits} \ENG{choices} \ENG{to} \ENG{logically} "\ENG{next}" \ENG{activity}; \texttt{\ENG{preventActivation}} \ENG{prevents} \ENG{deep-linking} \ENG{into} \ENG{children}. \\
+\hline
+\ENG{Sequencing} \ENG{Rules} & \ENG{If-then} \ENG{conditions} \ENG{evaluated} \ENG{against} \ENG{tracking} \ENG{data}. \ENG{Precondition} \ENG{rules} (\ENG{skip}, \ENG{disabled}, \ENG{hiddenFromChoice}, \ENG{stopForwardTraversal}) \ENG{evaluated} \ENG{before} \ENG{delivery}. \ENG{Post-condition} \ENG{rules} (\ENG{exitParent}, \ENG{exitAll}, \ENG{retry}, \ENG{retryAll}, \ENG{continue}, \ENG{previous}) \ENG{evaluated} \ENG{after} \ENG{termination}. \ENG{Exit} \ENG{rules} (\ENG{exit}) \ENG{evaluated} \ENG{when} \ENG{child} \ENG{causes} \ENG{parent} \ENG{exit}. \\
+\hline
+\ENG{Limit} \ENG{Conditions} & \ENG{Define} \ENG{attempt} \ENG{and} \ENG{duration} \ENG{limits}. \texttt{\ENG{attemptLimit}} \ENG{specifies} \ENG{maximum} \ENG{attempts}; \texttt{\ENG{attemptAbsoluteDurationLimit}} \ENG{specifies} \ENG{maximum} \ENG{time} (\ENG{rarely} \ENG{supported} \ENG{by} \ENG{LMSs}). \\
+\hline
+\ENG{Rollup} \ENG{Rules} & \ENG{Define} \ENG{how} \ENG{child} \ENG{status} \ENG{aggregates} \ENG{to} \ENG{parent}. \ENG{Rules} \ENG{specify} \texttt{\ENG{childActivitySet}} (\ENG{all}, \ENG{any}, \ENG{none}, \ENG{atLeastCount}, \ENG{atLeastPercent}), \texttt{\ENG{conditions}} (\ENG{satisfied}, \ENG{completed}, \ENG{etc}.), \ENG{and} \texttt{\ENG{actions}} (\ENG{satisfied}, \ENG{notSatisfied}, \ENG{completed}, \ENG{incomplete}). \\
+\hline
+\ENG{Rollup} \ENG{Controls} & \ENG{Broad} \ENG{control} \ENG{over} \ENG{rollup} \ENG{participation}. \texttt{\ENG{rollupObjectiveSatisfied}} \ENG{and} \texttt{\ENG{rollupProgressCompletion}} \ENG{determine} \ENG{whether} \ENG{activity} \ENG{contributes} \ENG{to} \ENG{parent} \ENG{rollup}. \texttt{\ENG{rollupObjectiveMeasureWeight}} \ENG{weights} \ENG{activity}'\ENG{s} \ENG{measure} \ENG{in} \ENG{parent} \ENG{measure} \ENG{calculation}. \\
+\hline
+\ENG{Objectives} & \ENG{Local} \ENG{and} \ENG{global} \ENG{objectives} \ENG{for} \ENG{tracking} \ENG{learning} \ENG{goals}. \ENG{Each} \ENG{objective} \ENG{has} \texttt{\ENG{id}}, \texttt{\ENG{satisfiedByMeasure}} (\ENG{use} \ENG{scaled} \ENG{score} \ENG{to} \ENG{determine} \ENG{satisfaction}), \ENG{and} \texttt{\ENG{minNormalizedMeasure}} (\ENG{passing} \ENG{threshold}). \ENG{Objective} \ENG{maps} \ENG{link} \ENG{local} \ENG{objectives} \ENG{to} \ENG{global} \ENG{shared} \ENG{objectives}. \\
+\hline
+\ENG{Selection} \ENG{Controls} & \ENG{Random} \ENG{selection} \ENG{of} \ENG{child} \ENG{subset}. \texttt{\ENG{selectionTiming}} (\ENG{never}, \ENG{once}, \ENG{onEachNewAttempt}) \ENG{and} \texttt{\ENG{selectionCount}} \ENG{specify} \ENG{when} \ENG{and} \ENG{how} \ENG{many} \ENG{children} \ENG{to} \ENG{randomly} \ENG{select}. \\
+\hline
+\ENG{Randomization} \ENG{Controls} & \ENG{Shuffle} \ENG{child} \ENG{activity} \ENG{order}. \texttt{\ENG{randomizationTiming}} (\ENG{never}, \ENG{once}, \ENG{onEachNewAttempt}) \ENG{and} \texttt{\ENG{randomizeChildren}} (\ENG{boolean}) \ENG{control} \ENG{randomization}. \\
+\hline
+\ENG{Delivery} \ENG{Controls} & \ENG{Control} \ENG{tracking} \ENG{and} \ENG{automatic} \ENG{status} \ENG{setting}. \texttt{\ENG{tracked}} (\ENG{default}: \ENG{true}) \ENG{enables/disables} \ENG{tracking}; \texttt{\ENG{completionSetByContent}} \ENG{and} \texttt{\ENG{objectiveSetByContent}} \ENG{determine} \ENG{whether} \ENG{SCO} \ENG{or} \ENG{sequencer} \ENG{sets} \ENG{status}. \\
+\hline
+\ENG{Completion} \ENG{Threshold} & (4\ENG{th} \ENG{Ed}.) \ENG{Use} \ENG{progress} \ENG{measure} \ENG{to} \ENG{determine} \ENG{completion}. \texttt{\ENG{completedByMeasure}} \ENG{enables} \ENG{threshold-based} \ENG{completion}; \texttt{\ENG{minProgressMeasure}} \ENG{defines} \ENG{threshold}; \texttt{\ENG{progressWeight}} \ENG{weights} \ENG{activity}'\ENG{s} \ENG{progress} \ENG{in} \ENG{parent} \ENG{progress} \ENG{rollup}. \\
+\hline
+\ENG{Navigation} \ENG{Controls} & \ENG{Hide} \ENG{LMS} \ENG{UI} \ENG{elements}. \texttt{\ENG{hideLMSUI}} \ENG{specifies} \ENG{which} \ENG{controls} \ENG{to} \ENG{hide} (\ENG{previous}, \ENG{continue}, \ENG{exit}, \ENG{exitAll}, \ENG{abandon}, \ENG{abandonAll}, \ENG{suspendAll}). \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\endgroup

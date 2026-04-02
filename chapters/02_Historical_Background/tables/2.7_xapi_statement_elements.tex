@@ -1,0 +1,32 @@
+﻿\begin{table}[H]
+\centering
+\caption{Βασικά στοιχεία ενός \ENG{xAPI} \ENG{statement}}
+\label{tab:xapi_statement_elements}
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{chaptertablebox}
+\begin{tabular}{|c|p{3.7cm}|p{8.2cm}|}
+\hline
+\textbf{Α/Α} & \textbf{Στοιχείο} & \textbf{Περιγραφή} \\
+\hline
+\hline
+1 & \textbf{\ENG{Actor}} (Υποχρεωτικό) & Ο μαθητής ή η οντότητα που εκτελεί τη δράση. Μπορεί να είναι \ENG{Agent} (μονό άτομο με \ENG{mbox}, \ENG{mbox}\_\ENG{sha1sum}, \ENG{openid}, \ENG{account}) ή \ENG{Group} (ομάδα ατόμων, \ENG{identified} ή \ENG{anonymous}). \\
+\hline
+2 & \textbf{\ENG{Verb}} (Υποχρεωτικό) & Η δράση που εκτελείται. Προσδιορίζεται από \ENG{id} (\ENG{URI} που ορίζει το \ENG{verb}) και \ENG{display} (\ENG{human-readable} σε πολλές γλώσσες), με ενδεικτικά παραδείγματα \ENG{completed}, \ENG{passed}, \ENG{failed}, \ENG{answered}, \ENG{attempted}, \ENG{experienced}, \ENG{watched}, \ENG{listened}. \\
+\hline
+3 & \textbf{\ENG{Object}} (Υποχρεωτικό) & Η δραστηριότητα, \ENG{agent} ή \ENG{statement} που αποτελεί το αντικείμενο. Μπορεί να είναι \ENG{Activity} (εκπαιδευτική δραστηριότητα), \ENG{Agent/Group} (άλλος χρήστης), \ENG{StatementRef} (αναφορά σε άλλο \ENG{statement}) ή \ENG{SubStatement} (εμφωλευμένο \ENG{statement}). \\
+\hline
+4 & \textbf{\ENG{Result}} (Προαιρετικό) & Αποτέλεσμα της δράσης. Περιλαμβάνει \ENG{score} (βαθμολογία \ENG{scaled}, \ENG{raw}, \ENG{min}, \ENG{max}), \ENG{completion} (\ENG{true/false}), \ENG{success} (\ENG{true/false}), \ENG{duration} σε \ENG{ISO} 8601 \ENG{format} (\ENG{PT2H30M} = 2 ώρες 30 λεπτά), \ENG{response} και \ENG{extensions} (\ENG{custom} \ENG{data}). \\
+\hline
+5 & \textbf{\ENG{Context}} (Προαιρετικό) & Πλαίσιο της εμπειρίας. Περιλαμβάνει \ENG{registration} (\ENG{UUID} για \ENG{grouping} \ENG{statements}), \ENG{contextActivities} (\ENG{parent}, \ENG{grouping}, \ENG{category}, \ENG{other}), \ENG{instructor}, \ENG{team}, \ENG{platform}, \ENG{language}, \ENG{statement} (\ENG{reference} σε σχετικό \ENG{statement}) και \ENG{extensions} (\ENG{custom} \ENG{context} \ENG{data}). \\
+\hline
+6 & \textbf{\ENG{Timestamp}} (Προαιρετικό) & Δηλώνει πότε συνέβη η εμπειρία, σε μορφή \ENG{ISO} 8601. \\
+\hline
+7 & \textbf{\ENG{Stored}} (Αυτόματο από \ENG{LRS}) & Δηλώνει πότε αποθηκεύτηκε το \ENG{statement}. \\
+\hline
+8 & \textbf{\ENG{Authority}} (Αυτόματο) & Δηλώνει ποιος έστειλε το \ENG{statement}. \\
+\hline
+\end{tabular}
+\end{chaptertablebox}
+\end{table}

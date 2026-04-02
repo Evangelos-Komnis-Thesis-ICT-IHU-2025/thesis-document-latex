@@ -1,0 +1,144 @@
+\documentclass[12pt,a4paper]{report}
+% !TeX program = pdflatex
+
+\usepackage[utf8]{inputenc}
+\usepackage[LGR,T1]{fontenc}
+\usepackage[greek,english]{babel}
+\usepackage{alphabeta}
+
+% Language helpers
+\newcommand{\ENG}[1]{\foreignlanguage{english}{#1}}
+\newcommand{\GRK}[1]{\foreignlanguage{greek}{#1}}
+
+\usepackage{lmodern}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{graphicx}
+\graphicspath{{figures/}{chapters/introduction/figures/}{chapters/history/figures/}{chapters/design/figures/}{chapters/titlepage/figures/}}
+\usepackage{booktabs,array,longtable}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\usepackage[table,dvipsnames]{xcolor}
+\usepackage{colortbl}
+\usepackage{listings}
+\usepackage{threeparttable}
+\usepackage{caption,subcaption}
+\usepackage{adjustbox}
+\usepackage{amsmath,amssymb}
+\usepackage{float}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{longtable,booktabs}
+\usepackage{tabularx,booktabs}
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows.meta,
+  backgrounds,
+  calc,
+  fit,
+  mindmap,
+  positioning,
+  shadows,
+  shapes.geometric,
+  shapes.misc,
+  shapes.multipart,
+  shapes.symbols,
+  trees
+}
+
+\definecolor{problemred}{HTML}{D9534F}
+\definecolor{aiccblue}{HTML}{4F81BD}
+\definecolor{metadatagray}{HTML}{7F8C8D}
+\definecolor{imslightblue}{HTML}{5BC0DE}
+\definecolor{scormgreen}{HTML}{5CB85C}
+\definecolor{xapiorange}{HTML}{F0AD4E}
+\definecolor{accentpurple}{HTML}{8E63CE}
+\definecolor{solutiongreen}{HTML}{2E8B57}
+
+% MiKTeX currently ships a newer colortbl than array; map the expected macro.
+\makeatletter
+\providecommand{\insert@pcolumn}{\insert@column}
+\makeatother
+
+% listings in this document use JavaScript extensively, but the language is
+% not bundled by default in the current MiKTeX setup.
+\lstdefinelanguage{JavaScript}{
+  morekeywords={
+    async,await,break,case,catch,class,const,continue,default,delete,do,else,
+    export,extends,false,finally,for,from,function,if,import,in,instanceof,
+    let,new,null,return,super,switch,this,throw,true,try,typeof,var,void,
+    while,with,yield
+  },
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]'
+}
+\lstalias{JSON}{JavaScript}
+\lstalias{json}{JavaScript}
+
+\crefname{chapter}{Κεφάλαιο}{Κεφάλαια}
+\Crefname{chapter}{Κεφάλαιο}{Κεφάλαια}
+\crefname{section}{Ενότητα}{Ενότητες}
+\Crefname{section}{Ενότητα}{Ενότητες}
+
+% ---- Bibliography ----
+\usepackage[
+  backend=biber,
+  style=ieee,
+  sorting=nyt,
+  giveninits=true,
+  doi=false,isbn=false,url=true,
+  language=english,    
+  autolang=other,
+  sortlocale=en_US
+]{biblatex}
+\input{bibliography/all_bibliographies}
+\DefineBibliographyStrings{greek}{andothers = {κ.\,ά.}}
+
+% TODO macro
+\newcommand{\todoENG}[1]{\textcolor{red}{\textbf{\ENG{TODO:}} #1}}
+\newenvironment{chapterfigurebox}
+  {\begin{adjustbox}{center,max width=\textwidth,max totalheight=0.84\textheight}}
+  {\end{adjustbox}}
+
+\begin{document}
+\selectlanguage{greek}
+
+
+\pagenumbering{roman}
+\include{chapters/titlepage/titlepage}
+\tableofcontents
+\listoftables
+\listoffigures
+
+\include{chapters/declaration/declaration}
+\include{chapters/abstract/abstract}
+
+% --------- Body ----------
+\pagenumbering{arabic}
+\include{chapters/01_Introduction/introduction}
+\include{chapters/02_Historical_Background/02_historical_background}
+\include{chapters/03_Technical_Specifications/03_technical_specifications}
+\include{chapters/04_Example_Courses/04_example_courses}
+\include{chapters/06_Platform_Architecture/06_platform_architecture}
+\include{chapters/07_SCORM_Runtime_Core/07_scorm_runtime_core}
+\include{chapters/08_SCORM_Player_Client/08_scorm_player_client}
+\include{chapters/09_Runtime_State_Persistence/09_runtime_state_persistence}
+\include{chapters/10_Security_Access/10_security_access}
+\include{chapters/12_Reliability_Observability/12_reliability_observability}
+\include{chapters/13_End_to_End_Overview/13_end_to_end_overview}
+
+% --------- Appendices ----------
+\appendix
+\include{appendices/A_Engineering_Ecosystem/A_engineering_ecosystem}
+\include{appendices/B_Infrastructure_Environment/B_infrastructure_environment}
+\include{appendices/C_Automation_Verification/C_automation_verification}
+\include{appendices/D_API_Documentation_Contracts/D_api_documentation_contracts}
+\include{appendices/E_AI_and_Support_Tooling/E_ai_and_support_tooling}
+
+% --------- Bibliography ----------
+\include{chapters/bibliography/bibliography}
+
+\end{document}
